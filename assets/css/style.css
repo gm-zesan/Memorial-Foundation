@@ -5940,7 +5940,6 @@ blockquote {
 .funfact-image-box {
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
 }
 
 .funfact-image-box.two {
@@ -5986,7 +5985,6 @@ blockquote {
   width: 60vw;
   height: 80vh;
   overflow: hidden;
-  border-radius: 4px;
   will-change: width;
 }
 
@@ -6001,7 +5999,6 @@ blockquote {
   opacity: 0;
   overflow: hidden;
   align-self: stretch;
-  border-radius: 4px;
   will-change: width, max-width, opacity, transform;
 }
 
