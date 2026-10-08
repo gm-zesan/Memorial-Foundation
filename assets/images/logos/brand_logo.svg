@@ -1,0 +1,6 @@
+<svg width="220" height="42" viewBox="0 0 220 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="21" cy="21" r="18" fill="#e8e2d2" stroke="#222222" stroke-width="1.5"/>
+  <path d="M21 11V31M21 21L15 16M21 21L27 16M21 25L14 20M21 25L28 20" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="48" y="22" font-family="'Rowdies', 'Fraunces', serif" font-size="16" font-weight="700" fill="#111111" letter-spacing="0.2">Moshiur</text>
+  <text x="48" y="33" font-family="'Epilogue', sans-serif" font-size="9.5" font-weight="600" fill="#666666" letter-spacing="1.2">MEMORIAL FOUNDATION</text>
+</svg>
