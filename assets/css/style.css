@@ -2826,6 +2826,21 @@ blockquote {
 
 .result-image-box {
   height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.result-image-overlay {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background-color: #f5f2ea;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
 }
 
 .result-image {
@@ -2964,6 +2979,7 @@ blockquote {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 10px;
 }
 
 .cause-image.two {
@@ -5279,6 +5295,21 @@ blockquote {
   margin-left: 50px;
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
+}
+
+.cause-image-box .image-overlay,
+.cause-image-box .image-overlay.two {
+  display: block;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background-color: var(--primary-bg);
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
 }
 
 .cause-image-box.two {
@@ -5580,7 +5611,6 @@ blockquote {
 .counter {
   display: flex;
   flex-direction: column;
-  transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 

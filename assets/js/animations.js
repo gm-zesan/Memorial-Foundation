@@ -222,4 +222,293 @@ document.addEventListener("DOMContentLoaded", function () {
       gsap.set(images, { clearProps: "all" });
     });
   }
+
+  // --------------------------------------------------------
+  // Result Section Rolling Counters & Image Reveal Animations
+  // --------------------------------------------------------
+  const resultSection = document.querySelector(".result-section");
+  const counters = document.querySelectorAll(".counter-box .counter");
+  const resultImageBoxes = document.querySelectorAll(".result-image-box");
+
+  if (resultSection) {
+    // Initial setup for counters
+    gsap.set(counters, { y: 0 });
+
+    const playCounters = () => {
+      counters.forEach((el, index) => {
+        const countNumbers = el.querySelectorAll(".count-number");
+        const totalItems = countNumbers.length;
+        if (totalItems <= 1) return;
+
+        const itemHeight = countNumbers[0].offsetHeight || 70;
+        const targetY = -((totalItems - 1) * itemHeight);
+
+        gsap.to(el, {
+          y: targetY,
+          duration: 2.2,
+          ease: "power2.out",
+          delay: index * 0.05,
+          overwrite: "auto",
+        });
+      });
+    };
+
+    const resetCounters = () => {
+      gsap.to(counters, {
+        y: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+        overwrite: "auto",
+      });
+    };
+
+    // Counters ScrollTrigger — triggers when section is in view
+    ScrollTrigger.create({
+      trigger: resultSection,
+      start: "top 85%",
+      end: "bottom 15%",
+      onEnter: playCounters,
+      onLeave: () => gsap.set(counters, { y: 0 }),
+      onEnterBack: playCounters,
+      onLeaveBack: () => gsap.set(counters, { y: 0 }),
+    });
+
+    // Helper to set up scroll-driven image reveal with scaling (1.4 -> 1)
+    const setupImageReveal = (boxes, imgSelector, overlaySelector, overlayClass = "") => {
+      boxes.forEach((box) => {
+        let overlay = box.querySelector(overlaySelector);
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.className = overlayClass || "result-image-overlay";
+          box.prepend(overlay);
+        }
+        // Ensure overlay starts at 0 covering the image completely
+        gsap.set(overlay, { yPercent: 0 });
+        const img = box.querySelector(imgSelector);
+        if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
+
+        let isRevealed = false;
+
+        ScrollTrigger.create({
+          trigger: box,
+          start: "top bottom",
+          end: "bottom top",
+          onUpdate: (self) => {
+            const rect = box.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+
+            // Scroll DOWN: reveal from UP to DOWN earlier as image enters view (top <= 92% of viewport)
+            if (self.direction === 1 && !isRevealed) {
+              if (rect.top <= vh * 0.92 && rect.bottom > 0) {
+                isRevealed = true;
+                gsap.to(overlay, {
+                  yPercent: 100,
+                  duration: 1.1,
+                  ease: "power2.inOut",
+                  overwrite: "auto",
+                });
+                if (img) {
+                  gsap.fromTo(
+                    img,
+                    { scale: 1.4 },
+                    {
+                      scale: 1,
+                      duration: 1.3,
+                      ease: "power2.out",
+                      overwrite: "auto",
+                    }
+                  );
+                }
+              }
+            }
+
+            // Scroll UP: reveal from DOWN to UP earlier as image enters view from top (bottom >= 8% of viewport)
+            if (self.direction === -1 && !isRevealed) {
+              if (rect.bottom >= vh * 0.08 && rect.top < vh) {
+                isRevealed = true;
+                gsap.to(overlay, {
+                  yPercent: -100,
+                  duration: 1.1,
+                  ease: "power2.inOut",
+                  overwrite: "auto",
+                });
+                if (img) {
+                  gsap.fromTo(
+                    img,
+                    { scale: 1.4 },
+                    {
+                      scale: 1,
+                      duration: 1.3,
+                      ease: "power2.out",
+                      overwrite: "auto",
+                    }
+                  );
+                }
+              }
+            }
+          },
+          onLeave: () => {
+            // Scrolled completely past top (100% off-screen above viewport)
+            isRevealed = false;
+            gsap.set(overlay, { yPercent: 0 });
+            if (img) gsap.set(img, { scale: 1.4 });
+          },
+          onLeaveBack: () => {
+            // Scrolled completely past bottom (100% off-screen below viewport)
+            isRevealed = false;
+            gsap.set(overlay, { yPercent: 0 });
+            if (img) gsap.set(img, { scale: 1.4 });
+          },
+        });
+
+        // Handle initial page load if already in viewport (e.g. on page refresh):
+        const initialRect = box.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
+          isRevealed = true;
+          gsap.to(overlay, {
+            yPercent: 100,
+            duration: 1.1,
+            ease: "power2.inOut",
+            overwrite: "auto",
+          });
+          if (img) {
+            gsap.fromTo(
+              img,
+              { scale: 1.4 },
+              {
+                scale: 1,
+                duration: 1.3,
+                ease: "power2.out",
+                overwrite: "auto",
+              }
+            );
+          }
+        }
+      });
+    };
+
+    // Result Section image reveals
+    setupImageReveal(resultImageBoxes, ".result-image", ".result-image-overlay", "result-image-overlay");
+  }
+
+  // --------------------------------------------------------
+  // Cause Section Image Reveal with Scaling Animation
+  // --------------------------------------------------------
+  const causeSection = document.querySelector(".cause-section");
+  if (causeSection) {
+    const causeImageBoxes = causeSection.querySelectorAll(".cause-image-box");
+    // Ensure helper exists in this scope or run setup
+    causeImageBoxes.forEach((box) => {
+      let overlay = box.querySelector(".image-overlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.className = "image-overlay two";
+        box.prepend(overlay);
+      }
+      gsap.set(overlay, { yPercent: 0 });
+      const img = box.querySelector(".cause-image");
+      if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
+
+      let isRevealed = false;
+
+      ScrollTrigger.create({
+        trigger: box,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => {
+          const rect = box.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+
+          // Scroll DOWN: reveal from UP to DOWN earlier as image enters view (top <= 92% of viewport)
+          if (self.direction === 1 && !isRevealed) {
+            if (rect.top <= vh * 0.92 && rect.bottom > 0) {
+              isRevealed = true;
+              gsap.to(overlay, {
+                yPercent: 100,
+                duration: 1.1,
+                ease: "power2.inOut",
+                overwrite: "auto",
+              });
+              if (img) {
+                gsap.fromTo(
+                  img,
+                  { scale: 1.4 },
+                  {
+                    scale: 1,
+                    duration: 1.3,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                  }
+                );
+              }
+            }
+          }
+
+          // Scroll UP: reveal from DOWN to UP earlier as image enters view from top (bottom >= 8% of viewport)
+          if (self.direction === -1 && !isRevealed) {
+            if (rect.bottom >= vh * 0.08 && rect.top < vh) {
+              isRevealed = true;
+              gsap.to(overlay, {
+                yPercent: -100,
+                duration: 1.1,
+                ease: "power2.inOut",
+                overwrite: "auto",
+              });
+              if (img) {
+                gsap.fromTo(
+                  img,
+                  { scale: 1.4 },
+                  {
+                    scale: 1,
+                    duration: 1.3,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                  }
+                );
+              }
+            }
+          }
+        },
+        onLeave: () => {
+          // Scrolled completely past top (100% off-screen above viewport)
+          isRevealed = false;
+          gsap.set(overlay, { yPercent: 0 });
+          if (img) gsap.set(img, { scale: 1.4 });
+        },
+        onLeaveBack: () => {
+          // Scrolled completely past bottom (100% off-screen below viewport)
+          isRevealed = false;
+          gsap.set(overlay, { yPercent: 0 });
+          if (img) gsap.set(img, { scale: 1.4 });
+        },
+      });
+
+      // Handle initial page load if already in viewport (e.g. on page refresh):
+      const initialRect = box.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
+        isRevealed = true;
+        gsap.to(overlay, {
+          yPercent: 100,
+          duration: 1.1,
+          ease: "power2.inOut",
+          overwrite: "auto",
+        });
+        if (img) {
+          gsap.fromTo(
+            img,
+            { scale: 1.4 },
+            {
+              scale: 1,
+              duration: 1.3,
+              ease: "power2.out",
+              overwrite: "auto",
+            }
+          );
+        }
+      }
+    });
+  }
 });
+

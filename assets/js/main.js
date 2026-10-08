@@ -139,53 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ----------------------------------------------------
-  // 5. Rolling Number Counter Animation on Scroll
-  // ----------------------------------------------------
-  const counterElements = document.querySelectorAll(".counter-inner .counter");
-  if (counterElements.length > 0) {
-    const targets = [];
-    counterElements.forEach((el) => {
-      const currentTransform = el.style.transform || "";
-      const match = currentTransform.match(/translate3d\([^,]+,\s*([^,]+),/);
-      let targetY = "-90%";
-      if (match && match[1]) {
-        targetY = match[1].trim();
-      }
-      targets.push({ element: el, targetY: targetY });
-
-      el.style.transform = "translate3d(0px, 0%, 0px)";
-    });
-
-    let animated = false;
-    const animateCounters = () => {
-      if (animated) return;
-      animated = true;
-      targets.forEach((item, index) => {
-        setTimeout(() => {
-          item.element.style.transform = `translate3d(0px, ${item.targetY}, 0px)`;
-        }, index * 80);
-      });
-    };
-
-    const resultSection = document.querySelector(".result-wrapper") || document.querySelector(".result-grid");
-    if (resultSection && "IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              animateCounters();
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.25 }
-      );
-      observer.observe(resultSection);
-    } else {
-      setTimeout(animateCounters, 600);
-    }
-  }
 
   // ========================================================
   // Memorial Foundation
