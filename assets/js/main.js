@@ -127,19 +127,13 @@ document.addEventListener("DOMContentLoaded", function () {
     anchor.addEventListener("click", function (e) {
       const targetId = this.getAttribute("href");
       if (targetId && targetId !== "#" && targetId.length > 1) {
-        try {
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            e.preventDefault();
-            targetElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-          } else {
-            e.preventDefault();
-          }
-        } catch (_) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
           e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
         }
       }
     });
@@ -200,13 +194,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 
-    const imagesSection = document.querySelector(".images-section");
     const outerBox = document.querySelector(".funfact-outer-box");
     const centerBox = document.querySelector(".funfact-center-box.large-image");
     const outerLeft = document.querySelector(".funfact-image-box.outer-left");
     const outerRight = document.querySelector(".funfact-image-box.outer-right");
 
-    if (imagesSection && outerBox && centerBox && outerLeft && outerRight) {
+    if (outerBox && centerBox && outerLeft && outerRight) {
       const mm = gsap.matchMedia();
 
       // Desktop & Tablets (>= 768px)
@@ -232,31 +225,33 @@ document.addEventListener("DOMContentLoaded", function () {
           x: 30,
         });
 
-        // Pin ONLY .funfact-outer-box at 'center 58%'
+        // Pin ONLY .funfact-outer-box, scrub reveal animation, then unpin
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: outerBox,
             pin: outerBox,
             pinSpacing: true,
-            start: "center 58%",
-            end: "+=800",
-            scrub: 1,
+            start: "center 58%", // Pinned slightly lower on screen so title stays fully in view
+            end: "+=1600",       // Increased pin duration: stays pinned longer on screen
+            scrub: 0.6,          // Faster, snappier scroll response
+            anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // 1. Center video card shrinks linearly with scroll
+        // Animation completes faster in the first 60% of scroll
+        // leaving the remaining 40% holding the fully revealed 7-image showcase before release
         tl.to(
           centerBox,
           {
             width: "28vw",
-            duration: 1,
-            ease: "none",
+            duration: 0.6,
+            ease: "power2.out",
           },
           0
         );
 
-        // 2. Reveal outer-left image linearly with scroll
+        // 2. Reveal outer-left image quickly
         tl.to(
           outerLeft,
           {
@@ -265,13 +260,13 @@ document.addEventListener("DOMContentLoaded", function () {
             marginRight: "0rem",
             opacity: 1,
             x: 0,
-            duration: 1,
-            ease: "none",
+            duration: 0.6,
+            ease: "power2.out",
           },
           0
         );
 
-        // 3. Reveal outer-right image linearly with scroll
+        // 3. Reveal outer-right image quickly
         tl.to(
           outerRight,
           {
@@ -280,19 +275,18 @@ document.addEventListener("DOMContentLoaded", function () {
             marginLeft: "0rem",
             opacity: 1,
             x: 0,
-            duration: 1,
-            ease: "none",
+            duration: 0.6,
+            ease: "power2.out",
           },
           0
         );
 
-        if (document.readyState === "complete") {
+        // 4. Hold frame: Keep fully revealed 7-image showcase pinned for the remaining duration
+        tl.to({}, { duration: 0.4 }, 0.6);
+
+        window.addEventListener("load", () => {
           ScrollTrigger.refresh();
-        } else {
-          window.addEventListener("load", () => {
-            ScrollTrigger.refresh();
-          });
-        }
+        });
 
         return () => {
           if (tl.scrollTrigger) {
