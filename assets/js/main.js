@@ -191,102 +191,102 @@ document.addEventListener("DOMContentLoaded", function () {
   // Memorial Foundation
   // Sticky Scroll Image Reveal (Temporarily paused for static structure review)
   // ========================================================
-  /*
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 
-    const imagesSection = document.querySelector(".images-section");
-    const showcase = document.querySelector(".funfact-outer-box");
-    const leftBox = document.querySelector(".funfact-left-box");
-    const rightBox = document.querySelector(".funfact-right-box");
-    const outerLeft = document.querySelector(".outer-left");
-    const outerRight = document.querySelector(".outer-right");
+    const outerBox = document.querySelector(".funfact-outer-box");
+    const centerBox = document.querySelector(".funfact-center-box.large-image");
+    const outerLeft = document.querySelector(".funfact-image-box.outer-left");
+    const outerRight = document.querySelector(".funfact-image-box.outer-right");
 
-    if (
-      imagesSection &&
-      showcase &&
-      leftBox &&
-      rightBox &&
-      outerLeft &&
-      outerRight
-    ) {
+    if (outerBox && centerBox && outerLeft && outerRight) {
       const mm = gsap.matchMedia();
 
-      // Desktop
+      // Desktop & Tablets (>= 768px)
       mm.add("(min-width: 768px)", () => {
-        const getShift = () => Math.min(180, window.innerWidth * 0.12);
+        // Initial setup for the 5-image state
+        gsap.set(centerBox, {
+          width: "60vw",
+        });
 
         gsap.set(outerLeft, {
-          x: () => -getShift(),
-          yPercent: -50,
+          width: 0,
+          maxWidth: 0,
           opacity: 0,
+          marginRight: "-1rem",
+          x: -30,
         });
 
         gsap.set(outerRight, {
-          x: () => getShift(),
-          yPercent: -50,
+          width: 0,
+          maxWidth: 0,
           opacity: 0,
+          marginLeft: "-1rem",
+          x: 30,
         });
 
-        gsap.set([leftBox, rightBox], {
-          x: 0,
-        });
-
+        // Pin ONLY .funfact-outer-box, scrub reveal animation, then unpin
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: imagesSection,
-            start: "top top",
-            end: "+=1200",
-            scrub: 1.2,
-            pin: showcase,
+            trigger: outerBox,
+            pin: outerBox,
             pinSpacing: true,
+            start: "center 58%", // Pinned slightly lower on screen so title stays fully in view
+            end: "+=1600",       // Increased pin duration: stays pinned longer on screen
+            scrub: 0.6,          // Faster, snappier scroll response
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            fastScrollEnd: false,
           },
         });
 
+        // Animation completes faster in the first 60% of scroll
+        // leaving the remaining 40% holding the fully revealed 7-image showcase before release
+        tl.to(
+          centerBox,
+          {
+            width: "28vw",
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          0
+        );
+
+        // 2. Reveal outer-left image quickly
         tl.to(
           outerLeft,
           {
-            x: 0,
+            width: "12vw",
+            maxWidth: "180px",
+            marginRight: "0rem",
             opacity: 1,
-            duration: 1,
-            ease: "none",
+            x: 0,
+            duration: 0.6,
+            ease: "power2.out",
           },
           0
         );
 
+        // 3. Reveal outer-right image quickly
         tl.to(
           outerRight,
           {
-            x: 0,
+            width: "12vw",
+            maxWidth: "180px",
+            marginLeft: "0rem",
             opacity: 1,
-            duration: 1,
-            ease: "none",
+            x: 0,
+            duration: 0.6,
+            ease: "power2.out",
           },
           0
         );
 
-        tl.to(
-          leftBox,
-          {
-            x: () => getShift(),
-            duration: 1,
-            ease: "none",
-          },
-          0
-        );
+        // 4. Hold frame: Keep fully revealed 7-image showcase pinned for the remaining duration
+        tl.to({}, { duration: 0.4 }, 0.6);
 
-        tl.to(
-          rightBox,
-          {
-            x: () => -getShift(),
-            duration: 1,
-            ease: "none",
-          },
-          0
-        );
+        window.addEventListener("load", () => {
+          ScrollTrigger.refresh();
+        });
 
         return () => {
           if (tl.scrollTrigger) {
@@ -296,15 +296,14 @@ document.addEventListener("DOMContentLoaded", function () {
         };
       });
 
-      // Mobile
+      // Mobile devices (< 768px)
       mm.add("(max-width: 767px)", () => {
-        gsap.set([outerLeft, outerRight, leftBox, rightBox], {
+        gsap.set([outerBox, centerBox, outerLeft, outerRight], {
           clearProps: "all",
         });
       });
     }
   }
-  */
 
   // ----------------------------------------------------
   // Video Popup Lightbox Modal

@@ -2032,6 +2032,7 @@ blockquote {
 
 .site-logo {
   filter: grayscale(0%);
+  width: 250px;
 }
 
 .theme-button {
@@ -5912,7 +5913,7 @@ blockquote {
 .funfact-right-box {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 1rem;
   z-index: 2;
   padding: 0;
@@ -5939,6 +5940,7 @@ blockquote {
 .funfact-image-box {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 .funfact-image-box.two {
@@ -5950,20 +5952,23 @@ blockquote {
 .funfact-main-image {
   width: 100%;
   height: 100%;
-  aspect-ratio: 1;
   display: block;
   object-fit: cover;
 }
 
+.funfact-image {
+  aspect-ratio: 1;
+}
+
 /* Grayscale effect on side images matching the screenshot */
 .funfact-image-box.two .funfact-image,
-.funfact-image-box.outer-image .funfact-image-two {
+.funfact-image-box.hide-sm .funfact-image-two {
   filter: grayscale(100%);
   transition: filter 0.4s ease;
 }
 
 .funfact-image-box.two:hover .funfact-image,
-.funfact-image-box.outer-image:hover .funfact-image-two {
+.funfact-image-box.hide-sm:hover .funfact-image-two {
   filter: grayscale(0%);
 }
 
@@ -5982,34 +5987,35 @@ blockquote {
   height: 80vh;
   overflow: hidden;
   border-radius: 4px;
+  will-change: width;
 }
 
 /* ========================================================
-   OUTER REVEAL IMAGES (Positioned off-canvas initially)
+   OUTER REVEAL IMAGES (Collapsible reveal inside side boxes)
 ======================================================== */
 
-.funfact-image-box.outer-image {
-  position: absolute;
-  top: 50%;
-  width: clamp(140px, 12vw, 180px);
-  height: clamp(340px, 56vh, 500px);
-  margin: 0;
-  z-index: 1;
+.funfact-image-box.hide-sm {
+  position: relative;
+  width: 0;
+  max-width: 0;
   opacity: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
+  overflow: hidden;
+  align-self: stretch;
+  border-radius: 4px;
+  will-change: width, max-width, opacity, transform;
 }
 
-/* LEFT */
-.outer-left {
-  left: 0;
-  transform: translate3d(-100%, -50%, 0);
+.funfact-image-box.hide-sm.outer-left {
+  margin-right: -1rem;
 }
 
-/* RIGHT */
-.outer-right {
-  right: 0;
-  transform: translate3d(100%, -50%, 0);
+.funfact-image-box.hide-sm.outer-right {
+  margin-left: -1rem;
+}
+
+.funfact-image-box.hide-sm .funfact-image-two {
+  min-width: clamp(140px, 12vw, 180px);
+  height: 100%;
 }
 
 /* ========================================================
@@ -6065,9 +6071,8 @@ blockquote {
     height: clamp(420px, 70vh, 580px);
   }
 
-  .funfact-image-box.outer-image {
+  .funfact-image-box.hide-sm {
     width: 130px;
-    height: 330px;
   }
 }
 
@@ -6106,8 +6111,8 @@ blockquote {
     justify-content: center;
   }
 
-  .funfact-image-box.outer-image {
-    display: none;
+  .funfact-image-box.hide-sm {
+    display: none !important;
   }
 
   .funfact-center-box.large-image {
