@@ -3252,6 +3252,7 @@ blockquote {
   height: calc(100vh - 200px);
   margin-left: auto;
   overflow: hidden;
+  position: relative;
 }
 
 .about-image {
@@ -3260,13 +3261,10 @@ blockquote {
   height: 100%;
   position: absolute;
   inset: 0% auto 0% 0%;
-  transform: translate(100%);
 }
 
 .about-image._1 {
   z-index: 1;
-  position: relative;
-  transform: translate(0%);
 }
 
 .about-image._2 {
@@ -3274,12 +3272,12 @@ blockquote {
   object-position: 50% 0%;
 }
 
-.about-image._4 {
-  z-index: 4;
-}
-
 .about-image._3 {
   z-index: 3;
+}
+
+.about-image._4 {
+  z-index: 4;
 }
 
 .about-box-wrapper {
@@ -3294,26 +3292,28 @@ blockquote {
   display: flex;
   position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .about-box._1 {
-  z-index: var(--_font-weight---about-box-1);
+  z-index: 1;
   background-color: var(--primary-color);
   position: relative;
 }
 
 .about-box._2 {
-  z-index: var(--_font-weight---about-box-2);
+  z-index: 2;
   top: 20px;
 }
 
 .about-box._3 {
-  z-index: var(--_font-weight---about-box-3);
+  z-index: 3;
   top: 40px;
 }
 
 .about-box._4 {
-  z-index: var(--_font-weight---about-box-4);
+  z-index: 4;
   top: 60px;
 }
 
