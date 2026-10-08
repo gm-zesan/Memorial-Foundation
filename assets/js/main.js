@@ -187,77 +187,124 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ----------------------------------------------------
-  // Images Section Interactive Scroll Reveal Animation
-  // Dynamically expands center box and slides left/right galleries outward
-  // ----------------------------------------------------
-  const imagesWrapper = document.querySelector(".images-wrapper");
-  const centerBox = document.querySelector(".funfact-center-box.large-image");
-  const leftBox = document.querySelector(".funfact-left-box");
-  const rightBox = document.querySelector(".funfact-right-box");
+  // ========================================================
+  // Memorial Foundation
+  // Sticky Scroll Image Reveal (Temporarily paused for static structure review)
+  // ========================================================
+  /*
+  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
 
-  if (imagesWrapper && centerBox && leftBox && rightBox) {
-    let ticking = false;
+    const imagesSection = document.querySelector(".images-section");
+    const showcase = document.querySelector(".funfact-outer-box");
+    const leftBox = document.querySelector(".funfact-left-box");
+    const rightBox = document.querySelector(".funfact-right-box");
+    const outerLeft = document.querySelector(".outer-left");
+    const outerRight = document.querySelector(".outer-right");
 
-    const updateImagesScrollAnimation = () => {
-      // For mobile devices (<= 767px), reset inline styles and allow native layout
-      if (window.innerWidth <= 767) {
-        centerBox.style.width = "";
-        leftBox.style.transform = "";
-        leftBox.style.opacity = "";
-        rightBox.style.transform = "";
-        rightBox.style.opacity = "";
-        ticking = false;
-        return;
-      }
+    if (
+      imagesSection &&
+      showcase &&
+      leftBox &&
+      rightBox &&
+      outerLeft &&
+      outerRight
+    ) {
+      const mm = gsap.matchMedia();
 
-      const rect = imagesWrapper.getBoundingClientRect();
-      const windowH = window.innerHeight;
-      const totalScrollable = rect.height - windowH;
+      // Desktop
+      mm.add("(min-width: 768px)", () => {
+        const getShift = () => Math.min(180, window.innerWidth * 0.12);
 
-      if (totalScrollable > 0) {
-        // progress: 0 when wrapper top reaches viewport top, 1 when wrapper bottom reaches viewport bottom
-        let progress = -rect.top / totalScrollable;
-        progress = Math.max(0, Math.min(1, progress));
+        gsap.set(outerLeft, {
+          x: () => -getShift(),
+          yPercent: -50,
+          opacity: 0,
+        });
 
-        // Center image width expands from 30vw to 45.88vw
-        const currentWidthVw = 30 + progress * 15.88;
-        centerBox.style.width = currentWidthVw.toFixed(2) + "vw";
+        gsap.set(outerRight, {
+          x: () => getShift(),
+          yPercent: -50,
+          opacity: 0,
+        });
 
-        // Left box slides into view from left (-140px to 0px) and fades in (0.35 to 1)
-        const leftTranslateX = (-140 * (1 - progress)).toFixed(1);
-        const leftOpacity = (0.35 + progress * 0.65).toFixed(2);
-        leftBox.style.transform = `translate3d(${leftTranslateX}px, 0px, 0px)`;
-        leftBox.style.opacity = leftOpacity;
+        gsap.set([leftBox, rightBox], {
+          x: 0,
+        });
 
-        // Right box slides into view from right (140px to 0px) and fades in (0.35 to 1)
-        const rightTranslateX = (140 * (1 - progress)).toFixed(1);
-        const rightOpacity = (0.35 + progress * 0.65).toFixed(2);
-        rightBox.style.transform = `translate3d(${rightTranslateX}px, 0px, 0px)`;
-        rightBox.style.opacity = rightOpacity;
-      }
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: imagesSection,
+            start: "top top",
+            end: "+=1200",
+            scrub: 1.2,
+            pin: showcase,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            fastScrollEnd: false,
+          },
+        });
 
-      ticking = false;
-    };
+        tl.to(
+          outerLeft,
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateImagesScrollAnimation);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
+        tl.to(
+          outerRight,
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
 
-    window.addEventListener("resize", () => {
-      updateImagesScrollAnimation();
-    });
+        tl.to(
+          leftBox,
+          {
+            x: () => getShift(),
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
 
-    // Run initial calculation on page load
-    updateImagesScrollAnimation();
+        tl.to(
+          rightBox,
+          {
+            x: () => -getShift(),
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
+
+        return () => {
+          if (tl.scrollTrigger) {
+            tl.scrollTrigger.kill();
+          }
+          tl.kill();
+        };
+      });
+
+      // Mobile
+      mm.add("(max-width: 767px)", () => {
+        gsap.set([outerLeft, outerRight, leftBox, rightBox], {
+          clearProps: "all",
+        });
+      });
+    }
   }
+  */
 
   // ----------------------------------------------------
   // Video Popup Lightbox Modal
