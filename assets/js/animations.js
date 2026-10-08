@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         x: 30,
       });
 
-      // 2. Timeline with ScrollTrigger pin
+      // 2. Timeline with ScrollTrigger pin on outerBox
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: outerBox,
@@ -59,7 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
           end: () => "+=" + Math.round(window.innerHeight * 1.5),
           scrub: true,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
+          anticipatePin: 0,
+          markers: false,
         },
       });
 
@@ -103,6 +104,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         0
       );
+
+      // Refresh ScrollTrigger after all page images load to guarantee accurate measurements
+      if (document.readyState === "complete") {
+        ScrollTrigger.refresh();
+      } else {
+        window.addEventListener("load", () => {
+          ScrollTrigger.refresh();
+        });
+      }
 
       return () => {
         if (tl.scrollTrigger) {
