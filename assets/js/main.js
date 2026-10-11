@@ -1,6 +1,6 @@
 /**
  * ========================================================
- * Moshiur Memorial Foundation - Main JavaScript
+ * Moshiur Rahman Memorial Foundation - Main JavaScript
  * Dedicated to Continuing a Legacy of Compassion and Humanity
  * ========================================================
  */
@@ -502,6 +502,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     startAutoSlide();
+  }
+
+  // ----------------------------------------------------
+  // 5. Memorial Portrait Variant Switcher (Golden Halo vs Cutout)
+  // ----------------------------------------------------
+  const portraitSwitchBtns = document.querySelectorAll(".mm-switch-btn");
+  const portraitImg = document.querySelector(".mm-portrait-img");
+  if (portraitSwitchBtns.length > 0 && portraitImg) {
+    portraitSwitchBtns.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const targetSrc = this.getAttribute("data-portrait");
+        if (!targetSrc || portraitImg.getAttribute("src") === targetSrc) return;
+
+        portraitSwitchBtns.forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
+
+        if (typeof gsap !== "undefined") {
+          gsap.to(portraitImg, {
+            opacity: 0,
+            scale: 0.96,
+            duration: 0.22,
+            ease: "power2.in",
+            onComplete: () => {
+              portraitImg.src = targetSrc;
+              gsap.to(portraitImg, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.32,
+                ease: "power2.out",
+              });
+            },
+          });
+        } else {
+          portraitImg.src = targetSrc;
+        }
+      });
+    });
   }
 });
 

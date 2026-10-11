@@ -1,6 +1,6 @@
 /**
  * ========================================================
- * Moshiur Memorial Foundation Theme Stylesheet
+ * Moshiur Rahman Memorial Foundation Theme Stylesheet
  * Dedicated to Continuing a Legacy of Compassion and Humanity
  * Technology: HTML5, CSS3, Bootstrap 5, Vanilla JS / jQuery
  * Fonts: Fraunces (Headings), Epilogue (Body), Rowdies (Accent)
@@ -1686,7 +1686,7 @@ textarea.w-select {
   --_font-weight---about-box-3: 2;
   --_font-weight---about-box-4: 1;
   --dark-three: #171717;
-  --_font-size---footer-float-text: 160px;
+  --_font-size---footer-float-text: 150px;
   --_font-size---page-title: 80px;
   --_font-size---error-title: 300px;
   --border-color-three: #3a3a3a;
@@ -1797,7 +1797,7 @@ body {
   --_font-size---count-title: 70px;
   --_font-size---cause-title: 32px;
   --_font-size---xsmall-paragraph: 12px;
-  --_font-size---footer-float-text: 160px;
+  --_font-size---footer-float-text: 150px;
   --_font-size---page-title: 80px;
   --_font-size---error-title: 300px;
 }
@@ -2441,8 +2441,11 @@ blockquote {
 .section-subtitle-dot {
   background-color: var(--text-color);
   border-radius: 50%;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
 
 .section-subtitle {
@@ -3020,6 +3023,8 @@ blockquote {
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .result-section {
@@ -3031,7 +3036,7 @@ blockquote {
   border-right: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
   padding-top: 150px;
-  padding-bottom: 150px;
+  padding-bottom: 50px;
 }
 
 .result-grid {
@@ -3065,6 +3070,8 @@ blockquote {
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .result-box {
@@ -3112,6 +3119,8 @@ blockquote {
 .meal-shape {
   filter: grayscale(0%);
   width: 100%;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .count-number-wrap {
@@ -3196,6 +3205,8 @@ blockquote {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .cause-image.two {
@@ -3317,6 +3328,13 @@ blockquote {
   object-fit: cover;
   width: 100%;
   height: 300px;
+  transform-origin: center center;
+  will-change: transform;
+  transition: filter 0.4s ease;
+}
+
+.blog-box:hover .blog-image {
+  filter: grayscale(0%);
 }
 
 .blog-content {
@@ -3466,7 +3484,7 @@ blockquote {
   justify-content: flex-start;
   align-items: center;
   padding-top: 50px;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
   display: flex;
   position: relative;
   overflow: hidden;
@@ -3571,10 +3589,10 @@ blockquote {
 }
 
 .main-footer {
-  position: sticky;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  z-index: 10;
   overflow: hidden;
+  background-color: var(--dark-three);
 }
 
 .footer-wrapper {
@@ -5223,6 +5241,9 @@ blockquote {
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
 }
 
 .marquee {
@@ -5662,7 +5683,7 @@ blockquote {
   grid-area: span 1/span 1/span 1/span 1;
 }
 
-/* Moshiur Memorial Foundation Rolling Button Hover Animation */
+/* Moshiur Rahman Memorial Foundation Rolling Button Hover Animation */
 .theme-button {
   transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   overflow: hidden;
@@ -5720,7 +5741,7 @@ blockquote {
 
 
 /* ========================================================
- * Moshiur Memorial Foundation - Bootstrap & Modern UI Compatibility
+ * Moshiur Rahman Memorial Foundation - Bootstrap & Modern UI Compatibility
  * ======================================================== */
 .d-grid {
   display: grid;
@@ -5798,7 +5819,7 @@ blockquote {
 }
 
 /* ========================================================
- * Moshiur Memorial Foundation - Rolling Counter Animation
+ * Moshiur Rahman Memorial Foundation - Rolling Counter Animation
  * ======================================================== */
 .count-number-wrap {
   display: inline-flex;
@@ -5830,7 +5851,7 @@ blockquote {
 }
 
 /* ========================================================
- * Moshiur Memorial Foundation - Header Dropdown Mega Menu
+ * Moshiur Rahman Memorial Foundation - Header Dropdown Mega Menu
  * ======================================================== */
 .dropdown-page {
   position: relative;
@@ -5955,7 +5976,7 @@ blockquote {
 
 
 /* ========================================================
- * Moshiur Memorial Foundation - Perfect CTA Section Rules
+ * Moshiur Rahman Memorial Foundation - Perfect CTA Section Rules
  * ======================================================== */
 .call-to-action {
   padding-top: 0 !important;
@@ -6363,7 +6384,7 @@ blockquote {
 
 
 /* ========================================================
- * Moshiur Memorial Foundation - Social Section Pixel-Perfect
+ * Moshiur Rahman Memorial Foundation - Social Section Pixel-Perfect
  * ======================================================== */
 .social-section {
   border-top: 1px solid var(--border-color);
@@ -6500,7 +6521,7 @@ blockquote {
 }
 
 /* ========================================================
-   MEMORIAL ABOUT SECTION (Freedom Fighter Md. Mashiur Rahman)
+   MEMORIAL ABOUT SECTION (Freedom Fighter Md. Moshiur Rahman)
 ======================================================== */
 .mm-memorial-section {
   position: relative;
@@ -6517,7 +6538,7 @@ blockquote {
 
 .mm-memorial-section .about-wrapper-inner {
   padding-top: 80px;
-  padding-bottom: 90px;
+  padding-bottom: 50px;
   overflow: visible !important;
 }
 
@@ -6583,7 +6604,7 @@ blockquote {
 }
 
 .mm-value-card {
-  background: #ffffff;
+  background: var(--primary-color);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 18px 20px;
@@ -6699,15 +6720,57 @@ blockquote {
   position: relative;
   text-align: center;
   padding-bottom: 10px;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .mm-portrait-img {
   width: 100%;
-  max-width: 320px;
+  max-width: 500px;
   height: auto;
   margin: 0 auto 14px;
   display: block;
   background: transparent !important;
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.12));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mm-portrait-variant-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  padding: 3px;
+  margin: 0 auto 16px;
+  gap: 4px;
+}
+
+.mm-switch-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--_font-family---primary-font);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dark-two);
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.mm-switch-btn:hover {
+  color: var(--dark);
+}
+
+.mm-switch-btn.active {
+  background: var(--dark);
+  color: var(--light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .mm-caption-name {
