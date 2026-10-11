@@ -16,6 +16,39 @@ document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
   // --------------------------------------------------------
+  // Hero Section - Scroll Parallax Scrub & Directional Drift
+  // --------------------------------------------------------
+  const heroSec = document.querySelector(".hero-section");
+  if (heroSec) {
+    const heroBgSlider = heroSec.querySelector(".hero-bg-slider");
+    const heroLeftBox = heroSec.querySelector(".hero-left-box.content");
+    const heroRightBox = heroSec.querySelector(".hero-right-box.content");
+    const heroControls = heroSec.querySelector(".hero-slider-controls");
+
+    const heroParallaxTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroSec,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1.2,
+      },
+    });
+
+    if (heroBgSlider) {
+      heroParallaxTl.to(heroBgSlider, { yPercent: 22, ease: "none" }, 0);
+    }
+    if (heroLeftBox) {
+      heroParallaxTl.to(heroLeftBox, { yPercent: -14, opacity: 0.25, ease: "none" }, 0);
+    }
+    if (heroRightBox) {
+      heroParallaxTl.to(heroRightBox, { yPercent: -20, opacity: 0.15, ease: "none" }, 0);
+    }
+    if (heroControls) {
+      heroParallaxTl.to(heroControls, { y: 25, opacity: 0, ease: "none" }, 0);
+    }
+  }
+
+  // --------------------------------------------------------
   // Image Showcase Scroll Reveal Animation (.images-section)
   // --------------------------------------------------------
   const outerBox = document.querySelector(".funfact-outer-box");

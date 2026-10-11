@@ -361,14 +361,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // 5. Two-Phase Directional Slide Transition (Silky Smooth & Seamless)
+    // 5. Distinct Editorial Slide Transition with 3D Depth & Staggered Reveal
     function goToSlide(nextIdx, dir = 1) {
       if (isTransitioning || nextIdx === currentIdx) return;
       isTransitioning = true;
-
-      const animItems = [subtitleEl, titleLine1El, authorBoxEl, titleLine2El, textEl, btnBoxEl].filter(Boolean);
-      const exitX = dir === 1 ? -45 : 45;
-      const enterX = dir === 1 ? 45 : -45;
 
       // Cross-fade the background swiper photo with gentle 900ms curve
       heroBgSwiper.slideTo(nextIdx);
@@ -382,7 +378,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
+      const animItems = [subtitleEl, titleLine1El, authorBoxEl, titleLine2El, textEl, btnBoxEl].filter(Boolean);
+      const portraits = authorBoxEl ? authorBoxEl.querySelectorAll(".hero-author-img") : [];
       gsap.killTweensOf(animItems);
+      gsap.killTweensOf(portraits);
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -391,14 +390,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Phase 1: Soft, elegant slide OUT in direction of motion with fade out
-      tl.to(animItems, {
-        x: exitX,
-        opacity: 0,
-        duration: 0.35,
-        stagger: 0.025,
-        ease: "power2.inOut"
-      });
+      const exitY = dir === 1 ? -24 : 24;
+      const enterY = dir === 1 ? 36 : -36;
+
+      // Phase 1: Subtle upward/downward drift with gentle blur dissolution
+      if (subtitleEl) tl.to(subtitleEl, { y: exitY * 0.7, opacity: 0, duration: 0.26, ease: "power2.in" }, 0);
+      tl.to([titleLine1El, titleLine2El].filter(Boolean), { y: exitY, opacity: 0, filter: "blur(5px)", duration: 0.3, stagger: 0.03, ease: "power2.in" }, 0.02);
+      if (portraits.length > 0) {
+        tl.to(portraits, { scale: 0.65, rotation: -12, opacity: 0, duration: 0.25, stagger: 0.03, ease: "power2.in" }, 0.03);
+      }
+      if (textEl) tl.to(textEl, { y: exitY * 0.6, opacity: 0, filter: "blur(4px)", duration: 0.28, ease: "power2.in" }, 0.04);
+      if (btnBoxEl) tl.to(btnBoxEl, { scale: 0.94, opacity: 0, duration: 0.24, ease: "power2.in" }, 0.05);
 
       // Midpoint: Seamlessly update content & images while opacity is 0
       tl.add(() => {
@@ -407,30 +409,23 @@ document.addEventListener("DOMContentLoaded", function () {
         updateControls(currentIdx);
 
         // Pre-position elements on incoming side
-        gsap.set(animItems, {
-          x: enterX,
-          opacity: 0
-        });
+        if (subtitleEl) gsap.set(subtitleEl, { y: enterY * 0.7, opacity: 0, letterSpacing: "2.5px" });
+        if (titleLine1El) gsap.set(titleLine1El, { y: enterY, opacity: 0, filter: "blur(6px)" });
+        if (titleLine2El) gsap.set(titleLine2El, { y: enterY, opacity: 0, filter: "blur(6px)" });
+        if (textEl) gsap.set(textEl, { y: enterY * 0.7, opacity: 0, filter: "blur(5px)" });
+        if (btnBoxEl) gsap.set(btnBoxEl, { y: 20, scale: 0.92, opacity: 0 });
+        if (portraits.length > 0) gsap.set(portraits, { scale: 0, rotation: -22, opacity: 0 });
       });
 
-      // Phase 2: Buttery-smooth entrance glide to center with premium staggered ease
-      tl.to(animItems, {
-        x: 0,
-        opacity: 1,
-        duration: 0.58,
-        stagger: 0.05,
-        ease: "power3.out"
-      });
-
-      // Soft pop-in for the child portraits inside the author box
-      const portraits = authorBoxEl ? authorBoxEl.querySelectorAll(".hero-author-img") : [];
+      // Phase 2: Refined editorial entrance glide with cinematic clarity
+      if (subtitleEl) tl.to(subtitleEl, { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.52, ease: "power3.out" }, "+=0.03");
+      if (titleLine1El) tl.to(titleLine1El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.65, ease: "power4.out" }, "-=0.42");
       if (portraits.length > 0) {
-        tl.fromTo(portraits, 
-          { scale: 0.72, opacity: 0 }, 
-          { scale: 1, opacity: 1, duration: 0.48, stagger: 0.05, ease: "back.out(1.4)" }, 
-          "-=0.48"
-        );
+        tl.to(portraits, { scale: 1, rotation: 0, opacity: 1, duration: 0.52, stagger: 0.06, ease: "back.out(2.2)" }, "-=0.48");
       }
+      if (titleLine2El) tl.to(titleLine2El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.65, ease: "power4.out" }, "-=0.45");
+      if (textEl) tl.to(textEl, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.58, ease: "power3.out" }, "-=0.42");
+      if (btnBoxEl) tl.to(btnBoxEl, { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, "-=0.38");
     }
 
     function nextSlide() {
@@ -488,21 +483,110 @@ document.addEventListener("DOMContentLoaded", function () {
       }, { passive: true });
     }
 
-    // Initial load animation
+    // Enhanced Hero Initial Entrance & Ambient Floating Interactions
     if (typeof gsap !== "undefined") {
       const controls = document.querySelector(".hero-slider-controls");
-      if (controls) {
-        gsap.fromTo(controls, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.5 });
+      const portraits = authorBoxEl ? authorBoxEl.querySelectorAll(".hero-author-img") : [];
+
+      // Initial Entrance Timeline
+      const heroIntroTl = gsap.timeline({ delay: 0.15 });
+
+      if (subtitleEl) {
+        heroIntroTl.fromTo(subtitleEl, 
+          { y: -25, opacity: 0, letterSpacing: "3px" }, 
+          { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.75, ease: "power3.out" }, 
+          0
+        );
       }
-      const animItems = [subtitleEl, titleLine1El, authorBoxEl, titleLine2El, textEl, btnBoxEl].filter(Boolean);
-      gsap.fromTo(animItems, 
-        { y: 30, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power3.out", delay: 0.1 }
-      );
+
+      if (titleLine1El) {
+        heroIntroTl.fromTo(titleLine1El, 
+          { y: 65, opacity: 0, filter: "blur(8px)" }, 
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, 
+          0.1
+        );
+      }
+
+      if (portraits.length > 0) {
+        heroIntroTl.fromTo(portraits, 
+          { scale: 0, rotation: -25, opacity: 0 }, 
+          { scale: 1, rotation: 0, opacity: 1, duration: 0.65, stagger: 0.08, ease: "back.out(2.2)" }, 
+          0.2
+        );
+      }
+
+      if (titleLine2El) {
+        heroIntroTl.fromTo(titleLine2El, 
+          { y: 65, opacity: 0, filter: "blur(8px)" }, 
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, 
+          0.25
+        );
+      }
+
+      if (textEl) {
+        heroIntroTl.fromTo(textEl, 
+          { y: 35, opacity: 0, filter: "blur(6px)" }, 
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.75, ease: "power3.out" }, 
+          0.32
+        );
+      }
+
+      const heroButtons = btnBoxEl ? btnBoxEl.querySelectorAll(".theme-button") : [];
+      if (heroButtons.length > 0) {
+        heroIntroTl.fromTo(heroButtons, 
+          { y: 25, scale: 0.92, opacity: 0 }, 
+          { y: 0, scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.5)" }, 
+          0.4
+        );
+      }
+
+      if (controls) {
+        heroIntroTl.fromTo(controls, 
+          { y: 28, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 0.65, ease: "back.out(1.5)" }, 
+          0.45
+        );
+      }
+
+      // Continuous Ambient Floating Animations (Distinct Life in Hero)
+      heroIntroTl.add(() => {
+        if (portraits.length >= 3) {
+          gsap.to(portraits[0], { y: -4, duration: 2.3, yoyo: true, repeat: -1, ease: "sine.inOut" });
+          gsap.to(portraits[1], { y: 4, duration: 2.7, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 0.3 });
+          gsap.to(portraits[2], { y: -3.5, duration: 2.5, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 0.6 });
+        }
+
+        const heroHeartIcon = document.querySelector("#heroBtn2 .theme-btn-icon");
+        if (heroHeartIcon) {
+          gsap.to(heroHeartIcon, {
+            scale: 1.25,
+            duration: 1.4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
+        }
+      });
     }
 
     startAutoSlide();
   }
+
+  // ----------------------------------------------------
+  // Dynamic Header Height Tracking for 100vh - header
+  // ----------------------------------------------------
+  function syncHeaderHeight() {
+    const header = document.querySelector(".main-header");
+    if (header) {
+      const h = header.getBoundingClientRect().height;
+      if (h > 0) {
+        document.documentElement.style.setProperty("--header-height", `${Math.round(h)}px`);
+      }
+    }
+  }
+  syncHeaderHeight();
+  window.addEventListener("resize", syncHeaderHeight, { passive: true });
+  window.addEventListener("load", syncHeaderHeight, { passive: true });
 
   // ----------------------------------------------------
   // 5. Memorial Portrait Variant Switcher (Golden Halo vs Cutout)
