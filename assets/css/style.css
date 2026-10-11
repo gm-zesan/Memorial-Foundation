@@ -1918,8 +1918,8 @@ blockquote {
 .header-main-box {
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: flex;
 }
 
@@ -2032,7 +2032,17 @@ blockquote {
 
 .site-logo {
   filter: grayscale(0%);
-  width: 250px;
+  width: auto;
+  max-width: 350px;
+  max-height: 52px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.logo-link:hover .site-logo {
+  transform: scale(1.02);
 }
 
 .theme-button {
@@ -2143,11 +2153,225 @@ blockquote {
   position: relative;
 }
 
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--primary-bg);
+}
+
+/* ========================================================
+   HERO DYNAMIC BACKGROUND SLIDER (Decoupled Layer 1)
+======================================================== */
+.hero-bg-slider {
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-bg-slider .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-bg-slide.swiper-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  transition: transform 8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Ken Burns: only the active Swiper slide zooms in */
+.hero-bg-slide.swiper-slide-active .hero-bg-img {
+  transform: scale(1);
+}
+
+/* Editorial Cream Overlay (Layer 2) */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(90deg,
+      rgba(245, 242, 234, 0.85) 0%,
+      rgba(245, 242, 234, 0.78) 35%,
+      rgba(245, 242, 234, 0.65) 70%,
+      rgba(245, 242, 234, 0.50) 100%);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  pointer-events: none;
+}
+
+/* ========================================================
+   HERO CONTENT LAYER (Decoupled Layer 3)
+======================================================== */
+.hero-content-slider {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+/* Sleek Slider Controls Capsule */
+.hero-slider-controls {
+  position: absolute;
+  bottom: 24px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(245, 242, 234, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(225, 216, 196, 0.9);
+  border-radius: 40px;
+  padding: 8px 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.hero-slider-counter {
+  font-family: var(--_font-family---secondary-font);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-two);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-slide-num.current {
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.hero-slide-sep {
+  opacity: 0.4;
+  font-size: 11px;
+}
+
+.hero-slide-num.total {
+  opacity: 0.6;
+}
+
+/* Swiper Pagination Dots (our custom capsule style) */
+.hero-swiper-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: static;
+  bottom: auto;
+  left: auto;
+  width: auto;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet {
+  display: block;
+  width: 8px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 1;
+  margin: 0 !important;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet-active {
+  width: 26px;
+  background: var(--dark);
+  border-radius: 4px;
+}
+
+/* Arrow classes updated for Swiper navigation buttons */
+.hero-slider-arrows {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
+}
+
+.hero-slider-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--dark);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.hero-slider-arrow:hover {
+  background: var(--dark);
+  color: #ffffff;
+  border-color: var(--dark);
+  transform: scale(1.06);
+}
+
+.hero-slider-arrow:active {
+  transform: scale(0.95);
+}
+
+/* Disable Swiper's own absolute-positioned nav arrows */
+.hero-bg-slider .swiper-button-prev,
+.hero-bg-slider .swiper-button-next {
+  display: none !important;
+}
+
+.hero-bg-slider .swiper-pagination {
+  display: none !important;
+}
+
+@media (max-width: 991px) {
+  .hero-bg-overlay {
+    background: linear-gradient(180deg,
+        rgba(245, 242, 234, 0.95) 0%,
+        rgba(245, 242, 234, 0.88) 60%,
+        rgba(245, 242, 234, 0.65) 100%);
+  }
+
+  .hero-slider-controls {
+    bottom: 16px;
+    right: 16px;
+    padding: 6px 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-slider-controls {
+    bottom: 12px;
+    right: 50%;
+    transform: translateX(50%);
+    width: max-content;
+  }
+}
+
 .hero-wrapper {
   border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
   position: relative;
+  z-index: 2;
 }
 
 .hero-grid {
@@ -5869,7 +6093,6 @@ blockquote {
   width: 100%;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  overflow: hidden;
 }
 
 .images-wrapper {
@@ -5878,13 +6101,13 @@ blockquote {
   background: var(--dark);
   border-left: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
-  padding: 100px 15px 100px;
+  padding: 80px 15px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
+  justify-content: center;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Background dot-globe behind images */
@@ -6109,11 +6332,14 @@ blockquote {
 
 @media (max-width: 767px) {
   .images-section {
+    min-height: auto;
     padding: 70px 0;
     overflow: hidden;
   }
 
   .images-wrapper {
+    position: relative;
+    top: auto;
     min-height: auto;
   }
 
@@ -6288,4 +6514,246 @@ blockquote {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* ========================================================
+   MEMORIAL ABOUT SECTION (Freedom Fighter Md. Mashiur Rahman)
+======================================================== */
+.mm-memorial-section {
+  position: relative;
+  background-color: var(--primary-bg);
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+.mm-memorial-section .about-wrapper {
+  position: relative !important;
+  top: auto !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mm-memorial-section .about-wrapper-inner {
+  padding-top: 80px;
+  padding-bottom: 90px;
+  overflow: visible !important;
+}
+
+.mm-memorial-grid {
+  grid-template-columns: 1.12fr 0.88fr !important;
+  grid-column-gap: 42px !important;
+  grid-row-gap: 40px !important;
+  align-items: start !important;
+}
+
+.mm-memorial-content {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.text-primary-accent {
+  color: #7b4b12;
+  font-family: var(--_font-family---heading-font);
+  display: inline-block;
+  font-weight: 700;
+}
+
+.mm-life-tagline {
+  font-family: var(--_font-family---style-font);
+  font-size: 19px;
+  font-style: italic;
+  color: var(--dark);
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.mm-quote-text {
+  font-family: var(--_font-family---heading-font);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--dark);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.mm-bio-lead {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  color: var(--dark) !important;
+  margin-bottom: 14px !important;
+  font-weight: 500 !important;
+}
+
+.mm-bio-paragraph {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--dark-two);
+  margin-bottom: 26px;
+}
+
+/* 4 Core Pillars */
+.mm-values-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.mm-value-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mm-value-card:hover {
+  border-color: #7b4b12;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.mm-value-icon-box {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 8px;
+  background: rgba(123, 75, 18, 0.08);
+  color: #7b4b12;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mm-value-title {
+  font-family: var(--_font-family---heading-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.mm-value-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dark-two);
+  margin: 0;
+}
+
+/* Legacy & Sadaqah Jariyah Box */
+.mm-legacy-box {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.mm-legacy-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.mm-legacy-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--dark-two);
+  margin-bottom: 16px;
+}
+
+.mm-special-milestone {
+  background: #faf8f5;
+  border: 1px solid rgba(123, 75, 18, 0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mm-milestone-icon {
+  font-size: 17px;
+  color: #7b4b12;
+  margin-top: 3px;
+}
+
+.mm-milestone-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dark);
+}
+
+.mm-legacy-prayer {
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--dark-two);
+}
+
+/* Memorial Portrait Column */
+.mm-memorial-portrait-box {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.mm-portrait-card-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.mm-portrait-frame {
+  position: relative;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.mm-portrait-img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 14px;
+  display: block;
+  background: transparent !important;
+}
+
+.mm-caption-name {
+  font-family: var(--_font-family---heading-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.mm-caption-dates {
+  font-size: 13px;
+  color: var(--dark-two);
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .mm-memorial-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mm-portrait-sticky {
+    position: static !important;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .mm-values-grid {
+    grid-template-columns: 1fr;
+  }
 }

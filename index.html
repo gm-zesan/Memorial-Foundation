@@ -21,6 +21,8 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Rowdies:wght@300;400;700&display=swap"
 		rel="stylesheet">
+	<!-- Swiper.js -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 	<!-- Bootstrap 5 & FontAwesome Icons -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -29,17 +31,8 @@
 	<!-- Responsive Stylesheet -->
 	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css">
 	<style>
-		/* Ensure template animated elements render with 100% fidelity */
-		[style*="opacity:0"],
-		[style*="opacity: 0"] {
-			opacity: 1 !important;
-			transform: none !important;
-			filter: none !important;
-		}
+		/* Ensure template static animated elements render with 100% fidelity without blocking GSAP */
 
-		.hero-title-two,
-		.hero-text,
-		.hero-btn-box,
 		.section-title-box,
 		.result-wrap,
 		.cause-content,
@@ -125,7 +118,7 @@
 				<div class="container">
 					<div class="header-main-box">
 						<a href="index.html" aria-current="page" class="logo-link d-inline-block active">
-							<img loading="lazy" src="assets/images/logos/brand_logo.svg" alt="" class="site-logo" />
+							<img loading="lazy" src="assets/images/logos/brand_logo.png" alt="Moshiur Rahman Memorial Foundation" class="site-logo" />
 						</a>
 						<div class="header-menu-box">
 							<a href="index.html" aria-current="page" class="header-menu-text active">Home</a>
@@ -237,8 +230,8 @@
 					<div class="mobile-menu">
 						<div class="mobile-logo-box">
 							<a href="index.html" aria-current="page" class="logo-link d-inline-block active">
-								<img loading="lazy" src="assets/images/logos/69982960594f43bafdbdcce7_logo.avif"
-									alt="Simple black tree icon inside a beige circular background."
+								<img loading="lazy" src="assets/images/logos/brand_logo.png"
+									alt="Moshiur Rahman Memorial Foundation"
 									class="site-logo" />
 							</a>
 							<img loading="lazy" alt=""
@@ -352,80 +345,103 @@
 				</div>
 			</header>
 			<section class="hero-section">
-				<div class="hero-wrapper">
-					<div class="container">
-						<div class="d-grid hero-grid">
-							<div class="hero-left-box">
-								<div class="parallex-image-outer two">
-									<img sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 918px, (max-width: 918px) 100vw, 918px"
-										alt="Beige and off-white abstract camouflage pattern."
-										src="assets/images/hero/697b1be113c40d035e593255_Rectangle_26.avif"
-										loading="lazy"
-										srcset="assets/images/hero/697b1be113c40d035e593255_Rectangle_26-p-500.avif 500w, assets/images/hero/697b1be113c40d035e593255_Rectangle_26.avif 918w"
-										class="parallex-image" />
+				<!-- Hero Background Slider: Independent Image Cross-Fade (Layer 1) -->
+				<div class="hero-bg-slider swiper" id="heroBgSlider" aria-label="Hero Background Slideshow">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide hero-bg-slide">
+							<img src="assets/images/causes/699d490a55fa3d5b718ba43e_1.avif" alt="Children and community smiling" class="hero-bg-img" />
+						</div>
+						<div class="swiper-slide hero-bg-slide">
+							<img src="assets/images/about/69857e7a88895213323a4361_1.avif" alt="Safe water and healthcare relief mission" class="hero-bg-img" />
+						</div>
+						<div class="swiper-slide hero-bg-slide">
+							<img src="assets/images/causes/699d48770598f6b4f1e489da_2.avif" alt="Community food and crisis relief" class="hero-bg-img" />
+						</div>
+						<div class="swiper-slide hero-bg-slide">
+							<img src="assets/images/blog/698084553be9da2d2f8f7e2b_1.avif" alt="Winter warmth and crisis support" class="hero-bg-img" />
+						</div>
+						<div class="swiper-slide hero-bg-slide">
+							<img src="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif" alt="Youth empowerment and vocational education" class="hero-bg-img" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Constant Editorial Overlay (Layer 2) -->
+				<div class="hero-bg-overlay"></div>
+
+				<!-- Hero Content Layer: Directional Slide Transitions (Layer 3) -->
+				<div class="hero-content-slider" id="heroContentSlider">
+					<div class="hero-wrapper two">
+						<div class="container">
+							<div class="d-grid hero-grid">
+								<div class="hero-left-box content">
+									<div class="hero-title-wrapper">
+										<h3 class="hero-title-two" id="heroSubtitle">Together, We Can</h3>
+										<div class="hero-title-wrap">
+											<h1 class="hero-title" id="heroTitleLine1">Change</h1>
+										</div>
+										<div class="hero-title-wrap">
+											<div class="hero-title-box">
+												<div class="hero-author-box" id="heroAuthorBox">
+													<img src="assets/images/about/69808b5b0a0747dd95550f8c_1.avif"
+														loading="lazy"
+														alt="Smiling young girl with brown hair"
+														class="hero-author-img _1" />
+													<img src="assets/images/about/69808b5b15bd5a046b93e203_2.avif"
+														loading="lazy"
+														alt="Smiling young boy with curly hair"
+														class="hero-author-img" />
+													<img src="assets/images/about/69808b5b46fd69f228563181_3.avif"
+														loading="lazy"
+														alt="Portrait of a young girl with a yellow hair bow"
+														class="hero-author-img" />
+												</div>
+												<h1 class="hero-title" id="heroTitleLine2">Lives</h1>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="hero-right-box">
+								<div class="hero-right-box content">
+									<p class="hero-text" id="heroText">We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact and transform lives.</p>
+									<div class="hero-btn-box" id="heroBtnBox">
+										<a href="programs.html" class="theme-button theme-btn-primary theme-btn-no-icon" id="heroBtn1">
+											<div class="theme-btn-content">
+												<div class="theme-btn-text">Explore Causes</div>
+												<div class="theme-btn-hover-text">Explore Causes</div>
+											</div>
+											<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
+												loading="lazy" alt="" class="theme-btn-icon d-none" />
+										</a>
+										<a href="donate.html" class="theme-button theme-btn-primary" id="heroBtn2">
+											<div class="theme-btn-content">
+												<div class="theme-btn-text">Change a Life</div>
+												<div class="theme-btn-hover-text">Change a Life</div>
+											</div>
+											<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
+												loading="lazy" alt="" class="theme-btn-icon" />
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="hero-wrapper two">
-					<div class="container">
-						<div class="d-grid hero-grid">
-							<div class="hero-left-box content">
-								<div class="hero-title-wrapper">
-									<h3 style="-webkit-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);filter:blur(10px);opacity:0"
-										class="hero-title-two">Together, We Can</h3>
-									<div class="hero-title-wrap">
-										<h1 class="hero-title">Change</h1>
-									</div>
-									<div class="hero-title-wrap">
-										<div class="hero-title-box">
-											<div class="hero-author-box">
-												<img src="assets/images/about/69808b5b0a0747dd95550f8c_1.avif"
-													loading="lazy"
-													alt="Smiling young girl with brown hair wearing an orange shirt and blue overalls."
-													class="hero-author-img _1" />
-												<img src="assets/images/about/69808b5b15bd5a046b93e203_2.avif"
-													loading="lazy"
-													alt="Smiling young boy with curly hair wearing a brown shirt."
-													class="hero-author-img" />
-												<img src="assets/images/about/69808b5b46fd69f228563181_3.avif"
-													loading="lazy"
-													alt="Portrait of a young girl with a yellow hair bow and burgundy top against a brown background."
-													class="hero-author-img" />
-											</div>
-											<h1 class="hero-title">Lives</h1>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="hero-right-box content">
-								<p style="-webkit-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);filter:blur(10px);opacity:0"
-									class="hero-text">We work to bring hope, support, and positive change to communities
-									in need. Your donation helps us create real impact and transform lives.</p>
-								<div style="-webkit-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 18%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);filter:blur(10px);opacity:0"
-									class="hero-btn-box">
-									<a href="programs.html" class="theme-button theme-btn-primary theme-btn-no-icon">
-										<div class="theme-btn-content">
-											<div class="theme-btn-text">Explore Causes</div>
-											<div class="theme-btn-hover-text">Explore Causes</div>
-										</div>
-										<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
-											loading="lazy" alt="" class="theme-btn-icon d-none" />
-									</a>
-									<a href="donate.html" class="theme-button theme-btn-primary">
-										<div class="theme-btn-content">
-											<div class="theme-btn-text">Change a Life</div>
-											<div class="theme-btn-hover-text">Change a Life</div>
-										</div>
-										<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
-											loading="lazy" alt="" class="theme-btn-icon" />
-									</a>
-								</div>
-							</div>
-						</div>
+
+				<!-- Glassmorphism Slider Controller (Layer 4) -->
+				<div class="hero-slider-controls">
+					<div class="hero-slider-counter">
+						<span class="hero-slide-num current">01</span>
+						<span class="hero-slide-sep">/</span>
+						<span class="hero-slide-num total">05</span>
+					</div>
+					<div class="hero-swiper-pagination"></div>
+					<div class="hero-slider-arrows">
+						<button type="button" class="hero-slider-arrow hero-swiper-prev" aria-label="Previous Slide">
+							<i class="fa-solid fa-arrow-left"></i>
+						</button>
+						<button type="button" class="hero-slider-arrow hero-swiper-next" aria-label="Next Slide">
+							<i class="fa-solid fa-arrow-right"></i>
+						</button>
 					</div>
 				</div>
 			</section>
@@ -529,86 +545,116 @@
 					</div>
 				</div>
 			</section>
-			<section class="about-section">
+			<section class="about-section mm-memorial-section">
 				<div class="about-wrapper">
 					<div class="container">
 						<div class="about-wrapper-inner">
 							<div class="container small">
-								<div class="d-grid about-grid">
-									<div class="about-content">
+								<div class="d-grid about-grid mm-memorial-grid">
+									<!-- Left Column: Pure editorial Biography & Values -->
+									<div class="about-content mm-memorial-content">
 										<div class="section-title-box about-title-box">
 											<div class="section-subtitle-box">
-												<div class="section-subtitle-dot">
-												</div>
-												<p class="section-subtitle">About Us</p>
+												<div class="section-subtitle-dot"></div>
+												<p class="section-subtitle">About Mashiur Rahman</p>
 											</div>
-											<h2 class="section-title">Who we are</h2>
-											<p class="section-text">We believe that a meal is more than just sustenance,
-												it is a symbol of hope, a symbol of community, and the foundation for a
-												better tomorrow.</p>
+											<h2 class="section-title">Freedom Fighter<br><span class="text-primary-accent">Md. Mashiur Rahman</span></h2>
+											<p class="mm-life-tagline">“A Life Rich in Humanity, Not in Wealth”</p>
+											<p class="mm-quote-text">
+												“Some people leave this world, but their kindness, values, and compassion remain in the hearts of others. Their lives may come to an end, but the inspiration created by their good deeds lives on.”
+											</p>
+											<p class="section-text mm-bio-lead">
+												Freedom Fighter Md. Mashiur Rahman was one such individual, a man whose life was defined not by material wealth or social status, but by integrity, faith, patriotism, forgiveness, and an unwavering commitment to humanity.
+											</p>
+											<p class="mm-bio-paragraph">
+												He lived a modest life with limited financial resources. Yet, within those limitations, he possessed an extraordinarily generous heart. Whatever he had, he shared with others—extending a helping hand to people in need and contributing to the well-being of his family, neighbors, friends, and community. For him, helping others was never about recognition—it was simply a source of happiness, fulfillment, and inner peace.
+											</p>
 										</div>
-										<div class="about-box-wrapper">
-											<div class="about-box _1">
-												<img src="assets/images/icons/69818cd9b7e5ae94ecb202c3_money (1) 1.svg"
-													loading="lazy" alt="" class="about-icon" />
-												<div class="about-box-line">
+
+										<!-- Core Pillars (Clean, elegant 2-col list) -->
+										<div class="mm-values-grid">
+											<div class="mm-value-card">
+												<div class="mm-value-icon-box">
+													<i class="fa-solid fa-hand-holding-heart"></i>
 												</div>
-												<div class="about-box-content">
-													<h3 class="about-box-title">Financial contributions</h3>
-													<p class="about-box-text">Organizations, or businesses to support a
-														cause, program, or initiative.</p>
-												</div>
-											</div>
-											<div class="about-box _2">
-												<img src="assets/images/logos/6985b68aab3bb0e6715ea092_2.svg"
-													loading="lazy" alt="" class="about-icon" />
-												<div class="about-box-line">
-												</div>
-												<div class="about-box-content">
-													<h3 class="about-box-title">Child Sponsors</h3>
-													<p class="about-box-text">Become a sponsor and provide education,
-														food, healthcare, and hope to children in need.</p>
+												<div class="mm-value-info">
+													<h3 class="mm-value-title">Selfless Devotion &amp; Feeding Others</h3>
+													<p class="mm-value-text">
+														He particularly loved feeding people and welcoming guests. Offering a warm meal or comforting someone in distress gave him profound inner peace.
+													</p>
 												</div>
 											</div>
-											<div class="about-box _3">
-												<img src="assets/images/logos/6985b68a9a84b36f44c428e5_3.svg"
-													loading="lazy" alt="" class="about-icon" />
-												<div class="about-box-line">
+
+											<div class="mm-value-card">
+												<div class="mm-value-icon-box">
+													<i class="fa-solid fa-star-and-crescent"></i>
 												</div>
-												<div class="about-box-content">
-													<h3 class="about-box-title">Health and Wellness</h3>
-													<p class="about-box-text">Healthier life through access to medical
-														care, nutrition, and wellness programs for all.</p>
+												<div class="mm-value-info">
+													<h3 class="mm-value-title">Faith, Integrity &amp; Responsibility</h3>
+													<p class="mm-value-text">
+														A devout Muslim whose faith was reflected through humility and honesty. He passed away without leaving any outstanding personal debts.
+													</p>
 												</div>
 											</div>
-											<div class="about-box _4">
-												<img src="assets/images/logos/6985b68af2ed9aae0b548b47_4.svg"
-													loading="lazy" alt="" class="about-icon" />
-												<div class="about-box-line">
+
+											<div class="mm-value-card">
+												<div class="mm-value-icon-box">
+													<i class="fa-solid fa-dove"></i>
 												</div>
-												<div class="about-box-content">
-													<h3 class="about-box-title">Community Development</h3>
-													<p class="about-box-text">Building stronger communities through
-														education, skill development, and sustainable</p>
+												<div class="mm-value-info">
+													<h3 class="mm-value-title">Spirit of Forgiveness</h3>
+													<p class="mm-value-text">
+														Even when wronged, he chose unconditional forgiveness. People recall that he had no enemies, never spoke harshly, and treated all with dignity.
+													</p>
+												</div>
+											</div>
+
+											<div class="mm-value-card">
+												<div class="mm-value-icon-box">
+													<i class="fa-solid fa-medal"></i>
+												</div>
+												<div class="mm-value-info">
+													<h3 class="mm-value-title">Patriotic Freedom Fighter</h3>
+													<p class="mm-value-text">
+														As a valiant Freedom Fighter in 1971, his patriotism continued through lifelong compassion, civic duty, and continuous service to people.
+													</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="about-image-box">
-										<img src="assets/images/about/698c3b76279231c52a5b1518_2.avif" loading="lazy"
-											alt="Smiling young boy with curly hair wearing a brown shirt against a light background."
-											class="about-image _1" />
-										<img src="assets/images/about/69818bb475497676ffbe0fd9_0.avif" loading="lazy"
-											alt="Young girl with braided hair holding a pink stuffed bear while leaning over a cardboard box."
-											class="about-image _2" />
-										<img src="assets/images/about/6996dac5d672d933da46dff3_Physical_Therapy_Session.avif"
-											loading="lazy"
-											alt="Physical therapist assisting elderly woman seated in chair with arm exercise using wooden stick."
-											class="about-image _3" />
-										<img src="assets/images/about/6996dbafef55171bd16b0947_Professional_Group_Portrait.avif"
-											loading="lazy"
-											alt="Three people planting a young tree in a grassy area near leafless trees, with one person holding a watering can and another using a small garden tool."
-											class="about-image _4" />
+
+									<!-- Right Column: Portrait & Foundation Legacy -->
+									<div class="about-image-box mm-memorial-portrait-box">
+										<div class="mm-portrait-card-wrap">
+											<div class="mm-portrait-frame">
+												<img src="assets/images/about/mashiur_rahman_portrait.png"
+													loading="lazy"
+													alt="Freedom Fighter Md. Mashiur Rahman memorial portrait"
+													class="mm-portrait-img" />
+												<div class="mm-portrait-caption">
+													<h4 class="mm-caption-name">Freedom Fighter Md. Mashiur Rahman</h4>
+													<p class="mm-caption-dates">2 October 1951 – 28 June 2022</p>
+												</div>
+											</div>
+
+											<div class="mm-legacy-box">
+												<h4 class="mm-legacy-title">The Foundation's Mission</h4>
+												<p class="mm-legacy-desc">
+													In Islamic belief, ongoing charity (<em>Sadaqah Jariyah</em>) continues to bring spiritual rewards even after passing. The family established the Foundation to continue his principles—supporting orphan care, clean water, warm meals, and humanitarian assistance.
+												</p>
+												<div class="mm-special-milestone">
+													<i class="fa-solid fa-cake-candles mm-milestone-icon"></i>
+													<div class="mm-milestone-text">
+														<strong>Tejgaon Shishu Poribar Memorial Lunch:</strong> In loving remembrance of his birthday on 2 October 2026, a special feast was arranged for approximately 200 children at Tejgaon Shishu Poribar in Dhaka.
+													</div>
+												</div>
+												<div class="mm-legacy-prayer">
+													<p class="mb-0">
+														<em>“May Almighty Allah forgive his shortcomings, accept his good deeds, grant him Jannatul Ferdous, and accept all humanitarian initiatives in his memory as Sadaqah Jariyah. Ameen.”</em>
+													</p>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -912,8 +958,7 @@
 													</div>
 													<div class="cause-image-box">
 														<img src="assets/images/causes/699d490a55fa3d5b718ba43e_1.avif"
-															loading="lazy"
-															alt="" sizes="100vw"
+															loading="lazy" alt="" sizes="100vw"
 															srcset="assets/images/causes/699d490a55fa3d5b718ba43e_1-p-500.avif 500w, assets/images/causes/699d490a55fa3d5b718ba43e_1-p-800.avif 800w, assets/images/causes/699d490a55fa3d5b718ba43e_1.avif 1500w"
 															class="cause-image" />
 														<div class="image-overlay two">
@@ -968,8 +1013,7 @@
 													</div>
 													<div class="cause-image-box">
 														<img src="assets/images/causes/699d48770598f6b4f1e489da_2.avif"
-															loading="lazy"
-															alt="" sizes="100vw"
+															loading="lazy" alt="" sizes="100vw"
 															srcset="assets/images/causes/699d48770598f6b4f1e489da_2-p-500.avif 500w, assets/images/causes/699d48770598f6b4f1e489da_2-p-800.avif 800w, assets/images/causes/699d48770598f6b4f1e489da_2-p-1080.avif 1080w, assets/images/causes/699d48770598f6b4f1e489da_2.avif 2000w"
 															class="cause-image" />
 														<div class="image-overlay two">
@@ -1023,8 +1067,7 @@
 													</div>
 													<div class="cause-image-box">
 														<img src="assets/images/causes/699d46d2aa862b409f4a7238_3.avif"
-															loading="lazy"
-															alt="" sizes="100vw"
+															loading="lazy" alt="" sizes="100vw"
 															srcset="assets/images/causes/699d46d2aa862b409f4a7238_3-p-500.avif 500w, assets/images/causes/699d46d2aa862b409f4a7238_3-p-800.avif 800w, assets/images/causes/699d46d2aa862b409f4a7238_3.avif 1500w"
 															class="cause-image" />
 														<div class="image-overlay two">
@@ -1079,8 +1122,7 @@
 													</div>
 													<div class="cause-image-box">
 														<img src="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif"
-															loading="lazy"
-															alt="" sizes="100vw"
+															loading="lazy" alt="" sizes="100vw"
 															srcset="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4-p-500.avif 500w, assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4-p-800.avif 800w, assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif 2000w"
 															class="cause-image" />
 														<div class="image-overlay two">
@@ -2196,6 +2238,8 @@
 	<!-- GSAP & ScrollTrigger -->
 	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+	<!-- Swiper.js -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/animations.js"></script>

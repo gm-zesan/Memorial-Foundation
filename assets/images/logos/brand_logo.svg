@@ -1,6 +1,21 @@
-<svg width="220" height="42" viewBox="0 0 220 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="21" cy="21" r="18" fill="#e8e2d2" stroke="#222222" stroke-width="1.5"/>
-  <path d="M21 11V31M21 21L15 16M21 21L27 16M21 25L14 20M21 25L28 20" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="48" y="22" font-family="'Rowdies', 'Fraunces', serif" font-size="16" font-weight="700" fill="#111111" letter-spacing="0.2">Moshiur</text>
-  <text x="48" y="33" font-family="'Epilogue', sans-serif" font-size="9.5" font-weight="600" fill="#666666" letter-spacing="1.2">MEMORIAL FOUNDATION</text>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 80' width='540' height='80'>
+  <!-- Simple Emblem Mark: Elegant Tree / Sprout of Giving -->
+  <g transform='translate(6, 12)'>
+    <circle cx='28' cy='28' r='27' fill='none' stroke='#7b4b12' stroke-width='2' opacity='0.35'/>
+    <!-- Trunk & Branches -->
+    <path d='M28 47 V26 M28 35 C24 30 18 29 15 31 M28 30 C32 25 38 25 41 28 M28 22 C24 16 19 18 17 21 M28 19 C31 14 36 15 39 18' 
+          fill='none' stroke='#7b4b12' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/>
+    <!-- Small Leaf Accents -->
+    <circle cx='15' cy='31' r='2' fill='#7b4b12'/>
+    <circle cx='41' cy='28' r='2' fill='#7b4b12'/>
+    <circle cx='17' cy='21' r='2' fill='#7b4b12'/>
+    <circle cx='39' cy='18' r='2' fill='#7b4b12'/>
+    <circle cx='28' cy='14' r='2.2' fill='#7b4b12'/>
+  </g>
+
+  <!-- 2-Line Clean Brand Typography -->
+  <g transform='translate(76, 0)'>
+    <text x='0' y='38' font-family='Georgia, "Times New Roman", serif' font-size='31' font-weight='700' fill='#1a1a1a' letter-spacing='0.2'>Moshiur Rahman</text>
+    <text x='1' y='64' font-family='-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' font-size='12.5' font-weight='600' fill='#555555' letter-spacing='2.8'>MEMORIAL FOUNDATION</text>
+  </g>
 </svg>

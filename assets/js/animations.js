@@ -49,18 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
         x: 30,
       });
 
-      // 2. Timeline with ScrollTrigger pin on outerBox
+      // 2. Timeline with ScrollTrigger: starts as the showcase enters and settles at center of screen
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: outerBox,
-          pin: outerBox,
-          pinSpacing: true,
-          start: "center top+=56%",
-          end: () => "+=" + Math.round(window.innerHeight * 1.5),
-          scrub: true,
+          start: "top 75%",
+          end: "center center",
+          scrub: 1.2,
           invalidateOnRefresh: true,
-          anticipatePin: 0,
-          markers: false,
         },
       });
 
@@ -131,96 +127,156 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
-  // About Section Scroll Image Change & Card Stack Animation
+  // About Section (Freedom Fighter Md. Mashiur Rahman) Part-by-Part GSAP Reveal
   // --------------------------------------------------------
-  const aboutSection = document.querySelector(".about-section");
-  const aboutWrapper = document.querySelector(".about-wrapper");
-  const aboutBoxWrapper = document.querySelector(".about-box-wrapper");
+  const memorialSection = document.querySelector(".mm-memorial-section");
+  if (memorialSection) {
+    const titleBlock = memorialSection.querySelector(".about-title-box");
+    const quoteText = memorialSection.querySelector(".mm-quote-text");
+    const bioParagraph = memorialSection.querySelector(".mm-bio-paragraph");
+    const valueCards = memorialSection.querySelectorAll(".mm-value-card");
+    const legacyBox = memorialSection.querySelector(".mm-legacy-box");
+    const portraitFrame = memorialSection.querySelector(".mm-portrait-frame");
+    const portraitImg = memorialSection.querySelector(".mm-portrait-img");
 
-  if (aboutSection && aboutWrapper && aboutBoxWrapper) {
-    const mmAbout = gsap.matchMedia();
-
-    // Desktop & Tablet devices (>= 768px) where sticky layout & stacking occurs
-    mmAbout.add("(min-width: 768px)", () => {
-      const box1 = document.querySelector(".about-box._1");
-      const box2 = document.querySelector(".about-box._2");
-      const box3 = document.querySelector(".about-box._3");
-      const box4 = document.querySelector(".about-box._4");
-
-      const img1 = document.querySelector(".about-image._1");
-      const img2 = document.querySelector(".about-image._2");
-      const img3 = document.querySelector(".about-image._3");
-      const img4 = document.querySelector(".about-image._4");
-
-      const aboutWrapperInner = document.querySelector(".about-wrapper-inner");
-
-      // Calculate starting distance so incoming cards start just below the section inner container
-      const getStartY = () => {
-        if (!aboutWrapperInner || !box1) return window.innerHeight;
-        const innerRect = aboutWrapperInner.getBoundingClientRect();
-        const boxRect = box1.getBoundingClientRect();
-        const diff = innerRect.bottom - boxRect.top;
-        return Math.max(diff + 40, 500);
-      };
-
-      // Set initial states — GSAP owns all transforms
-      gsap.set(img1, { xPercent: 0 });
-      gsap.set([img2, img3, img4], { xPercent: 100 });
-
-      const activeBg = "rgb(237, 232, 218)";
-      const inactiveBg = "rgb(245, 242, 234)";
-
-      // Initial states:
-      // box1 rests in place as active card
-      // box2, box3, box4 start below the section bottom (clipped by about-wrapper-inner)
-      gsap.set(box1, { y: 0, backgroundColor: activeBg, zIndex: 1 });
-      gsap.set(box2, { y: () => getStartY(), backgroundColor: activeBg, zIndex: 2 });
-      gsap.set(box3, { y: () => getStartY(), backgroundColor: activeBg, zIndex: 3 });
-      gsap.set(box4, { y: () => getStartY(), backgroundColor: activeBg, zIndex: 4 });
-
-      const aboutTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: aboutSection,
-          start: "top top+=98px",
-          end: "bottom bottom",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Step 1 → 2: box2 appears from bottom and slides up into wrapper over box1; image2 slides in from right
-      aboutTl
-        .to(img2, { xPercent: 0, ease: "none", duration: 1 }, 0)
-        .to(box2, { y: 0, ease: "none", duration: 1 }, 0)
-        .to(box1, { backgroundColor: inactiveBg, ease: "none", duration: 0.2 }, 0.8);
-
-      // Step 2 → 3: box3 appears from bottom and slides up into wrapper over box2; image3 slides in from right
-      aboutTl
-        .to(img3, { xPercent: 0, ease: "none", duration: 1 }, 1)
-        .to(box3, { y: 0, ease: "none", duration: 1 }, 1)
-        .to(box2, { backgroundColor: inactiveBg, ease: "none", duration: 0.2 }, 1.8);
-
-      // Step 3 → 4: box4 appears from bottom and slides up into wrapper over box3; image4 slides in from right
-      aboutTl
-        .to(img4, { xPercent: 0, ease: "none", duration: 1 }, 2)
-        .to(box4, { y: 0, ease: "none", duration: 1 }, 2)
-        .to(box3, { backgroundColor: inactiveBg, ease: "none", duration: 0.2 }, 2.8);
-
-      return () => {
-        if (aboutTl.scrollTrigger) {
-          aboutTl.scrollTrigger.kill();
+    // 1. Header elements: Subtitle, Title, Tagline, Bio Lead
+    if (titleBlock) {
+      const titleChildren = titleBlock.querySelectorAll(
+        ".section-subtitle-box, .section-title, .mm-life-tagline, .mm-bio-lead"
+      );
+      gsap.fromTo(
+        titleChildren,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: titleBlock,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
         }
-        aboutTl.kill();
-      };
-    });
+      );
+    }
 
-    // Mobile cleanup (< 768px)
-    mmAbout.add("(max-width: 767px)", () => {
-      const boxes = document.querySelectorAll(".about-box");
-      const images = document.querySelectorAll(".about-image");
-      gsap.set(boxes, { clearProps: "all" });
-      gsap.set(images, { clearProps: "all" });
-    });
+    // 2. Memorial Quote Text
+    if (quoteText) {
+      gsap.fromTo(
+        quoteText,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: quoteText,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    // 3. Biography Paragraph
+    if (bioParagraph) {
+      gsap.fromTo(
+        bioParagraph,
+        { y: 25, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: bioParagraph,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    // 4. Core Pillars / Value Cards (Staggered cascade)
+    if (valueCards && valueCards.length > 0) {
+      gsap.fromTo(
+        valueCards,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.75,
+          stagger: 0.15,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: valueCards[0],
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    // 5. Legacy & Sadaqah Jariyah Box
+    if (legacyBox) {
+      gsap.fromTo(
+        legacyBox,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: legacyBox,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    // 6. Right Column Portrait (Float-in + soft scale)
+    if (portraitFrame) {
+      gsap.fromTo(
+        portraitFrame,
+        { y: 45, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: portraitFrame,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    if (portraitImg) {
+      gsap.fromTo(
+        portraitImg,
+        { scale: 0.92, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1.1,
+          ease: "power2.out",
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: portraitFrame || portraitImg,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
   }
 
   // --------------------------------------------------------
@@ -398,117 +454,84 @@ document.addEventListener("DOMContentLoaded", function () {
   const causeSection = document.querySelector(".cause-section");
   if (causeSection) {
     const causeImageBoxes = causeSection.querySelectorAll(".cause-image-box");
-    // Ensure helper exists in this scope or run setup
-    causeImageBoxes.forEach((box) => {
-      let overlay = box.querySelector(".image-overlay");
-      if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.className = "image-overlay two";
-        box.prepend(overlay);
-      }
-      gsap.set(overlay, { yPercent: 0 });
-      const img = box.querySelector(".cause-image");
-      if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
-
-      let isRevealed = false;
-
-      ScrollTrigger.create({
-        trigger: box,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: (self) => {
-          const rect = box.getBoundingClientRect();
-          const vh = window.innerHeight || document.documentElement.clientHeight;
-
-          // Scroll DOWN: reveal from UP to DOWN earlier as image enters view (top <= 92% of viewport)
-          if (self.direction === 1 && !isRevealed) {
-            if (rect.top <= vh * 0.92 && rect.bottom > 0) {
-              isRevealed = true;
-              gsap.to(overlay, {
-                yPercent: 100,
-                duration: 1.1,
-                ease: "power2.inOut",
-                overwrite: "auto",
-              });
-              if (img) {
-                gsap.fromTo(
-                  img,
-                  { scale: 1.4 },
-                  {
-                    scale: 1,
-                    duration: 1.3,
-                    ease: "power2.out",
-                    overwrite: "auto",
-                  }
-                );
-              }
-            }
-          }
-
-          // Scroll UP: reveal from DOWN to UP earlier as image enters view from top (bottom >= 8% of viewport)
-          if (self.direction === -1 && !isRevealed) {
-            if (rect.bottom >= vh * 0.08 && rect.top < vh) {
-              isRevealed = true;
-              gsap.to(overlay, {
-                yPercent: -100,
-                duration: 1.1,
-                ease: "power2.inOut",
-                overwrite: "auto",
-              });
-              if (img) {
-                gsap.fromTo(
-                  img,
-                  { scale: 1.4 },
-                  {
-                    scale: 1,
-                    duration: 1.3,
-                    ease: "power2.out",
-                    overwrite: "auto",
-                  }
-                );
-              }
-            }
-          }
-        },
-        onLeave: () => {
-          // Scrolled completely past top (100% off-screen above viewport)
-          isRevealed = false;
-          gsap.set(overlay, { yPercent: 0 });
-          if (img) gsap.set(img, { scale: 1.4 });
-        },
-        onLeaveBack: () => {
-          // Scrolled completely past bottom (100% off-screen below viewport)
-          isRevealed = false;
-          gsap.set(overlay, { yPercent: 0 });
-          if (img) gsap.set(img, { scale: 1.4 });
-        },
-      });
-
-      // Handle initial page load if already in viewport (e.g. on page refresh):
-      const initialRect = box.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
-        isRevealed = true;
-        gsap.to(overlay, {
-          yPercent: 100,
-          duration: 1.1,
-          ease: "power2.inOut",
-          overwrite: "auto",
-        });
-        if (img) {
-          gsap.fromTo(
-            img,
-            { scale: 1.4 },
-            {
-              scale: 1,
-              duration: 1.3,
-              ease: "power2.out",
-              overwrite: "auto",
-            }
-          );
+    // Reuse the existing setupImageReveal helper function
+    const setupCauseReveal = (boxes) => {
+      boxes.forEach((box) => {
+        let overlay = box.querySelector(".image-overlay");
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.className = "image-overlay two";
+          box.prepend(overlay);
         }
-      }
-    });
+        gsap.set(overlay, { yPercent: 0 });
+        const img = box.querySelector(".cause-image");
+        if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
+
+        let isRevealed = false;
+
+        ScrollTrigger.create({
+          trigger: box,
+          start: "top bottom",
+          end: "bottom top",
+          onUpdate: (self) => {
+            const rect = box.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+
+            if (self.direction === 1 && !isRevealed) {
+              if (rect.top <= vh * 0.92 && rect.bottom > 0) {
+                isRevealed = true;
+                gsap.to(overlay, {
+                  yPercent: 100,
+                  duration: 1.1,
+                  ease: "power2.inOut",
+                  overwrite: "auto",
+                });
+                if (img) {
+                  gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
+                }
+              }
+            }
+
+            if (self.direction === -1 && !isRevealed) {
+              if (rect.bottom >= vh * 0.08 && rect.top < vh) {
+                isRevealed = true;
+                gsap.to(overlay, {
+                  yPercent: -100,
+                  duration: 1.1,
+                  ease: "power2.inOut",
+                  overwrite: "auto",
+                });
+                if (img) {
+                  gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
+                }
+              }
+            }
+          },
+          onLeave: () => {
+            isRevealed = false;
+            gsap.set(overlay, { yPercent: 0 });
+            if (img) gsap.set(img, { scale: 1.4 });
+          },
+          onLeaveBack: () => {
+            isRevealed = false;
+            gsap.set(overlay, { yPercent: 0 });
+            if (img) gsap.set(img, { scale: 1.4 });
+          },
+        });
+
+        const initialRect = box.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
+          isRevealed = true;
+          gsap.to(overlay, { yPercent: 100, duration: 1.1, ease: "power2.inOut", overwrite: "auto" });
+          if (img) {
+            gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
+          }
+        }
+      });
+    };
+
+    setupCauseReveal(causeImageBoxes);
   }
 });
 
