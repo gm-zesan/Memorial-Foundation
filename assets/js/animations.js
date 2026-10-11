@@ -2019,9 +2019,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (floatText) {
       gsap.fromTo(
         floatText,
-        { xPercent: -10, opacity: 0.15 },
+        { xPercent: -10, y: -10, opacity: 0.15 },
         {
           xPercent: 3,
+          y: -10,
           opacity: 0.35,
           ease: "none",
           scrollTrigger: {

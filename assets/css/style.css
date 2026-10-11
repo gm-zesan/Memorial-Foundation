@@ -3625,7 +3625,6 @@ blockquote {
   position: relative;
   z-index: 10;
   overflow: hidden;
-  background-color: var(--dark-three);
 }
 
 .footer-wrapper {
@@ -3638,6 +3637,7 @@ blockquote {
 
 .footer-bottom {
   border-top: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
 }
 
 .footer-bottom-wrap {
@@ -3727,7 +3727,7 @@ blockquote {
   font-weight: var(--_font-weight---semi-bold);
   margin-bottom: 0;
   position: absolute;
-  bottom: -40px;
+  bottom: -10px;
 }
 
 .footer-float-text:where(.w-variant-87a8b139-3509-76a7-ca40-1e8359e31530) {

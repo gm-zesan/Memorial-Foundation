@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIdx = 0;
     let isTransitioning = false;
     let autoSlideTimer = null;
-    const AUTO_DELAY = 4200; // Comfortable interval for smooth reading
+    const AUTO_DELAY = 2000; // Snappy interval for lively sliding
 
     // DOM Target Elements inside the single rock-solid editorial container
     const subtitleEl = document.getElementById("heroSubtitle");
@@ -287,13 +287,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const btn1El = document.getElementById("heroBtn1");
     const btn2El = document.getElementById("heroBtn2");
 
-    // 1. Swiper Background Slider: Cross-fades background images with film-like smoothness
+    // 1. Swiper Background Slider: Fast and smooth photo cross-fade
     const heroBgSwiper = new Swiper("#heroBgSlider", {
       effect: "fade",
       fadeEffect: {
         crossFade: true,
       },
-      speed: 900,
+      speed: 380,
       loop: false,
       allowTouchMove: false,
     });
@@ -361,12 +361,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // 5. Distinct Editorial Slide Transition with 3D Depth & Staggered Reveal
+    // 5. Distinct Editorial Slide Transition (Snappy & Fast)
     function goToSlide(nextIdx, dir = 1) {
       if (isTransitioning || nextIdx === currentIdx) return;
       isTransitioning = true;
 
-      // Cross-fade the background swiper photo with gentle 900ms curve
+      // Cross-fade the background swiper photo fast
       heroBgSwiper.slideTo(nextIdx);
 
       if (typeof gsap === "undefined") {
@@ -390,17 +390,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      const exitY = dir === 1 ? -24 : 24;
-      const enterY = dir === 1 ? 36 : -36;
+      const exitY = dir === 1 ? -16 : 16;
+      const enterY = dir === 1 ? 22 : -22;
 
-      // Phase 1: Subtle upward/downward drift with gentle blur dissolution
-      if (subtitleEl) tl.to(subtitleEl, { y: exitY * 0.7, opacity: 0, duration: 0.26, ease: "power2.in" }, 0);
-      tl.to([titleLine1El, titleLine2El].filter(Boolean), { y: exitY, opacity: 0, filter: "blur(5px)", duration: 0.3, stagger: 0.03, ease: "power2.in" }, 0.02);
+      // Phase 1: Fast drift out (0.15s total)
+      if (subtitleEl) tl.to(subtitleEl, { y: exitY * 0.6, opacity: 0, duration: 0.12, ease: "power2.in" }, 0);
+      tl.to([titleLine1El, titleLine2El].filter(Boolean), { y: exitY, opacity: 0, filter: "blur(4px)", duration: 0.14, stagger: 0.02, ease: "power2.in" }, 0.01);
       if (portraits.length > 0) {
-        tl.to(portraits, { scale: 0.65, rotation: -12, opacity: 0, duration: 0.25, stagger: 0.03, ease: "power2.in" }, 0.03);
+        tl.to(portraits, { scale: 0.7, opacity: 0, duration: 0.12, stagger: 0.02, ease: "power2.in" }, 0.02);
       }
-      if (textEl) tl.to(textEl, { y: exitY * 0.6, opacity: 0, filter: "blur(4px)", duration: 0.28, ease: "power2.in" }, 0.04);
-      if (btnBoxEl) tl.to(btnBoxEl, { scale: 0.94, opacity: 0, duration: 0.24, ease: "power2.in" }, 0.05);
+      if (textEl) tl.to(textEl, { y: exitY * 0.5, opacity: 0, filter: "blur(3px)", duration: 0.13, ease: "power2.in" }, 0.02);
+      if (btnBoxEl) tl.to(btnBoxEl, { scale: 0.95, opacity: 0, duration: 0.12, ease: "power2.in" }, 0.03);
 
       // Midpoint: Seamlessly update content & images while opacity is 0
       tl.add(() => {
@@ -409,23 +409,23 @@ document.addEventListener("DOMContentLoaded", function () {
         updateControls(currentIdx);
 
         // Pre-position elements on incoming side
-        if (subtitleEl) gsap.set(subtitleEl, { y: enterY * 0.7, opacity: 0, letterSpacing: "2.5px" });
-        if (titleLine1El) gsap.set(titleLine1El, { y: enterY, opacity: 0, filter: "blur(6px)" });
-        if (titleLine2El) gsap.set(titleLine2El, { y: enterY, opacity: 0, filter: "blur(6px)" });
-        if (textEl) gsap.set(textEl, { y: enterY * 0.7, opacity: 0, filter: "blur(5px)" });
-        if (btnBoxEl) gsap.set(btnBoxEl, { y: 20, scale: 0.92, opacity: 0 });
-        if (portraits.length > 0) gsap.set(portraits, { scale: 0, rotation: -22, opacity: 0 });
+        if (subtitleEl) gsap.set(subtitleEl, { y: enterY * 0.6, opacity: 0, letterSpacing: "1.5px" });
+        if (titleLine1El) gsap.set(titleLine1El, { y: enterY, opacity: 0, filter: "blur(4px)" });
+        if (titleLine2El) gsap.set(titleLine2El, { y: enterY, opacity: 0, filter: "blur(4px)" });
+        if (textEl) gsap.set(textEl, { y: enterY * 0.5, opacity: 0, filter: "blur(3px)" });
+        if (btnBoxEl) gsap.set(btnBoxEl, { y: 14, scale: 0.94, opacity: 0 });
+        if (portraits.length > 0) gsap.set(portraits, { scale: 0, rotation: -15, opacity: 0 });
       });
 
-      // Phase 2: Refined editorial entrance glide with cinematic clarity
-      if (subtitleEl) tl.to(subtitleEl, { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.52, ease: "power3.out" }, "+=0.03");
-      if (titleLine1El) tl.to(titleLine1El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.65, ease: "power4.out" }, "-=0.42");
+      // Phase 2: Snappy, agile entrance glide (0.35s total)
+      if (subtitleEl) tl.to(subtitleEl, { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.28, ease: "power3.out" }, "+=0.01");
+      if (titleLine1El) tl.to(titleLine1El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.34, ease: "power4.out" }, "-=0.24");
       if (portraits.length > 0) {
-        tl.to(portraits, { scale: 1, rotation: 0, opacity: 1, duration: 0.52, stagger: 0.06, ease: "back.out(2.2)" }, "-=0.48");
+        tl.to(portraits, { scale: 1, rotation: 0, opacity: 1, duration: 0.32, stagger: 0.03, ease: "back.out(2)" }, "-=0.28");
       }
-      if (titleLine2El) tl.to(titleLine2El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.65, ease: "power4.out" }, "-=0.45");
-      if (textEl) tl.to(textEl, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.58, ease: "power3.out" }, "-=0.42");
-      if (btnBoxEl) tl.to(btnBoxEl, { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, "-=0.38");
+      if (titleLine2El) tl.to(titleLine2El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.34, ease: "power4.out" }, "-=0.26");
+      if (textEl) tl.to(textEl, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, "-=0.24");
+      if (btnBoxEl) tl.to(btnBoxEl, { y: 0, scale: 1, opacity: 1, duration: 0.28, ease: "back.out(1.4)" }, "-=0.22");
     }
 
     function nextSlide() {
@@ -492,58 +492,58 @@ document.addEventListener("DOMContentLoaded", function () {
       const heroIntroTl = gsap.timeline({ delay: 0.15 });
 
       if (subtitleEl) {
-        heroIntroTl.fromTo(subtitleEl, 
-          { y: -25, opacity: 0, letterSpacing: "3px" }, 
-          { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.75, ease: "power3.out" }, 
+        heroIntroTl.fromTo(subtitleEl,
+          { y: -25, opacity: 0, letterSpacing: "3px" },
+          { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.75, ease: "power3.out" },
           0
         );
       }
 
       if (titleLine1El) {
-        heroIntroTl.fromTo(titleLine1El, 
-          { y: 65, opacity: 0, filter: "blur(8px)" }, 
-          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, 
+        heroIntroTl.fromTo(titleLine1El,
+          { y: 65, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" },
           0.1
         );
       }
 
       if (portraits.length > 0) {
-        heroIntroTl.fromTo(portraits, 
-          { scale: 0, rotation: -25, opacity: 0 }, 
-          { scale: 1, rotation: 0, opacity: 1, duration: 0.65, stagger: 0.08, ease: "back.out(2.2)" }, 
+        heroIntroTl.fromTo(portraits,
+          { scale: 0, rotation: -25, opacity: 0 },
+          { scale: 1, rotation: 0, opacity: 1, duration: 0.65, stagger: 0.08, ease: "back.out(2.2)" },
           0.2
         );
       }
 
       if (titleLine2El) {
-        heroIntroTl.fromTo(titleLine2El, 
-          { y: 65, opacity: 0, filter: "blur(8px)" }, 
-          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" }, 
+        heroIntroTl.fromTo(titleLine2El,
+          { y: 65, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power4.out" },
           0.25
         );
       }
 
       if (textEl) {
-        heroIntroTl.fromTo(textEl, 
-          { y: 35, opacity: 0, filter: "blur(6px)" }, 
-          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.75, ease: "power3.out" }, 
+        heroIntroTl.fromTo(textEl,
+          { y: 35, opacity: 0, filter: "blur(6px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.75, ease: "power3.out" },
           0.32
         );
       }
 
       const heroButtons = btnBoxEl ? btnBoxEl.querySelectorAll(".theme-button") : [];
       if (heroButtons.length > 0) {
-        heroIntroTl.fromTo(heroButtons, 
-          { y: 25, scale: 0.92, opacity: 0 }, 
-          { y: 0, scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.5)" }, 
+        heroIntroTl.fromTo(heroButtons,
+          { y: 25, scale: 0.92, opacity: 0 },
+          { y: 0, scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.5)" },
           0.4
         );
       }
 
       if (controls) {
-        heroIntroTl.fromTo(controls, 
-          { y: 28, opacity: 0 }, 
-          { y: 0, opacity: 1, duration: 0.65, ease: "back.out(1.5)" }, 
+        heroIntroTl.fromTo(controls,
+          { y: 28, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.65, ease: "back.out(1.5)" },
           0.45
         );
       }
