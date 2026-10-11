@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+
   // --------------------------------------------------------
   // About Section (Freedom Fighter Md. Mashiur Rahman) Part-by-Part GSAP Reveal
   // --------------------------------------------------------
@@ -156,7 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
           scrollTrigger: {
             trigger: titleBlock,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -175,7 +177,8 @@ document.addEventListener("DOMContentLoaded", function () {
           scrollTrigger: {
             trigger: quoteText,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -193,8 +196,9 @@ document.addEventListener("DOMContentLoaded", function () {
           ease: "power3.out",
           scrollTrigger: {
             trigger: bioParagraph,
-            start: "top 88%",
-            toggleActions: "play none none none",
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -202,19 +206,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 4. Core Pillars / Value Cards (Staggered cascade)
     if (valueCards && valueCards.length > 0) {
+      const valuesGrid = memorialSection.querySelector(".mm-values-grid") || valueCards[0];
       gsap.fromTo(
         valueCards,
-        { y: 40, opacity: 0 },
+        { y: 40, opacity: 0, scale: 0.95 },
         {
           y: 0,
           opacity: 1,
+          scale: 1,
           duration: 0.75,
           stagger: 0.15,
           ease: "back.out(1.2)",
           scrollTrigger: {
-            trigger: valueCards[0],
+            trigger: valuesGrid,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -233,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function () {
           scrollTrigger: {
             trigger: legacyBox,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -252,7 +260,8 @@ document.addEventListener("DOMContentLoaded", function () {
           scrollTrigger: {
             trigger: portraitFrame,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
@@ -271,23 +280,68 @@ document.addEventListener("DOMContentLoaded", function () {
           scrollTrigger: {
             trigger: portraitFrame || portraitImg,
             start: "top 85%",
-            toggleActions: "play none none none",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
+          },
+        }
+      );
+    }
+  }
+
+  // --------------------------------------------------------
+  // Result Section Rolling Counters & Title Animations
+  // --------------------------------------------------------
+  const resultSection = document.querySelector(".result-section");
+  const counters = document.querySelectorAll(".counter-box .counter");
+
+  if (resultSection) {
+    // 1. Title block reveal
+    const resultTitleWrap = resultSection.querySelector(".section-title-wrapper");
+    if (resultTitleWrap) {
+      const titleChildren = resultTitleWrap.querySelectorAll(".section-title-box, .section-text-box");
+      gsap.fromTo(
+        titleChildren,
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: resultTitleWrap,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
           },
         }
       );
     }
 
-  }
+    // 2. Result Wraps container cards reveal
+    const resultWraps = resultSection.querySelectorAll(".result-wrap");
+    if (resultWraps.length > 0) {
+      const resultGrid = resultSection.querySelector(".result-grid") || resultSection;
+      gsap.fromTo(
+        resultWraps,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: resultGrid,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
+          },
+        }
+      );
+    }
 
-  // --------------------------------------------------------
-  // Result Section Rolling Counters & Image Reveal Animations
-  // --------------------------------------------------------
-  const resultSection = document.querySelector(".result-section");
-  const counters = document.querySelectorAll(".counter-box .counter");
-  const resultImageBoxes = document.querySelectorAll(".result-image-box");
-
-  if (resultSection) {
-    // Initial setup for counters
+    // 3. Rolling counters animation
     gsap.set(counters, { y: 0 });
 
     const playCounters = () => {
@@ -312,226 +366,539 @@ document.addEventListener("DOMContentLoaded", function () {
     const resetCounters = () => {
       gsap.to(counters, {
         y: 0,
-        duration: 0.5,
+        duration: 0.6,
         ease: "power2.inOut",
         overwrite: "auto",
       });
     };
 
-    // Counters ScrollTrigger — triggers when section is in view
+    // Counters ScrollTrigger — triggers and reverses every time section enters/leaves view
     ScrollTrigger.create({
       trigger: resultSection,
       start: "top 85%",
-      end: "bottom 15%",
+      end: "bottom top",
       onEnter: playCounters,
-      onLeave: () => gsap.set(counters, { y: 0 }),
+      onLeave: resetCounters,
       onEnterBack: playCounters,
-      onLeaveBack: () => gsap.set(counters, { y: 0 }),
+      onLeaveBack: resetCounters,
     });
-
-    // Helper to set up scroll-driven image reveal with scaling (1.4 -> 1)
-    const setupImageReveal = (boxes, imgSelector, overlaySelector, overlayClass = "") => {
-      boxes.forEach((box) => {
-        let overlay = box.querySelector(overlaySelector);
-        if (!overlay) {
-          overlay = document.createElement("div");
-          overlay.className = overlayClass || "result-image-overlay";
-          box.prepend(overlay);
-        }
-        // Ensure overlay starts at 0 covering the image completely
-        gsap.set(overlay, { yPercent: 0 });
-        const img = box.querySelector(imgSelector);
-        if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
-
-        let isRevealed = false;
-
-        ScrollTrigger.create({
-          trigger: box,
-          start: "top bottom",
-          end: "bottom top",
-          onUpdate: (self) => {
-            const rect = box.getBoundingClientRect();
-            const vh = window.innerHeight || document.documentElement.clientHeight;
-
-            // Scroll DOWN: reveal from UP to DOWN earlier as image enters view (top <= 92% of viewport)
-            if (self.direction === 1 && !isRevealed) {
-              if (rect.top <= vh * 0.92 && rect.bottom > 0) {
-                isRevealed = true;
-                gsap.to(overlay, {
-                  yPercent: 100,
-                  duration: 1.1,
-                  ease: "power2.inOut",
-                  overwrite: "auto",
-                });
-                if (img) {
-                  gsap.fromTo(
-                    img,
-                    { scale: 1.4 },
-                    {
-                      scale: 1,
-                      duration: 1.3,
-                      ease: "power2.out",
-                      overwrite: "auto",
-                    }
-                  );
-                }
-              }
-            }
-
-            // Scroll UP: reveal from DOWN to UP earlier as image enters view from top (bottom >= 8% of viewport)
-            if (self.direction === -1 && !isRevealed) {
-              if (rect.bottom >= vh * 0.08 && rect.top < vh) {
-                isRevealed = true;
-                gsap.to(overlay, {
-                  yPercent: -100,
-                  duration: 1.1,
-                  ease: "power2.inOut",
-                  overwrite: "auto",
-                });
-                if (img) {
-                  gsap.fromTo(
-                    img,
-                    { scale: 1.4 },
-                    {
-                      scale: 1,
-                      duration: 1.3,
-                      ease: "power2.out",
-                      overwrite: "auto",
-                    }
-                  );
-                }
-              }
-            }
-          },
-          onLeave: () => {
-            // Scrolled completely past top (100% off-screen above viewport)
-            isRevealed = false;
-            gsap.set(overlay, { yPercent: 0 });
-            if (img) gsap.set(img, { scale: 1.4 });
-          },
-          onLeaveBack: () => {
-            // Scrolled completely past bottom (100% off-screen below viewport)
-            isRevealed = false;
-            gsap.set(overlay, { yPercent: 0 });
-            if (img) gsap.set(img, { scale: 1.4 });
-          },
-        });
-
-        // Handle initial page load if already in viewport (e.g. on page refresh):
-        const initialRect = box.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
-          isRevealed = true;
-          gsap.to(overlay, {
-            yPercent: 100,
-            duration: 1.1,
-            ease: "power2.inOut",
-            overwrite: "auto",
-          });
-          if (img) {
-            gsap.fromTo(
-              img,
-              { scale: 1.4 },
-              {
-                scale: 1,
-                duration: 1.3,
-                ease: "power2.out",
-                overwrite: "auto",
-              }
-            );
-          }
-        }
-      });
-    };
-
-    // Result Section image reveals
-    setupImageReveal(resultImageBoxes, ".result-image", ".result-image-overlay", "result-image-overlay");
   }
 
   // --------------------------------------------------------
-  // Cause Section Image Reveal with Scaling Animation
+  // Cause Section - Title Reveal & Staggered Cards (Bidirectional)
   // --------------------------------------------------------
   const causeSection = document.querySelector(".cause-section");
   if (causeSection) {
-    const causeImageBoxes = causeSection.querySelectorAll(".cause-image-box");
-    // Reuse the existing setupImageReveal helper function
-    const setupCauseReveal = (boxes) => {
-      boxes.forEach((box) => {
-        let overlay = box.querySelector(".image-overlay");
-        if (!overlay) {
-          overlay = document.createElement("div");
-          overlay.className = "image-overlay two";
-          box.prepend(overlay);
+    // 1. Header Title & Subtitle Reveal
+    const causeTitleBox = causeSection.querySelector(".cause-top-box .section-title-box");
+    if (causeTitleBox) {
+      gsap.fromTo(
+        causeTitleBox,
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: causeTitleBox,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
+          },
         }
-        gsap.set(overlay, { yPercent: 0 });
-        const img = box.querySelector(".cause-image");
-        if (img) gsap.set(img, { scale: 1.4, transformOrigin: "center center" });
+      );
+    }
 
-        let isRevealed = false;
+    // 2. Cause Cards & Content Cascade
+    const causeItems = causeSection.querySelectorAll(".hide-md .cause-cms");
+    if (causeItems.length > 0) {
+      causeItems.forEach((item) => {
+        const content = item.querySelector(".cause-content");
+        const shape = item.querySelector(".cause-shape");
+        const goalWrap = item.querySelector(".cause-goal-wrap");
+
+        const tl = gsap.timeline({ paused: true });
+
+        if (content) {
+          tl.fromTo(
+            content,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
+            0
+          );
+        }
+
+        if (shape) {
+          tl.fromTo(
+            shape,
+            { scale: 0.88, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" },
+            0.1
+          );
+        }
+
+        if (goalWrap) {
+          tl.fromTo(
+            goalWrap,
+            { y: 15, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+            0.2
+          );
+        }
 
         ScrollTrigger.create({
-          trigger: box,
-          start: "top bottom",
+          trigger: item,
+          start: "top 85%",
           end: "bottom top",
-          onUpdate: (self) => {
-            const rect = box.getBoundingClientRect();
-            const vh = window.innerHeight || document.documentElement.clientHeight;
-
-            if (self.direction === 1 && !isRevealed) {
-              if (rect.top <= vh * 0.92 && rect.bottom > 0) {
-                isRevealed = true;
-                gsap.to(overlay, {
-                  yPercent: 100,
-                  duration: 1.1,
-                  ease: "power2.inOut",
-                  overwrite: "auto",
-                });
-                if (img) {
-                  gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
-                }
-              }
-            }
-
-            if (self.direction === -1 && !isRevealed) {
-              if (rect.bottom >= vh * 0.08 && rect.top < vh) {
-                isRevealed = true;
-                gsap.to(overlay, {
-                  yPercent: -100,
-                  duration: 1.1,
-                  ease: "power2.inOut",
-                  overwrite: "auto",
-                });
-                if (img) {
-                  gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
-                }
-              }
-            }
-          },
-          onLeave: () => {
-            isRevealed = false;
-            gsap.set(overlay, { yPercent: 0 });
-            if (img) gsap.set(img, { scale: 1.4 });
-          },
-          onLeaveBack: () => {
-            isRevealed = false;
-            gsap.set(overlay, { yPercent: 0 });
-            if (img) gsap.set(img, { scale: 1.4 });
-          },
+          toggleActions: "restart reverse restart reverse",
+          animation: tl,
         });
-
-        const initialRect = box.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        if (initialRect.top <= vh * 0.92 && initialRect.bottom >= 0) {
-          isRevealed = true;
-          gsap.to(overlay, { yPercent: 100, duration: 1.1, ease: "power2.inOut", overwrite: "auto" });
-          if (img) {
-            gsap.fromTo(img, { scale: 1.4 }, { scale: 1, duration: 1.3, ease: "power2.out", overwrite: "auto" });
-          }
-        }
       });
-    };
+    }
+  }
 
-    setupCauseReveal(causeImageBoxes);
+  // --------------------------------------------------------
+  // Shape Sections - Parallax Depth Camouflage Scrub
+  // --------------------------------------------------------
+  const shapeSections = document.querySelectorAll(".shape-section");
+  shapeSections.forEach((sec) => {
+    const pImg = sec.querySelector(".parallex-image");
+    if (pImg) {
+      gsap.fromTo(
+        pImg,
+        { yPercent: -16 },
+        {
+          yPercent: 16,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sec,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        }
+      );
+    }
+  });
+
+  // --------------------------------------------------------
+  // Donate Section - Alternating Vertical Kinetic Reveal (Bidirectional)
+  // --------------------------------------------------------
+  const donateSection = document.querySelector(".donate-section");
+  if (donateSection) {
+    const donateBoxes = donateSection.querySelectorAll(".donate-box");
+    donateBoxes.forEach((box) => {
+      const content = box.querySelector(".donate-content");
+      const imgBox = box.querySelector(".donate-image-box");
+      const marquee = box.querySelector(".marquee-box");
+      const btn = box.querySelector(".theme-button");
+
+      const tl = gsap.timeline({ paused: true });
+
+      // Alternating vertical direction:
+      // Box 1 & 3: Content from top (y: -35), Image from bottom (y: 35)
+      // Box 2: Image from top (y: -35), Content from bottom (y: 35)
+      const isReverse = box.classList.contains("_2");
+      const contentY = isReverse ? 35 : -35;
+      const imgY = isReverse ? -35 : 35;
+
+      if (content) {
+        tl.fromTo(
+          content,
+          { y: contentY, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
+          0
+        );
+      }
+
+      if (imgBox) {
+        tl.fromTo(
+          imgBox,
+          { y: imgY, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
+          0
+        );
+      }
+
+      if (btn) {
+        tl.fromTo(
+          btn,
+          { scale: 0.9, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" },
+          0.2
+        );
+      }
+
+      if (marquee) {
+        tl.fromTo(
+          marquee,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          0.3
+        );
+      }
+
+      ScrollTrigger.create({
+        trigger: box,
+        start: "top 85%",
+        end: "bottom top",
+        toggleActions: "restart reverse restart reverse",
+        animation: tl,
+      });
+    });
+  }
+
+  // --------------------------------------------------------
+  // Review Section - 3D Perspective Tilt & Stamp Badges (Bidirectional)
+  // --------------------------------------------------------
+  const reviewSection = document.querySelector(".review-section.two");
+  if (reviewSection) {
+    const titleBox = reviewSection.querySelector(".section-title-box");
+    if (titleBox) {
+      gsap.fromTo(
+        titleBox,
+        { y: 35, scale: 0.95, opacity: 0 },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleBox,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
+          },
+        }
+      );
+    }
+
+    const testiBlocks = reviewSection.querySelectorAll(".review-grid .testimonial-block");
+    if (testiBlocks.length > 0) {
+      testiBlocks.forEach((block, idx) => {
+        const quoteIcon = block.querySelector(".testi-quote-icon");
+        const authorImg = block.querySelector(".review-image");
+        const authorInfo = block.querySelector(".testi-info-box");
+        const tiltAngle = idx % 2 === 0 ? -1.8 : 1.8;
+
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo(
+          block,
+          { y: 50, rotationZ: tiltAngle, opacity: 0 },
+          {
+            y: 0,
+            rotationZ: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0
+        );
+
+        if (quoteIcon) {
+          tl.fromTo(
+            quoteIcon,
+            { scale: 0.2, rotation: -30, opacity: 0 },
+            { scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" },
+            0.2
+          );
+        }
+
+        if (authorImg) {
+          tl.fromTo(
+            authorImg,
+            { scale: 0.7, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.5)" },
+            0.25
+          );
+        }
+
+        if (authorInfo) {
+          tl.fromTo(
+            authorInfo,
+            { x: -10, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
+            0.3
+          );
+        }
+
+        ScrollTrigger.create({
+          trigger: block,
+          start: "top 85%",
+          end: "bottom top",
+          toggleActions: "restart reverse restart reverse",
+          animation: tl,
+        });
+      });
+    }
+
+    // Mobile slider fallback
+    const sliderBlocks = reviewSection.querySelectorAll(".review-slider .testimonial-block");
+    if (sliderBlocks.length > 0) {
+      gsap.set(sliderBlocks, { opacity: 1 });
+    }
+  }
+
+  // --------------------------------------------------------
+  // Call to Action Section - Cinematic Canvas Zoom & Face Capsule Pop (Bidirectional)
+  // --------------------------------------------------------
+  const ctaSection = document.querySelector(".call-to-action");
+  if (ctaSection) {
+    const ctaWrapper = ctaSection.querySelector(".cta-wrapper");
+    const ctaTitle = ctaSection.querySelector(".cta-title");
+    const ctaSpans = ctaSection.querySelectorAll(".cta-title-span");
+    const ctaText = ctaSection.querySelector(".cta-text");
+    const ctaBtn = ctaSection.querySelector(".cta-btn-box");
+
+    if (ctaWrapper) {
+      const tl = gsap.timeline({ paused: true });
+
+      // 1. Cinematic canvas expansion
+      tl.fromTo(
+        ctaWrapper,
+        { scale: 0.94, opacity: 0.7, borderRadius: "36px" },
+        { scale: 1, opacity: 1, borderRadius: "20px", duration: 1, ease: "power3.out" },
+        0
+      );
+
+      // 2. Headline glide
+      if (ctaTitle) {
+        tl.fromTo(
+          ctaTitle,
+          { y: 35, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+          0.15
+        );
+      }
+
+      // 3. Floating face capsule pill bubbles pop out with elastic bounce
+      if (ctaSpans.length > 0) {
+        tl.fromTo(
+          ctaSpans,
+          { scale: 0, opacity: 0, rotation: -12 },
+          {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: "back.out(2.2)",
+          },
+          0.3
+        );
+      }
+
+      // 4. Subtitle and CTA button
+      if (ctaText) {
+        tl.fromTo(
+          ctaText,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+          0.35
+        );
+      }
+
+      if (ctaBtn) {
+        tl.fromTo(
+          ctaBtn,
+          { scale: 0.88, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.6)" },
+          0.45
+        );
+      }
+
+      ScrollTrigger.create({
+        trigger: ctaSection,
+        start: "top 80%",
+        end: "bottom top",
+        toggleActions: "restart reverse restart reverse",
+        animation: tl,
+      });
+    }
+  }
+
+  // --------------------------------------------------------
+  // Blog Section - Editorial Magazine Card Elevation (Bidirectional)
+  // --------------------------------------------------------
+  const blogSection = document.querySelector(".blog-section");
+  if (blogSection) {
+    const titleBox = blogSection.querySelector(".section-title-box");
+    if (titleBox) {
+      gsap.fromTo(
+        titleBox,
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: titleBox,
+            start: "top 85%",
+            end: "bottom top",
+            toggleActions: "restart reverse restart reverse",
+          },
+        }
+      );
+    }
+
+    const blogCards = blogSection.querySelectorAll(".blog-cms .cms-item");
+    if (blogCards.length > 0) {
+      blogCards.forEach((card) => {
+        const box = card.querySelector(".blog-box");
+        const metaBox = card.querySelector(".blog-meta-box");
+        const blogTitle = card.querySelector(".blog-title");
+        const readmore = card.querySelector(".readmore-box");
+
+        const tl = gsap.timeline({ paused: true });
+
+        if (box) {
+          tl.fromTo(
+            box,
+            { y: 55, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
+            0
+          );
+        }
+
+        if (metaBox) {
+          tl.fromTo(
+            metaBox,
+            { y: 18, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+            0.12
+          );
+        }
+
+        if (blogTitle) {
+          tl.fromTo(
+            blogTitle,
+            { y: 22, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+            0.2
+          );
+        }
+
+        if (readmore) {
+          tl.fromTo(
+            readmore,
+            { x: -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" },
+            0.28
+          );
+        }
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 85%",
+          end: "bottom top",
+          toggleActions: "restart reverse restart reverse",
+          animation: tl,
+        });
+      });
+    }
+  }
+
+  // --------------------------------------------------------
+  // Social Section - Rhythmic Cascade Wave & Icon Rotation Spring (Bidirectional)
+  // --------------------------------------------------------
+  const socialSection = document.querySelector(".social-section");
+  if (socialSection) {
+    const socialBoxes = socialSection.querySelectorAll(".social-box");
+    if (socialBoxes.length > 0) {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        socialBoxes,
+        { y: 35, opacity: 0, scale: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "back.out(1.5)",
+        },
+        0
+      );
+
+      const icons = socialSection.querySelectorAll(".social-icon");
+      if (icons.length > 0) {
+        tl.fromTo(
+          icons,
+          { rotation: -18, scale: 0.8 },
+          { rotation: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(2)" },
+          0.2
+        );
+      }
+
+      ScrollTrigger.create({
+        trigger: socialSection,
+        start: "top 85%",
+        end: "bottom top",
+        toggleActions: "restart reverse restart reverse",
+        animation: tl,
+      });
+    }
+  }
+
+  // --------------------------------------------------------
+  // Footer Section - Atmospheric Watermark Scrub Drift & Widget Soft Stagger (Bidirectional)
+  // --------------------------------------------------------
+  const footer = document.querySelector(".main-footer");
+  if (footer) {
+    const floatText = footer.querySelector(".footer-float-text");
+    if (floatText) {
+      gsap.fromTo(
+        floatText,
+        { xPercent: -8 },
+        {
+          xPercent: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footer,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1.5,
+          },
+        }
+      );
+    }
+
+    const widgets = footer.querySelectorAll(".footer-widget, .footer-bottom");
+    if (widgets.length > 0) {
+      gsap.fromTo(
+        widgets,
+        { y: 25, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.75,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: footer,
+            start: "top 88%",
+            end: "bottom bottom",
+            toggleActions: "restart none none reverse",
+          },
+        }
+      );
+    }
+  }
+
+  // --------------------------------------------------------
+  // Global ScrollTrigger Refresh on Full Window Load
+  // --------------------------------------------------------
+  if (document.readyState === "complete") {
+    ScrollTrigger.refresh();
+  } else {
+    window.addEventListener("load", () => {
+      ScrollTrigger.refresh();
+    });
   }
 });
 

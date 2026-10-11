@@ -3056,15 +3056,7 @@ blockquote {
 }
 
 .result-image-overlay {
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  background-color: #f5f2ea;
-  z-index: 2;
-  pointer-events: none;
-  will-change: transform;
+  display: none !important;
 }
 
 .result-image {
@@ -5524,16 +5516,7 @@ blockquote {
 
 .cause-image-box .image-overlay,
 .cause-image-box .image-overlay.two {
-  display: block;
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  background-color: var(--primary-bg);
-  z-index: 2;
-  pointer-events: none;
-  will-change: transform;
+  display: none !important;
 }
 
 .cause-image-box.two {
