@@ -1,6 +1,6 @@
 /**
  * ========================================================
- * Moshiur Rahman Memorial Foundation - Main JavaScript
+ * Mashiur Rahman Memorial Foundation - Main JavaScript
  * Dedicated to Continuing a Legacy of Compassion and Humanity
  * ========================================================
  */
@@ -140,59 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  // ========================================================
-  // Memorial Foundation
-  // Sticky Scroll Image Reveal (Disabled as requested)
-  // ========================================================
 
-  // ----------------------------------------------------
-  // Video Popup Lightbox Modal
-  // ----------------------------------------------------
-  const videoPopupTrigger = document.querySelector(".video-popup-trigger");
-  if (videoPopupTrigger) {
-    videoPopupTrigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      const videoUrl = "https://www.youtube.com/embed/-t-Um5td6Ic?autoplay=1";
-
-      let overlay = document.querySelector(".video-modal-overlay");
-      if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.className = "video-modal-overlay";
-        overlay.innerHTML = `
-          <div class="video-modal-container">
-            <button class="video-modal-close" aria-label="Close modal">&times;</button>
-            <div class="video-modal-frame">
-              <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(overlay);
-
-        const closeBtn = overlay.querySelector(".video-modal-close");
-        const closeModal = () => {
-          overlay.classList.remove("active");
-          const iframe = overlay.querySelector("iframe");
-          if (iframe) iframe.src = "";
-          document.body.style.overflow = "";
-        };
-
-        closeBtn.addEventListener("click", closeModal);
-        overlay.addEventListener("click", (ev) => {
-          if (ev.target === overlay) closeModal();
-        });
-        document.addEventListener("keydown", (ev) => {
-          if (ev.key === "Escape" && overlay.classList.contains("active")) {
-            closeModal();
-          }
-        });
-      }
-
-      const iframe = overlay.querySelector("iframe");
-      if (iframe) iframe.src = videoUrl;
-      overlay.classList.add("active");
-      document.body.style.overflow = "hidden";
-    });
-  }
 
   // ----------------------------------------------------
   // ----------------------------------------------------
@@ -588,41 +536,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", syncHeaderHeight, { passive: true });
   window.addEventListener("load", syncHeaderHeight, { passive: true });
 
-  // ----------------------------------------------------
-  // 5. Memorial Portrait Variant Switcher (Golden Halo vs Cutout)
-  // ----------------------------------------------------
-  const portraitSwitchBtns = document.querySelectorAll(".mm-switch-btn");
-  const portraitImg = document.querySelector(".mm-portrait-img");
-  if (portraitSwitchBtns.length > 0 && portraitImg) {
-    portraitSwitchBtns.forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const targetSrc = this.getAttribute("data-portrait");
-        if (!targetSrc || portraitImg.getAttribute("src") === targetSrc) return;
 
-        portraitSwitchBtns.forEach((b) => b.classList.remove("active"));
-        this.classList.add("active");
-
-        if (typeof gsap !== "undefined") {
-          gsap.to(portraitImg, {
-            opacity: 0,
-            scale: 0.96,
-            duration: 0.22,
-            ease: "power2.in",
-            onComplete: () => {
-              portraitImg.src = targetSrc;
-              gsap.to(portraitImg, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.32,
-                ease: "power2.out",
-              });
-            },
-          });
-        } else {
-          portraitImg.src = targetSrc;
-        }
-      });
-    });
-  }
 });
 

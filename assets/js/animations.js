@@ -1,6 +1,6 @@
 /**
  * ========================================================
- * Moshiur Rahman Memorial Foundation - Scroll Animations
+ * Mashiur Rahman Memorial Foundation - Scroll Animations
  * Handles GSAP & ScrollTrigger reveal animations
  * ========================================================
  */
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // --------------------------------------------------------
-  // About Section (Freedom Fighter Md. Moshiur Rahman)
+  // About Section (Freedom Fighter Md. Mashiur Rahman)
   // Detailed Multi-Layer Scroll In/Out & Continuous Ambient Motion
   // --------------------------------------------------------
   const memorialSection = document.querySelector(".mm-memorial-section");
