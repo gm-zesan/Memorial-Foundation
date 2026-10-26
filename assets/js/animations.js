@@ -191,12 +191,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 1. Left Column Editorial Header (Detailed Sequential Cascade)
     if (titleBlock) {
+      if (subDot) gsap.set(subDot, { scale: 0, opacity: 0 });
+      if (subText) gsap.set(subText, { x: -20, opacity: 0 });
+      if (sectionTitle) gsap.set(sectionTitle, { y: 35, opacity: 0 });
+      if (lifeTagline) gsap.set(lifeTagline, { y: 20, opacity: 0 });
+      if (quoteText) gsap.set(quoteText, { x: -25, opacity: 0 });
+      if (bioLead) gsap.set(bioLead, { y: 22, opacity: 0 });
+      if (bioParagraph) gsap.set(bioParagraph, { y: 25, opacity: 0 });
+
       const headerTl = gsap.timeline({ paused: true });
 
       if (subDot) {
         headerTl.fromTo(
           subDot,
-          { scale: 0, opacity: 0 },
+          { scale: 0, opacity: 0, immediateRender: true },
           { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(3)" },
           0
         );
@@ -205,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (subText) {
         headerTl.fromTo(
           subText,
-          { x: -20, opacity: 0 },
+          { x: -20, opacity: 0, immediateRender: true },
           { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.08
         );
@@ -214,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (sectionTitle) {
         headerTl.fromTo(
           sectionTitle,
-          { y: 35, opacity: 0 },
+          { y: 35, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
           0.16
         );
@@ -223,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (lifeTagline) {
         headerTl.fromTo(
           lifeTagline,
-          { y: 20, opacity: 0 },
+          { y: 20, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
           0.26
         );
@@ -232,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (quoteText) {
         headerTl.fromTo(
           quoteText,
-          { x: -25, opacity: 0 },
+          { x: -25, opacity: 0, immediateRender: true },
           { x: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
           0.34
         );
@@ -241,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (bioLead) {
         headerTl.fromTo(
           bioLead,
-          { y: 22, opacity: 0 },
+          { y: 22, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
           0.44
         );
@@ -250,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (bioParagraph) {
         headerTl.fromTo(
           bioParagraph,
-          { y: 25, opacity: 0 },
+          { y: 25, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
           0.52
         );
@@ -260,13 +268,14 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: titleBlock,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: headerTl,
       });
     }
 
     // 2. Core Pillars Grid (Each Card & Inner Icon Granular Entrance)
     if (valuesGrid && valueCards.length > 0) {
+      gsap.set(valueCards, { y: 40, opacity: 0, scale: 0.95 });
       const valuesTl = gsap.timeline({ paused: true });
 
       valueCards.forEach((card, idx) => {
@@ -275,9 +284,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardText = card.querySelector(".mm-value-text");
         const cardOffset = idx * 0.12;
 
+        if (iconBox) gsap.set(iconBox, { scale: 0.2, rotation: -30, opacity: 0 });
+        if (cardTitle) gsap.set(cardTitle, { y: 12, opacity: 0 });
+        if (cardText) gsap.set(cardText, { y: 10, opacity: 0 });
+
         valuesTl.fromTo(
           card,
-          { y: 40, opacity: 0, scale: 0.95 },
+          { y: 40, opacity: 0, scale: 0.95, immediateRender: true },
           { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: "back.out(1.3)" },
           cardOffset
         );
@@ -285,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (iconBox) {
           valuesTl.fromTo(
             iconBox,
-            { scale: 0.2, rotation: -30, opacity: 0 },
+            { scale: 0.2, rotation: -30, opacity: 0, immediateRender: true },
             { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(2.5)" },
             cardOffset + 0.12
           );
@@ -294,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cardTitle) {
           valuesTl.fromTo(
             cardTitle,
-            { y: 12, opacity: 0 },
+            { y: 12, opacity: 0, immediateRender: true },
             { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
             cardOffset + 0.18
           );
@@ -303,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cardText) {
           valuesTl.fromTo(
             cardText,
-            { y: 10, opacity: 0 },
+            { y: 10, opacity: 0, immediateRender: true },
             { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
             cardOffset + 0.22
           );
@@ -314,19 +327,29 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: valuesGrid,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: valuesTl,
       });
     }
 
     // 3. Right Column: Portrait Frame & Foundation Legacy Card
     if (portraitWrap || portraitFrame || legacyBox) {
+      if (portraitFrame) gsap.set(portraitFrame, { y: 45, opacity: 0, scale: 0.95 });
+      if (portraitImg) gsap.set(portraitImg, { scale: 1.08, opacity: 0 });
+      if (portraitCaption) gsap.set(portraitCaption, { y: 20, opacity: 0 });
+      if (legacyBox) gsap.set(legacyBox, { y: 40, opacity: 0, scale: 0.96 });
+      if (legacyTitle) gsap.set(legacyTitle, { y: 15, opacity: 0 });
+      if (legacyDesc) gsap.set(legacyDesc, { y: 15, opacity: 0 });
+      if (milestoneBox) gsap.set(milestoneBox, { x: 25, opacity: 0 });
+      if (milestoneIcon) gsap.set(milestoneIcon, { scale: 0.2, rotation: -25, opacity: 0 });
+      if (legacyPrayer) gsap.set(legacyPrayer, { y: 12, opacity: 0 });
+
       const rightColTl = gsap.timeline({ paused: true });
 
       if (portraitFrame) {
         rightColTl.fromTo(
           portraitFrame,
-          { y: 45, opacity: 0, scale: 0.95 },
+          { y: 45, opacity: 0, scale: 0.95, immediateRender: true },
           { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" },
           0
         );
@@ -335,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (portraitImg) {
         rightColTl.fromTo(
           portraitImg,
-          { scale: 1.08, opacity: 0 },
+          { scale: 1.08, opacity: 0, immediateRender: true },
           { scale: 1, opacity: 1, duration: 1.1, ease: "power2.out" },
           0.1
         );
@@ -344,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (portraitCaption) {
         rightColTl.fromTo(
           portraitCaption,
-          { y: 20, opacity: 0 },
+          { y: 20, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.65, ease: "power2.out" },
           0.25
         );
@@ -353,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (legacyBox) {
         rightColTl.fromTo(
           legacyBox,
-          { y: 40, opacity: 0, scale: 0.96 },
+          { y: 40, opacity: 0, scale: 0.96, immediateRender: true },
           { y: 0, opacity: 1, scale: 1, duration: 0.85, ease: "power3.out" },
           0.3
         );
@@ -362,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (legacyTitle) {
         rightColTl.fromTo(
           legacyTitle,
-          { y: 15, opacity: 0 },
+          { y: 15, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
           0.42
         );
@@ -371,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (legacyDesc) {
         rightColTl.fromTo(
           legacyDesc,
-          { y: 15, opacity: 0 },
+          { y: 15, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.55, ease: "power2.out" },
           0.48
         );
@@ -380,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (milestoneBox) {
         rightColTl.fromTo(
           milestoneBox,
-          { x: 25, opacity: 0 },
+          { x: 25, opacity: 0, immediateRender: true },
           { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.55
         );
@@ -389,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (milestoneIcon) {
         rightColTl.fromTo(
           milestoneIcon,
-          { scale: 0.2, rotation: -25, opacity: 0 },
+          { scale: 0.2, rotation: -25, opacity: 0, immediateRender: true },
           { scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" },
           0.62
         );
@@ -398,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (legacyPrayer) {
         rightColTl.fromTo(
           legacyPrayer,
-          { y: 12, opacity: 0 },
+          { y: 12, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.68
         );
@@ -408,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: portraitWrap || portraitFrame || legacyBox,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: rightColTl,
       });
     }
@@ -478,12 +501,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 1. Title Block Granular Entrance
     if (resultTitleWrap) {
+      if (resDot) gsap.set(resDot, { scale: 0, opacity: 0 });
+      if (resSubtitle) gsap.set(resSubtitle, { x: -20, opacity: 0 });
+      if (resTitle) gsap.set(resTitle, { y: 35, opacity: 0 });
+      if (resTextBox) gsap.set(resTextBox, { y: 20, opacity: 0 });
+
       const resHeaderTl = gsap.timeline({ paused: true });
 
       if (resDot) {
         resHeaderTl.fromTo(
           resDot,
-          { scale: 0, opacity: 0 },
+          { scale: 0, opacity: 0, immediateRender: true },
           { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(3)" },
           0
         );
@@ -492,7 +520,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (resSubtitle) {
         resHeaderTl.fromTo(
           resSubtitle,
-          { x: -20, opacity: 0 },
+          { x: -20, opacity: 0, immediateRender: true },
           { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.08
         );
@@ -501,7 +529,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (resTitle) {
         resHeaderTl.fromTo(
           resTitle,
-          { y: 35, opacity: 0 },
+          { y: 35, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
           0.16
         );
@@ -510,7 +538,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (resTextBox) {
         resHeaderTl.fromTo(
           resTextBox,
-          { y: 20, opacity: 0 },
+          { y: 20, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
           0.26
         );
@@ -520,7 +548,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: resultTitleWrap,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: resHeaderTl,
       });
     }
@@ -535,11 +563,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const mealPlus = col1.querySelector(".count-number-wrap .count-number:last-child");
 
       if (mealBox) {
+        gsap.set(mealBox, { y: 55, scale: 0.94, opacity: 0 });
+        if (mealShape) gsap.set(mealShape, { scale: 0.85, rotation: -12, opacity: 0 });
+        if (mealPlus) gsap.set(mealPlus, { scale: 0, rotation: -40, opacity: 0 });
+        if (mealContent) gsap.set(mealContent, { y: 22, opacity: 0 });
+
         const col1Tl = gsap.timeline({ paused: true });
 
         col1Tl.fromTo(
           mealBox,
-          { y: 55, scale: 0.94, opacity: 0 },
+          { y: 55, scale: 0.94, opacity: 0, immediateRender: true },
           { y: 0, scale: 1, opacity: 1, duration: 0.85, ease: "power3.out" },
           0
         );
@@ -547,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (mealShape) {
           col1Tl.fromTo(
             mealShape,
-            { scale: 0.85, rotation: -12, opacity: 0 },
+            { scale: 0.85, rotation: -12, opacity: 0, immediateRender: true },
             { scale: 1, rotation: 0, opacity: 1, duration: 0.9, ease: "back.out(1.4)" },
             0.15
           );
@@ -556,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (mealPlus) {
           col1Tl.fromTo(
             mealPlus,
-            { scale: 0, rotation: -40, opacity: 0 },
+            { scale: 0, rotation: -40, opacity: 0, immediateRender: true },
             { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(2.5)" },
             0.25
           );
@@ -565,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (mealContent) {
           col1Tl.fromTo(
             mealContent,
-            { y: 22, opacity: 0 },
+            { y: 22, opacity: 0, immediateRender: true },
             { y: 0, opacity: 1, duration: 0.65, ease: "power2.out" },
             0.3
           );
@@ -575,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col1,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: col1Tl,
         });
       }
@@ -589,12 +622,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const col2Plus = col2.querySelector(".count-number-wrap .count-number:last-child");
 
       if (col2) {
+        if (col2ImgBox) gsap.set(col2ImgBox, { y: -35, x: -15, opacity: 0 });
+        if (col2Img) gsap.set(col2Img, { scale: 1.4, transformOrigin: "center center" });
+        if (col2Box) gsap.set(col2Box, { y: 40, x: 15, scale: 0.96, opacity: 0 });
+        if (col2Plus) gsap.set(col2Plus, { scale: 0, opacity: 0 });
+        if (col2Content) gsap.set(col2Content, { y: 15, opacity: 0 });
+
         const col2Tl = gsap.timeline({ paused: true });
 
         if (col2ImgBox) {
           col2Tl.fromTo(
             col2ImgBox,
-            { y: -35, x: -15, opacity: 0 },
+            { y: -35, x: -15, opacity: 0, immediateRender: true },
             { y: 0, x: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
             0
           );
@@ -603,7 +642,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col2Img) {
           col2Tl.fromTo(
             col2Img,
-            { scale: 1.4, transformOrigin: "center center" },
+            { scale: 1.4, transformOrigin: "center center", immediateRender: true },
             { scale: 1, duration: 1.3, ease: "power2.out" },
             0
           );
@@ -612,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col2Box) {
           col2Tl.fromTo(
             col2Box,
-            { y: 40, x: 15, scale: 0.96, opacity: 0 },
+            { y: 40, x: 15, scale: 0.96, opacity: 0, immediateRender: true },
             { y: 0, x: 0, scale: 1, opacity: 1, duration: 0.85, ease: "power3.out" },
             0.1
           );
@@ -621,7 +660,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col2Plus) {
           col2Tl.fromTo(
             col2Plus,
-            { scale: 0, opacity: 0 },
+            { scale: 0, opacity: 0, immediateRender: true },
             { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" },
             0.25
           );
@@ -630,7 +669,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col2Content) {
           col2Tl.fromTo(
             col2Content,
-            { y: 15, opacity: 0 },
+            { y: 15, opacity: 0, immediateRender: true },
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
             0.3
           );
@@ -640,7 +679,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col2,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: col2Tl,
         });
       }
@@ -654,12 +693,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const col3Plus = col3.querySelector(".count-number-wrap .count-number:last-child");
 
       if (col3) {
+        if (col3Box) gsap.set(col3Box, { y: -35, x: -15, scale: 0.96, opacity: 0 });
+        if (col3ImgBox) gsap.set(col3ImgBox, { y: 40, x: 15, opacity: 0 });
+        if (col3Img) gsap.set(col3Img, { scale: 1.4, transformOrigin: "center center" });
+        if (col3Plus) gsap.set(col3Plus, { scale: 0, opacity: 0 });
+        if (col3Content) gsap.set(col3Content, { y: 15, opacity: 0 });
+
         const col3Tl = gsap.timeline({ paused: true });
 
         if (col3Box) {
           col3Tl.fromTo(
             col3Box,
-            { y: -35, x: -15, scale: 0.96, opacity: 0 },
+            { y: -35, x: -15, scale: 0.96, opacity: 0, immediateRender: true },
             { y: 0, x: 0, scale: 1, opacity: 1, duration: 0.85, ease: "power3.out" },
             0
           );
@@ -668,7 +713,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col3ImgBox) {
           col3Tl.fromTo(
             col3ImgBox,
-            { y: 40, x: 15, opacity: 0 },
+            { y: 40, x: 15, opacity: 0, immediateRender: true },
             { y: 0, x: 0, opacity: 1, duration: 0.85, ease: "power3.out" },
             0.1
           );
@@ -677,7 +722,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col3Img) {
           col3Tl.fromTo(
             col3Img,
-            { scale: 1.4, transformOrigin: "center center" },
+            { scale: 1.4, transformOrigin: "center center", immediateRender: true },
             { scale: 1, duration: 1.3, ease: "power2.out" },
             0.1
           );
@@ -686,7 +731,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col3Plus) {
           col3Tl.fromTo(
             col3Plus,
-            { scale: 0, opacity: 0 },
+            { scale: 0, opacity: 0, immediateRender: true },
             { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" },
             0.25
           );
@@ -695,7 +740,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (col3Content) {
           col3Tl.fromTo(
             col3Content,
-            { y: 15, opacity: 0 },
+            { y: 15, opacity: 0, immediateRender: true },
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
             0.3
           );
@@ -705,7 +750,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col3,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: col3Tl,
         });
       }
@@ -807,12 +852,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const causeTitle = causeSection.querySelector(".cause-top-box .section-title");
 
     if (causeTitleBox) {
+      if (causeDot) gsap.set(causeDot, { scale: 0, opacity: 0 });
+      if (causeSubtitle) gsap.set(causeSubtitle, { x: -20, opacity: 0 });
+      if (causeTitle) gsap.set(causeTitle, { y: 35, opacity: 0 });
+
       const headerTl = gsap.timeline({ paused: true });
 
       if (causeDot) {
         headerTl.fromTo(
           causeDot,
-          { scale: 0, opacity: 0 },
+          { scale: 0, opacity: 0, immediateRender: true },
           { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(3)" },
           0
         );
@@ -821,7 +870,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (causeSubtitle) {
         headerTl.fromTo(
           causeSubtitle,
-          { x: -20, opacity: 0 },
+          { x: -20, opacity: 0, immediateRender: true },
           { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.08
         );
@@ -830,7 +879,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (causeTitle) {
         headerTl.fromTo(
           causeTitle,
-          { y: 35, opacity: 0 },
+          { y: 35, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
           0.16
         );
@@ -840,7 +889,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: causeTitleBox,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: headerTl,
       });
     }
@@ -1063,7 +1112,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: item,
           start: startTrigger,
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: tl,
           onToggle: (self) => {
             console.log(`%c[CAUSE_DIAG] Card #${idx} onToggle`, "color: #ff8800", {
@@ -1135,14 +1184,14 @@ document.addEventListener("DOMContentLoaded", function () {
     mmCause.add("(min-width: 992px)", () => {
       const desktopItems = causeSection.querySelectorAll(".cause-wrapper-inner.hide-md .cause-cms");
       if (desktopItems.length > 0) {
-        initCauseCards(desktopItems, "top 45%");
+        initCauseCards(desktopItems, "top 85%");
       }
     });
 
     mmCause.add("(max-width: 991px)", () => {
       const mobileItems = causeSection.querySelectorAll(".cause-wrapper-inner.show-md .cause-cms");
       if (mobileItems.length > 0) {
-        initCauseCards(mobileItems, "top 55%");
+        initCauseCards(mobileItems, "top 85%");
       }
     });
 
@@ -1210,8 +1259,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const donateBoxes = donateSection.querySelectorAll(".donate-box");
 
     // Helper for responsive start trigger
-    const isMobileDonate = window.innerWidth <= 991;
-    const donateStart = isMobileDonate ? "top 60%" : "top 50%";
+    const donateStart = "top 85%";
 
     // Part 1: Volunteer Card (Independent Animation)
     if (donateBoxes.length >= 1) {
@@ -1291,7 +1339,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box1,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: box1Tl,
       });
     }
@@ -1409,7 +1457,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box2,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: box2Tl,
       });
     }
@@ -1503,7 +1551,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box3,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: box3Tl,
       });
     }
@@ -1547,9 +1595,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (reviewSection) {
     const titleBox = reviewSection.querySelector(".section-title-box");
     if (titleBox) {
+      gsap.set(titleBox, { y: 35, scale: 0.95, opacity: 0 });
       gsap.fromTo(
         titleBox,
-        { y: 35, scale: 0.95, opacity: 0 },
+        { y: 35, scale: 0.95, opacity: 0, immediateRender: true },
         {
           y: 0,
           scale: 1,
@@ -1560,7 +1609,7 @@ document.addEventListener("DOMContentLoaded", function () {
             trigger: titleBox,
             start: "top 85%",
             end: "bottom top",
-            toggleActions: "restart reverse restart reverse",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -1568,17 +1617,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const testiBlocks = reviewSection.querySelectorAll(".review-grid .testimonial-block");
     if (testiBlocks.length > 0) {
+      gsap.set(testiBlocks, { y: 50, opacity: 0 });
+
       testiBlocks.forEach((block, idx) => {
         const quoteIcon = block.querySelector(".testi-quote-icon");
         const authorImg = block.querySelector(".review-image");
         const authorInfo = block.querySelector(".testi-info-box");
         const tiltAngle = idx % 2 === 0 ? -1.8 : 1.8;
 
+        if (quoteIcon) gsap.set(quoteIcon, { scale: 0.2, rotation: -30, opacity: 0 });
+        if (authorImg) gsap.set(authorImg, { scale: 0.7, opacity: 0 });
+        if (authorInfo) gsap.set(authorInfo, { x: -10, opacity: 0 });
+
         const tl = gsap.timeline({ paused: true });
 
         tl.fromTo(
           block,
-          { y: 50, rotationZ: tiltAngle, opacity: 0 },
+          { y: 50, rotationZ: tiltAngle, opacity: 0, immediateRender: true },
           {
             y: 0,
             rotationZ: 0,
@@ -1592,7 +1647,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (quoteIcon) {
           tl.fromTo(
             quoteIcon,
-            { scale: 0.2, rotation: -30, opacity: 0 },
+            { scale: 0.2, rotation: -30, opacity: 0, immediateRender: true },
             { scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" },
             0.2
           );
@@ -1601,7 +1656,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (authorImg) {
           tl.fromTo(
             authorImg,
-            { scale: 0.7, opacity: 0 },
+            { scale: 0.7, opacity: 0, immediateRender: true },
             { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.5)" },
             0.25
           );
@@ -1610,7 +1665,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (authorInfo) {
           tl.fromTo(
             authorInfo,
-            { x: -10, opacity: 0 },
+            { x: -10, opacity: 0, immediateRender: true },
             { x: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
             0.3
           );
@@ -1620,7 +1675,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: block,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: tl,
         });
       });
@@ -1645,12 +1700,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const ctaBtn = ctaSection.querySelector(".cta-btn-box");
 
     if (ctaWrapper) {
+      gsap.set(ctaWrapper, { scale: 0.94, opacity: 0.7, borderRadius: "36px" });
+      if (ctaTitle) gsap.set(ctaTitle, { y: 35, opacity: 0 });
+      if (ctaSpans.length > 0) gsap.set(ctaSpans, { scale: 0, opacity: 0, rotation: -12 });
+      if (ctaText) gsap.set(ctaText, { y: 20, opacity: 0 });
+      if (ctaBtn) gsap.set(ctaBtn, { scale: 0.88, opacity: 0 });
+
       const tl = gsap.timeline({ paused: true });
 
       // 1. Cinematic canvas expansion
       tl.fromTo(
         ctaWrapper,
-        { scale: 0.94, opacity: 0.7, borderRadius: "36px" },
+        { scale: 0.94, opacity: 0.7, borderRadius: "36px", immediateRender: true },
         { scale: 1, opacity: 1, borderRadius: "20px", duration: 1, ease: "power3.out" },
         0
       );
@@ -1659,7 +1720,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (ctaTitle) {
         tl.fromTo(
           ctaTitle,
-          { y: 35, opacity: 0 },
+          { y: 35, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
           0.15
         );
@@ -1669,7 +1730,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (ctaSpans.length > 0) {
         tl.fromTo(
           ctaSpans,
-          { scale: 0, opacity: 0, rotation: -12 },
+          { scale: 0, opacity: 0, rotation: -12, immediateRender: true },
           {
             scale: 1,
             opacity: 1,
@@ -1686,7 +1747,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (ctaText) {
         tl.fromTo(
           ctaText,
-          { y: 20, opacity: 0 },
+          { y: 20, opacity: 0, immediateRender: true },
           { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
           0.35
         );
@@ -1695,7 +1756,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (ctaBtn) {
         tl.fromTo(
           ctaBtn,
-          { scale: 0.88, opacity: 0 },
+          { scale: 0.88, opacity: 0, immediateRender: true },
           { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.6)" },
           0.45
         );
@@ -1705,7 +1766,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: ctaSection,
         start: "top 80%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: tl,
       });
     }
@@ -1716,8 +1777,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // --------------------------------------------------------
   const blogSection = document.querySelector(".blog-section");
   if (blogSection) {
-    const isMobileBlog = window.innerWidth <= 991;
-    const blogStart = isMobileBlog ? "top 65%" : "top 55%";
+    const blogStart = "top 85%";
 
     // 1. Header Animation (Subtitle, Dot Pulse, Section Title)
     const titleBox = blogSection.querySelector(".section-title-box");
@@ -1753,7 +1813,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: titleBox,
         start: "top 78%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: headerTl,
       });
 
@@ -1902,7 +1962,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: card,
           start: blogStart,
           end: "bottom top",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play reverse play reverse",
           animation: tl,
         });
       });
@@ -2003,7 +2063,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: socialSection,
         start: "top 78%",
         end: "bottom top",
-        toggleActions: "restart reverse restart reverse",
+        toggleActions: "play reverse play reverse",
         animation: tl,
       });
     }
@@ -2185,8 +2245,41 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
-  // Global ScrollTrigger Refresh on Full Window Load
+  // Global ScrollTrigger Refresh & Layout Stability Handlers
+  // Ensures trigger coordinates are always accurate as lazy images & content load
   // --------------------------------------------------------
+  let refreshTimer = null;
+  const debouncedRefresh = () => {
+    if (refreshTimer) clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 120);
+  };
+
+  // 1. Refresh whenever any image finishes loading (vital for lazy-loaded images)
+  const allImgs = document.querySelectorAll("img");
+  allImgs.forEach((img) => {
+    if (img.complete) return;
+    img.addEventListener("load", debouncedRefresh, { once: true });
+    img.addEventListener("error", debouncedRefresh, { once: true });
+  });
+
+  // 2. Watch document body size changes (layout shifts, swiper updates, dynamic expansions)
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => {
+      debouncedRefresh();
+    });
+    ro.observe(document.body);
+  }
+
+  // 3. Fonts ready check
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      debouncedRefresh();
+    });
+  }
+
+  // 4. Full window load fallback
   if (document.readyState === "complete") {
     ScrollTrigger.refresh();
   } else {
