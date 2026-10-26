@@ -45,7 +45,7 @@
 						<div class="header-menu-box">
 							<a href="index.html" class="header-menu-text">Home</a>
 							<a href="about.html" class="header-menu-text">Who We Are</a>
-							<a href="programs.html" class="header-menu-text active" aria-current="page">Causes</a>
+							<a href="causes.html" class="header-menu-text active" aria-current="page">Causes</a>
 							<a href="stories.html" class="header-menu-text">Stories</a>
 							<a href="contact.html" class="header-menu-text">Contact Us</a>
 						</div>
@@ -83,7 +83,7 @@
 							<a href="about.html" class="mobile-menu-link d-inline-block">
 								<div class="mobile-menu-title">Who We Are</div>
 							</a>
-							<a href="programs.html" class="mobile-menu-link d-inline-block active" aria-current="page">
+							<a href="causes.html" class="mobile-menu-link d-inline-block active" aria-current="page">
 								<div class="mobile-menu-title">Causes</div>
 							</a>
 							<a href="stories.html" class="mobile-menu-link d-inline-block">
@@ -108,12 +108,29 @@
 				</div>
 				<div class="causes-hero-overlay"></div>
 				<div class="container causes-hero-container">
-					<div class="causes-hero-content">
-						<h1 class="causes-hero-title">Transforming Lives Through Compassion</h1>
-						<div class="causes-hero-breadcrumb">
-							<a href="index.html">Home</a>
-							<span>/</span>
-							<span style="color: #ffffff;">Causes & Programs</span>
+					<div class="causes-hero-wrapper">
+						<div class="causes-hero-content">
+							<h1 class="causes-hero-title">Transforming Lives Through Compassion</h1>
+							<div class="causes-hero-breadcrumb">
+								<a href="index.html">Home</a>
+								<span>/</span>
+								<span style="color: #ffffff;">Causes</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Camouflage Parallax Divider -->
+			<section class="shape-section">
+				<div class="container">
+					<div class="shape-wrapper">
+						<div class="parallex-image-outer">
+							<img sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+								alt="Beige and off-white abstract camouflage pattern with irregular organic shapes."
+								src="assets/images/shapes/698c4467c6804b943f83dadd_shape.avif" loading="lazy"
+								srcset="assets/images/shapes/698c4467c6804b943f83dadd_shape-p-500.avif 500w, assets/images/shapes/698c4467c6804b943f83dadd_shape-p-800.avif 800w, assets/images/shapes/698c4467c6804b943f83dadd_shape.avif 1398w"
+								class="parallex-image" />
 						</div>
 					</div>
 				</div>
@@ -136,13 +153,17 @@
 						<!-- 2-Column Causes Cards Grid -->
 						<div class="causes-cards-grid">
 							<!-- Card 1: Food Relief -->
-							<div class="causes-grid-card" data-category="food">
-								<div class="causes-card-media">
-									<img src="assets/images/causes/699d490a55fa3d5b718ba43e_1.avif" loading="lazy"
-										alt="Provide Free Food Relief for Needy Peoples" class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="food" data-href="cause-details.html?cause=food-relief" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=food-relief';">
+								<a href="cause-details.html?cause=food-relief" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/causes/699d490a55fa3d5b718ba43e_1.avif" loading="lazy"
+											alt="Provide Free Food Relief for Needy Peoples" class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Provide Free Food Relief for Needy Peoples</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=food-relief">Provide Free Food Relief for Needy Peoples</a>
+									</h3>
 									<p class="causes-card-text">Ensuring that vulnerable children have access to
 										nutritious meals, our program delivers free food relief with care and
 										compassion, supporting their health, growth, and well-being.</p>
@@ -160,13 +181,17 @@
 							</div>
 
 							<!-- Card 2: Education Fund -->
-							<div class="causes-grid-card" data-category="education">
-								<div class="causes-card-media">
-									<img src="assets/images/causes/699d48770598f6b4f1e489da_2.avif" loading="lazy"
-										alt="Education Fund for School Infrastructure" class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="education" data-href="cause-details.html?cause=education" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=education';">
+								<a href="cause-details.html?cause=education" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/causes/699d48770598f6b4f1e489da_2.avif" loading="lazy"
+											alt="Education Fund for School Infrastructure" class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Education Fund for School Infrastructure</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=education">Education Fund for School Infrastructure</a>
+									</h3>
 									<p class="causes-card-text">Funding classrooms, learning materials, technology, and
 										safe environments to create better opportunities for students to learn and grow.
 									</p>
@@ -184,13 +209,17 @@
 							</div>
 
 							<!-- Card 3: Clean Water -->
-							<div class="causes-grid-card" data-category="water">
-								<div class="causes-card-media">
-									<img src="assets/images/causes/699d46d2aa862b409f4a7238_3.avif" loading="lazy"
-										alt="Clean Water Access for Rural Communities" class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="water" data-href="cause-details.html?cause=clean-water" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=clean-water';">
+								<a href="cause-details.html?cause=clean-water" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/causes/699d46d2aa862b409f4a7238_3.avif" loading="lazy"
+											alt="Clean Water Access for Rural Communities" class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Clean Water Access for Rural Communities</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=clean-water">Clean Water Access for Rural Communities</a>
+									</h3>
 									<p class="causes-card-text">Installing deep tube-wells and solar-powered filtration
 										stations to bring pure, safe drinking water to drought-affected rural villages
 										and remote households.</p>
@@ -208,13 +237,17 @@
 							</div>
 
 							<!-- Card 4: Healthcare Aid -->
-							<div class="causes-grid-card" data-category="healthcare">
-								<div class="causes-card-media">
-									<img src="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif" loading="lazy"
-										alt="Emergency Medical Aid and Health Camps" class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="healthcare" data-href="cause-details.html?cause=healthcare" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=healthcare';">
+								<a href="cause-details.html?cause=healthcare" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif" loading="lazy"
+											alt="Emergency Medical Aid and Health Camps" class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Emergency Medical Aid and Health Camps</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=healthcare">Emergency Medical Aid and Health Camps</a>
+									</h3>
 									<p class="causes-card-text">Deploying specialized doctors, essential medications,
 										diagnostic screenings, and maternal care to neglected remote communities without
 										access to clinics.</p>
@@ -232,14 +265,18 @@
 							</div>
 
 							<!-- Card 5: Winter Warmth -->
-							<div class="causes-grid-card" data-category="relief">
-								<div class="causes-card-media">
-									<img src="assets/images/about/69a68322e3ef875bb532e28a_volunteers-teaming-up-organize-donations-charity_23-2149230522.avif"
-										loading="lazy" alt="Winter Warmth & Blanket Distribution"
-										class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="relief" data-href="cause-details.html?cause=winter-warmth" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=winter-warmth';">
+								<a href="cause-details.html?cause=winter-warmth" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/about/69a68322e3ef875bb532e28a_volunteers-teaming-up-organize-donations-charity_23-2149230522.avif"
+											loading="lazy" alt="Winter Warmth & Blanket Distribution"
+											class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Winter Warmth & Blanket Distribution</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=winter-warmth">Winter Warmth & Blanket Distribution</a>
+									</h3>
 									<p class="causes-card-text">Protecting vulnerable elderly, destitute families, and
 										street children from severe winter conditions with heavy thermal blankets and
 										warm protective clothing.</p>
@@ -257,14 +294,18 @@
 							</div>
 
 							<!-- Card 6: Orphan Support -->
-							<div class="causes-grid-card" data-category="education">
-								<div class="causes-card-media">
-									<img src="assets/images/about/69a67ccb9c5ec0c74711394e_2148638019.avif"
-										loading="lazy" alt="Orphan Care & Vulnerable Child Sponsorship"
-										class="causes-card-img" />
-								</div>
+							<div class="causes-grid-card" data-category="education" data-href="cause-details.html?cause=orphan-care" onclick="if(!event.target.closest('.causes-card-action-btn')) window.location.href='cause-details.html?cause=orphan-care';">
+								<a href="cause-details.html?cause=orphan-care" class="causes-card-media-wrap">
+									<div class="causes-card-media">
+										<img src="assets/images/about/69a67ccb9c5ec0c74711394e_2148638019.avif"
+											loading="lazy" alt="Orphan Care & Vulnerable Child Sponsorship"
+											class="causes-card-img" />
+									</div>
+								</a>
 								<div class="causes-card-body">
-									<h3 class="causes-card-title">Orphan Care & Vulnerable Child Sponsorship</h3>
+									<h3 class="causes-card-title">
+										<a href="cause-details.html?cause=orphan-care">Orphan Care & Vulnerable Child Sponsorship</a>
+									</h3>
 									<p class="causes-card-text">Providing holistic support including safe shelter,
 										nutritious meals, school supplies, healthcare, and compassionate mentorship for
 										orphaned and displaced children.</p>
@@ -285,58 +326,90 @@
 				</div>
 			</section>
 
+			<!-- Camouflage Parallax Divider -->
+			<section class="shape-section">
+				<div class="container">
+					<div class="shape-wrapper">
+						<div class="parallex-image-outer">
+							<img sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+								alt="Beige and off-white abstract camouflage pattern with irregular organic shapes."
+								src="assets/images/shapes/698c4467c6804b943f83dadd_shape.avif" loading="lazy"
+								srcset="assets/images/shapes/698c4467c6804b943f83dadd_shape-p-500.avif 500w, assets/images/shapes/698c4467c6804b943f83dadd_shape-p-800.avif 800w, assets/images/shapes/698c4467c6804b943f83dadd_shape.avif 1398w"
+								class="parallex-image" />
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<!-- Enhanced Luxury Causes CTA Section -->
 			<section class="causes-cta-section">
 				<div class="container">
-					<div class="causes-cta-card">
-						<div class="causes-cta-bg-layer">
-							<img src="assets/images/about/69a68322e3ef875bb532e28a_volunteers-teaming-up-organize-donations-charity_23-2149230522.avif"
-								alt="Volunteers organizing humanitarian relief donations" />
+					<div class="causes-cta-wrapper">
+						<div class="causes-cta-card">
+							<div class="causes-cta-bg-layer">
+								<img src="assets/images/about/69a68322e3ef875bb532e28a_volunteers-teaming-up-organize-donations-charity_23-2149230522.avif"
+									alt="Volunteers organizing humanitarian relief donations" />
+							</div>
+							<div class="causes-cta-glow"></div>
+							<div class="causes-cta-content">
+								<h2 class="causes-cta-title">Every Contribution Brings Food, Clean Water, and Hope</h2>
+								<div class="causes-cta-amounts">
+									<button type="button" class="causes-amount-btn" data-amt="25">$25</button>
+									<button type="button" class="causes-amount-btn active" data-amt="50">$50</button>
+									<button type="button" class="causes-amount-btn" data-amt="100">$100</button>
+									<button type="button" class="causes-amount-btn" data-amt="250">$250</button>
+									<button type="button" class="causes-amount-btn" data-amt="custom">Custom</button>
+								</div>
+								<div class="causes-cta-actions">
+									<a href="donate.html?amount=50" id="causesCtaDonateBtn"
+										class="theme-button theme-btn-primary" style="padding: 16px 36px;">
+										<div class="theme-btn-content">
+											<div class="theme-btn-text">Donate $50 Now</div>
+											<div class="theme-btn-hover-text">Donate $50 Now</div>
+										</div>
+										<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
+											loading="lazy" alt="" class="theme-btn-icon" />
+									</a>
+								</div>
+								<div class="causes-cta-trust">
+									<div class="causes-trust-item">
+										<div>
+											<h4 class="causes-trust-title">100% Direct Delivery</h4>
+											<p class="causes-trust-text">Every cent reaches ground relief with zero
+												administrative deductions on public donations.</p>
+										</div>
+									</div>
+									<div class="causes-trust-item">
+										<div>
+											<h4 class="causes-trust-title">Audited Financials</h4>
+											<p class="causes-trust-text">Transparent documentation and independent oversight
+												on every sponsored project.</p>
+										</div>
+									</div>
+									<div class="causes-trust-item">
+										<div>
+											<h4 class="causes-trust-title">Zakat & Sadaqah Verified</h4>
+											<p class="causes-trust-text">Strict compliance ensuring your sacred charitable
+												obligations are honored with dignity.</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="causes-cta-glow"></div>
-						<div class="causes-cta-content">
-							<h2 class="causes-cta-title">Every Contribution Brings Food, Clean Water, and Hope</h2>
-							<div class="causes-cta-amounts">
-								<button type="button" class="causes-amount-btn" data-amt="25">$25</button>
-								<button type="button" class="causes-amount-btn active" data-amt="50">$50</button>
-								<button type="button" class="causes-amount-btn" data-amt="100">$100</button>
-								<button type="button" class="causes-amount-btn" data-amt="250">$250</button>
-								<button type="button" class="causes-amount-btn" data-amt="custom">Custom</button>
-							</div>
-							<div class="causes-cta-actions">
-								<a href="donate.html?amount=50" id="causesCtaDonateBtn"
-									class="theme-button theme-btn-primary" style="padding: 16px 36px;">
-									<div class="theme-btn-content">
-										<div class="theme-btn-text">Donate $50 Now</div>
-										<div class="theme-btn-hover-text">Donate $50 Now</div>
-									</div>
-									<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
-										loading="lazy" alt="" class="theme-btn-icon" />
-								</a>
-							</div>
-							<div class="causes-cta-trust">
-								<div class="causes-trust-item">
-									<div>
-										<h4 class="causes-trust-title">100% Direct Delivery</h4>
-										<p class="causes-trust-text">Every cent reaches ground relief with zero
-											administrative deductions on public donations.</p>
-									</div>
-								</div>
-								<div class="causes-trust-item">
-									<div>
-										<h4 class="causes-trust-title">Audited Financials</h4>
-										<p class="causes-trust-text">Transparent documentation and independent oversight
-											on every sponsored project.</p>
-									</div>
-								</div>
-								<div class="causes-trust-item">
-									<div>
-										<h4 class="causes-trust-title">Zakat & Sadaqah Verified</h4>
-										<p class="causes-trust-text">Strict compliance ensuring your sacred charitable
-											obligations are honored with dignity.</p>
-									</div>
-								</div>
-							</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Camouflage Parallax Divider -->
+			<section class="shape-section">
+				<div class="container">
+					<div class="shape-wrapper">
+						<div class="parallex-image-outer">
+							<img sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+								alt="Beige and off-white abstract camouflage pattern with irregular organic shapes."
+								src="assets/images/shapes/698c4467c6804b943f83dadd_shape.avif" loading="lazy"
+								srcset="assets/images/shapes/698c4467c6804b943f83dadd_shape-p-500.avif 500w, assets/images/shapes/698c4467c6804b943f83dadd_shape-p-800.avif 800w, assets/images/shapes/698c4467c6804b943f83dadd_shape.avif 1398w"
+								class="parallex-image" />
 						</div>
 					</div>
 				</div>
@@ -411,11 +484,11 @@
 									<div class="footer-widget">
 										<h4 class="footer-title">Causes</h4>
 										<div class="footer-link-box">
-											<a href="programs.html" class="footer-link active">All Causes</a>
-											<a href="programs.html#food" class="footer-link">Food Relief</a>
-											<a href="programs.html#water" class="footer-link">Clean Water</a>
-											<a href="programs.html#healthcare" class="footer-link">Healthcare Aid</a>
-											<a href="programs.html#education" class="footer-link">Education Support</a>
+											<a href="causes.html" class="footer-link active">All Causes</a>
+											<a href="causes.html?cat=food" class="footer-link">Food Relief</a>
+											<a href="causes.html?cat=water" class="footer-link">Clean Water</a>
+											<a href="causes.html?cat=healthcare" class="footer-link">Healthcare Aid</a>
+											<a href="causes.html?cat=education" class="footer-link">Education Support</a>
 										</div>
 									</div>
 									<div class="footer-widget">

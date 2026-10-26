@@ -26,7 +26,7 @@ The website strictly adopts the official memorial foundation palette:
 /
 ├── index.html                 # Comprehensive homepage with all memorial & foundation sections
 ├── about.html                 # Memorial biography, origin, mission, trustees & transparency audit
-├── programs.html              # Core pillars (Education, Healthcare, Relief, Women & WASH)
+├── causes.html                # Core pillars & causes (Education, Healthcare, Relief, Women & WASH)
 ├── projects.html              # List of active grassroots community projects
 ├── project-details.html       # Individual project case study with goals & budget progress
 ├── impact.html                # Measurable metrics, longitudinal evaluations & count-up stats

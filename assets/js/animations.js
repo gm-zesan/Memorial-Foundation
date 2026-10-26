@@ -1371,6 +1371,167 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
+  // About Page - "Committed To Making A Difference" Animations
+  // --------------------------------------------------------
+  const aboutDiffSec = document.querySelector(".about-diff-section");
+  if (aboutDiffSec) {
+    const badge = aboutDiffSec.querySelector(".about-diff-badge");
+    const title = aboutDiffSec.querySelector(".about-diff-title");
+    const lead = aboutDiffSec.querySelector(".about-diff-lead");
+    const avatars = aboutDiffSec.querySelectorAll(".about-diff-avatar");
+    const tagline = aboutDiffSec.querySelector(".about-diff-tagline");
+
+    const rightBlocks = aboutDiffSec.querySelectorAll(".about-diff-block");
+    const divider = aboutDiffSec.querySelector(".about-diff-divider");
+    const checkItems = aboutDiffSec.querySelectorAll(".about-check-item");
+
+    const diffTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: aboutDiffSec,
+        start: "top 80%",
+        toggleActions: "play reverse play reverse",
+      },
+      defaults: { ease: "power3.out" },
+    });
+
+    if (badge) diffTl.fromTo(badge, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0);
+    if (title) diffTl.fromTo(title, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.1);
+    if (lead) diffTl.fromTo(lead, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.22);
+    if (avatars.length) {
+      diffTl.fromTo(
+        avatars,
+        { scale: 0.4, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.8)" },
+        0.32
+      );
+    }
+    if (tagline) diffTl.fromTo(tagline, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.48);
+
+    if (rightBlocks.length > 0) {
+      diffTl.fromTo(rightBlocks[0], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.2);
+    }
+    if (divider) diffTl.fromTo(divider, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.35);
+    if (rightBlocks.length > 1) {
+      const blockTitle = rightBlocks[1].querySelector(".about-block-title");
+      if (blockTitle) diffTl.fromTo(blockTitle, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.42);
+    }
+    if (checkItems.length) {
+      diffTl.fromTo(
+        checkItems,
+        { x: -15, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" },
+        0.5
+      );
+    }
+  }
+
+  // --------------------------------------------------------
+  // About Page - "How We Make A Difference" 3 Steps Animations
+  // --------------------------------------------------------
+  const howDiffSec = document.querySelector(".how-diff-section");
+  if (howDiffSec) {
+    const badge = howDiffSec.querySelector(".how-diff-badge");
+    const title = howDiffSec.querySelector(".how-diff-title");
+    const columns = howDiffSec.querySelectorAll(".how-step-column");
+
+    const howTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: howDiffSec,
+        start: "top 78%",
+        toggleActions: "play reverse play reverse",
+      },
+      defaults: { ease: "power3.out" },
+    });
+
+    if (badge) howTl.fromTo(badge, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0);
+    if (title) howTl.fromTo(title, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.12);
+
+    columns.forEach((col, idx) => {
+      const pill = col.querySelector(".how-step-pill");
+      const card = col.querySelector(".how-diff-card");
+      const img = col.querySelector(".how-card-img");
+      const cardTitle = col.querySelector(".how-card-title");
+      const cardText = col.querySelector(".how-card-text");
+
+      const startTime = 0.25 + idx * 0.16;
+      if (pill) howTl.fromTo(pill, { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" }, startTime);
+      if (card) howTl.fromTo(card, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, startTime + 0.08);
+      if (img) howTl.fromTo(img, { scale: 1.25 }, { scale: 1, duration: 1.1, ease: "power2.out" }, startTime + 0.1);
+      if (cardTitle) howTl.fromTo(cardTitle, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, startTime + 0.2);
+      if (cardText) howTl.fromTo(cardText, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, startTime + 0.28);
+    });
+  }
+
+  // --------------------------------------------------------
+  // About Page - Founder Inspiration Spotlight Animation
+  // --------------------------------------------------------
+  const founderSec = document.querySelector(".about-founder-section");
+  if (founderSec) {
+    const card = founderSec.querySelector(".about-founder-card");
+    const frame = founderSec.querySelector(".about-founder-img-frame");
+    const dot = founderSec.querySelector(".section-subtitle-dot");
+    const sub = founderSec.querySelector(".section-subtitle");
+    const name = founderSec.querySelector(".about-founder-name");
+    const quote = founderSec.querySelector(".about-founder-quote");
+    const desc = founderSec.querySelector(".about-founder-desc");
+
+    const founderTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: card || founderSec,
+        start: "top 80%",
+        toggleActions: "play reverse play reverse",
+      },
+      defaults: { ease: "power3.out" },
+    });
+
+    if (card) founderTl.fromTo(card, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0);
+    if (frame) founderTl.fromTo(frame, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.5)" }, 0.15);
+    if (dot) founderTl.fromTo(dot, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(3)" }, 0.2);
+    if (sub) founderTl.fromTo(sub, { x: -15, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 }, 0.25);
+    if (name) founderTl.fromTo(name, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.3);
+    if (quote) founderTl.fromTo(quote, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.38);
+    if (desc) founderTl.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.45);
+  }
+
+  // --------------------------------------------------------
+  // Cause Details Page Animations
+  // --------------------------------------------------------
+  const causeDetailSec = document.querySelector(".cause-details-section");
+  if (causeDetailSec) {
+    const media = causeDetailSec.querySelector(".cause-featured-media");
+    const mediaImg = causeDetailSec.querySelector(".cause-featured-img");
+    const h2 = causeDetailSec.querySelector(".cause-details-h2");
+    const introP = causeDetailSec.querySelector(".cause-details-p");
+    const h3s = causeDetailSec.querySelectorAll(".cause-details-h3");
+    const items = causeDetailSec.querySelectorAll(".cause-details-item");
+    const donateCard = causeDetailSec.querySelector(".cause-donate-card");
+
+    const detailTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: causeDetailSec,
+        start: "top 82%",
+        toggleActions: "play reverse play reverse",
+      },
+      defaults: { ease: "power3.out" },
+    });
+
+    if (media) detailTl.fromTo(media, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 0);
+    if (mediaImg) detailTl.fromTo(mediaImg, { scale: 1.2 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+    if (donateCard) detailTl.fromTo(donateCard, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 0.15);
+    if (h2) detailTl.fromTo(h2, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.2);
+    if (introP) detailTl.fromTo(introP, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.3);
+    if (h3s.length) detailTl.fromTo(h3s, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.2 }, 0.4);
+    if (items.length) {
+      detailTl.fromTo(
+        items,
+        { x: -15, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "power2.out" },
+        0.45
+      );
+    }
+  }
+
+  // --------------------------------------------------------
   // Shape Sections - Parallax Depth Camouflage Scrub
   // --------------------------------------------------------
   const shapeSections = document.querySelectorAll(".shape-section");

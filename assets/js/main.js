@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling young boy with curly hair", cls: "" },
           { src: "assets/images/about/69808b5b46fd69f228563181_3.avif", alt: "Portrait of a young girl with a yellow hair bow", cls: "" }
         ],
-        btn1: { text: "Explore Causes", href: "programs.html" },
+        btn1: { text: "Explore Causes", href: "causes.html" },
         btn2: { text: "Change a Life", href: "donate.html" }
       },
       {
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling young boy", cls: "" },
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Smiling girl", cls: "" }
         ],
-        btn1: { text: "Water Aid", href: "programs.html" },
+        btn1: { text: "Water Aid", href: "causes.html" },
         btn2: { text: "Give Clean Water", href: "donate.html" }
       },
       {
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Smiling girl", cls: "" },
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling boy", cls: "" }
         ],
-        btn1: { text: "Food Program", href: "programs.html" },
+        btn1: { text: "Food Program", href: "causes.html" },
         btn2: { text: "Feed a Family", href: "donate.html" }
       },
       {
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { src: "assets/images/about/69808b5b46fd69f228563181_3.avif", alt: "Smiling young girl", cls: "" },
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Smiling child", cls: "" }
         ],
-        btn1: { text: "Relief Missions", href: "programs.html" },
+        btn1: { text: "Relief Missions", href: "causes.html" },
         btn2: { text: "Provide Warmth", href: "donate.html" }
       },
       {
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Young student", cls: "" },
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Young boy", cls: "" }
         ],
-        btn1: { text: "Youth Programs", href: "programs.html" },
+        btn1: { text: "Youth Programs", href: "causes.html" },
         btn2: { text: "Empower a Child", href: "donate.html" }
       }
     ];
