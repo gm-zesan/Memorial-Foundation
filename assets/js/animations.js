@@ -2070,178 +2070,103 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
-  // Footer Section - Atmospheric Watermark Scrub Drift & Detailed Cascade (Bidirectional)
+  // Footer Section - Fixed Uncover (Curtain Reveal)
   // --------------------------------------------------------
   const footer = document.querySelector(".main-footer");
+  let footerSpacer = document.querySelector(".footer-spacer");
+  const mainWrapper = document.querySelector(".main-wrapper");
+
+  function syncFooterReveal() {
+    if (!footer) return;
+
+    if (!footerSpacer) {
+      footerSpacer = document.createElement("div");
+      footerSpacer.className = "footer-spacer";
+      footerSpacer.setAttribute("aria-hidden", "true");
+      footer.parentNode.insertBefore(footerSpacer, footer);
+    }
+
+    if (mainWrapper) {
+      mainWrapper.style.marginBottom = "0px";
+    }
+
+    if (window.innerWidth >= 768) {
+      footer.classList.add("fixed-footer");
+      const footerH = footer.offsetHeight;
+      footerSpacer.style.height = `${footerH}px`;
+      footerSpacer.style.minHeight = `${footerH}px`;
+      footerSpacer.style.display = "block";
+    } else {
+      footer.classList.remove("fixed-footer");
+      footerSpacer.style.height = "0px";
+      footerSpacer.style.minHeight = "0px";
+      footerSpacer.style.display = "none";
+    }
+  }
+
+  syncFooterReveal();
+  window.addEventListener("resize", syncFooterReveal, { passive: true });
+
   if (footer) {
-    // 1. Watermark Atmospheric Drift Scrub
+    // 1. Watermark Atmospheric Drift Scrub during Uncover
     const floatText = footer.querySelector(".footer-float-text");
-    if (floatText) {
+    if (floatText && footerSpacer) {
       gsap.fromTo(
         floatText,
-        { xPercent: -10, y: -10, opacity: 0.15 },
+        { xPercent: -12, opacity: 0.18 },
         {
           xPercent: 3,
-          y: -10,
           opacity: 0.35,
           ease: "none",
           scrollTrigger: {
-            trigger: footer,
+            trigger: footerSpacer,
             start: "top bottom",
             end: "bottom bottom",
-            scrub: 1.5,
+            scrub: 1.2,
           },
         }
       );
     }
 
-    // 2. Detailed Content Cascade
-    const ctaWidget = footer.querySelector(".footer-widget.about");
-    const ctaTitle = ctaWidget ? ctaWidget.querySelector(".footer-title.two") : null;
-    const ctaBtn = ctaWidget ? ctaWidget.querySelector(".theme-button") : null;
-    const ctaIcon = ctaWidget ? ctaWidget.querySelector(".theme-btn-icon") : null;
-
-    const navWidgets = footer.querySelectorAll(".footer-widget-wrap .footer-widget");
-    const bottomBar = footer.querySelector(".footer-bottom");
-    const copyrightText = footer.querySelector(".copyright-text");
-
-    // Explicit Initial States
-    if (ctaTitle) gsap.set(ctaTitle, { y: 35, opacity: 0 });
-    if (ctaBtn) gsap.set(ctaBtn, { y: 22, scale: 0.9, opacity: 0 });
-    if (ctaIcon) gsap.set(ctaIcon, { scale: 0, rotation: -30, opacity: 0 });
-
-    navWidgets.forEach((w) => {
-      const title = w.querySelector(".footer-title");
-      const links = w.querySelectorAll(".footer-link");
-      if (title) gsap.set(title, { y: 22, opacity: 0 });
-      if (links.length > 0) gsap.set(links, { x: -14, opacity: 0 });
-    });
-
-    if (bottomBar) gsap.set(bottomBar, { opacity: 0 });
-    if (copyrightText) gsap.set(copyrightText, { y: 15, opacity: 0 });
-
-    const footerTl = gsap.timeline({ paused: true });
-
-    // Callout headline
-    if (ctaTitle) {
-      footerTl.fromTo(
-        ctaTitle,
-        { y: 35, opacity: 0, immediateRender: true },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        0
-      );
-    }
-
-    // Callout button
-    if (ctaBtn) {
-      footerTl.fromTo(
-        ctaBtn,
-        { y: 22, scale: 0.9, opacity: 0, immediateRender: true },
-        { y: 0, scale: 1, opacity: 1, duration: 0.65, ease: "back.out(1.5)" },
-        0.14
-      );
-    }
-
-    // Callout heart icon pop
-    if (ctaIcon) {
-      footerTl.fromTo(
-        ctaIcon,
-        { scale: 0, rotation: -30, opacity: 0, immediateRender: true },
-        { scale: 1, rotation: 0, opacity: 1, duration: 0.55, ease: "back.out(2.5)" },
-        0.22
-      );
-    }
-
-    // Nav widget columns
-    navWidgets.forEach((w, idx) => {
-      const title = w.querySelector(".footer-title");
-      const links = w.querySelectorAll(".footer-link");
-
-      if (title) {
-        footerTl.fromTo(
-          title,
-          { y: 22, opacity: 0, immediateRender: true },
-          { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
-          0.1 + idx * 0.08
-        );
-      }
-
-      if (links.length > 0) {
-        footerTl.fromTo(
-          links,
-          { x: -14, opacity: 0, immediateRender: true },
-          { x: 0, opacity: 0.8, duration: 0.45, stagger: 0.04, ease: "power2.out" },
-          0.18 + idx * 0.08
-        );
-      }
-    });
-
-    // Copyright bar
-    if (bottomBar) {
-      footerTl.fromTo(
-        bottomBar,
-        { opacity: 0, immediateRender: true },
-        { opacity: 1, duration: 0.6, ease: "power2.out" },
-        0.35
-      );
-    }
-
-    if (copyrightText) {
-      footerTl.fromTo(
-        copyrightText,
-        { y: 15, opacity: 0, immediateRender: true },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
-        0.4
-      );
-    }
-
-    // Ambient heartbeat on footer CTA icon
-    let footerHeartAmbient = null;
-    footerTl.eventCallback("onComplete", () => {
-      if (ctaIcon) {
-        if (!footerHeartAmbient) {
-          footerHeartAmbient = gsap.to(ctaIcon, {
-            scale: 1.25,
-            duration: 1.6,
-            yoyo: true,
-            repeat: -1,
-            ease: "sine.inOut",
-          });
-        } else {
-          footerHeartAmbient.play();
+    // 2. Subtle Parallax Depth on Footer Content as it is uncovered
+    const footerWrapper = footer.querySelector(".footer-wrapper");
+    if (footerWrapper && footerSpacer) {
+      gsap.fromTo(
+        footerWrapper,
+        { yPercent: -10 },
+        {
+          yPercent: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footerSpacer,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: true,
+          },
         }
-      }
-    });
-    footerTl.eventCallback("onReverseComplete", () => {
-      if (footerHeartAmbient) {
-        footerHeartAmbient.pause();
-        if (ctaIcon) gsap.set(ctaIcon, { scale: 0, rotation: -30, opacity: 0 });
-      }
-    });
+      );
+    }
 
-    // ScrollTrigger: Bidirectional trigger on scroll into view
-    ScrollTrigger.create({
-      trigger: footer,
-      start: "top 88%",
-      end: "bottom bottom",
-      toggleActions: "play none play reverse",
-      animation: footerTl,
-      onEnter: () => footerTl.play(),
-      onEnterBack: () => footerTl.play(),
-      onLeaveBack: () => footerTl.reverse(),
-    });
+    // 3. Heartbeat animation on footer CTA button heart icon
+    const ctaIcon = footer.querySelector(".theme-btn-icon");
+    if (ctaIcon && footerSpacer) {
+      let heartPulse = gsap.to(ctaIcon, {
+        scale: 1.25,
+        duration: 1.4,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+        paused: true,
+      });
 
-    // Fail-safe visibility watcher: ensure footer is visible if inside viewport or near document bottom
-    const ensureFooterVisible = () => {
-      const rect = footer.getBoundingClientRect();
-      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 150;
-      if (rect.top <= window.innerHeight || nearBottom) {
-        footerTl.play();
-      }
-    };
-    ensureFooterVisible();
-    window.addEventListener("scroll", ensureFooterVisible, { passive: true });
-    window.addEventListener("resize", ensureFooterVisible, { passive: true });
+      ScrollTrigger.create({
+        trigger: footerSpacer,
+        start: "top 90%",
+        onEnter: () => heartPulse.play(),
+        onEnterBack: () => heartPulse.play(),
+        onLeaveBack: () => heartPulse.pause(),
+      });
+    }
   }
 
   // --------------------------------------------------------
@@ -2252,6 +2177,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const debouncedRefresh = () => {
     if (refreshTimer) clearTimeout(refreshTimer);
     refreshTimer = setTimeout(() => {
+      syncFooterReveal();
       ScrollTrigger.refresh();
     }, 120);
   };

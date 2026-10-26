@@ -3621,10 +3621,47 @@ blockquote {
   margin-right: 26px;
 }
 
+.footer-spacer {
+  display: none;
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .main-footer {
   position: relative;
-  z-index: 10;
+  z-index: 1;
   overflow: hidden;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .footer-spacer {
+    display: block;
+    min-height: 500px;
+  }
+
+  .main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer-spacer {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .main-footer {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+  }
 }
 
 .footer-wrapper {
@@ -5616,6 +5653,7 @@ blockquote {
   z-index: 9;
   background-color: var(--primary-bg);
   position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.16);
 }
 
 .donate-image-wrap {
