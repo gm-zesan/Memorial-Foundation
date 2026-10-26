@@ -1227,6 +1227,150 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
+  // Causes Page - Hero Section with Background Parallax
+  // --------------------------------------------------------
+  const causesHero = document.querySelector(".causes-hero-section");
+  if (causesHero) {
+    const heroBg = causesHero.querySelector(".causes-hero-bg");
+    const badge = causesHero.querySelector(".causes-hero-badge");
+    const title = causesHero.querySelector(".causes-hero-title");
+    const desc = causesHero.querySelector(".causes-hero-desc");
+    const breadcrumb = causesHero.querySelector(".causes-hero-breadcrumb");
+
+    if (heroBg) {
+      gsap.to(heroBg, {
+        yPercent: 18,
+        ease: "none",
+        scrollTrigger: {
+          trigger: causesHero,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
+    }
+
+    const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (title) heroTl.fromTo(title, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85 }, 0.1);
+    if (breadcrumb) heroTl.fromTo(breadcrumb, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.3);
+  }
+
+  // --------------------------------------------------------
+  // Causes Page - Granular Element-by-Element Card Animation
+  // (Images scale 1.35 -> 1, title, text, goal pop, button slide, heart bounce & ambient pulse)
+  // --------------------------------------------------------
+  const causesPageSec = document.querySelector(".causes-page-section");
+  if (causesPageSec) {
+    const cards = causesPageSec.querySelectorAll(".causes-grid-card");
+    cards.forEach((card) => {
+      const media = card.querySelector(".causes-card-media");
+      const img = card.querySelector(".causes-card-img");
+      const title = card.querySelector(".causes-card-title");
+      const text = card.querySelector(".causes-card-text");
+      const goalBar = card.querySelector(".causes-card-goal-bar");
+      const goalVal = card.querySelector(".causes-goal-val");
+      const actionBtn = card.querySelector(".causes-card-action-btn");
+      const heartIcon = card.querySelector(".causes-btn-heart");
+
+      // Initial explicit hidden states to match homepage causes section
+      if (media) gsap.set(media, { y: 30, opacity: 0 });
+      if (img) gsap.set(img, { scale: 1.35, transformOrigin: "center center" });
+      if (title) gsap.set(title, { y: 25, opacity: 0 });
+      if (text) gsap.set(text, { y: 20, opacity: 0 });
+      if (goalBar) gsap.set(goalBar, { y: 25, scale: 0.95, opacity: 0 });
+      if (goalVal) gsap.set(goalVal, { scale: 0.6, opacity: 0 });
+      if (actionBtn) gsap.set(actionBtn, { x: 15, opacity: 0 });
+      if (heartIcon) gsap.set(heartIcon, { scale: 0, rotation: -30, opacity: 0 });
+
+      const cardTl = gsap.timeline({ paused: true });
+
+      if (media) {
+        cardTl.fromTo(media, { y: 30, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+      }
+      if (img) {
+        cardTl.fromTo(img, { scale: 1.35, immediateRender: true }, { scale: 1, duration: 1.25, ease: "power2.out" }, 0);
+      }
+      if (title) {
+        cardTl.fromTo(title, { y: 25, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.2);
+      }
+      if (text) {
+        cardTl.fromTo(text, { y: 20, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.65, ease: "power2.out" }, 0.3);
+      }
+      if (goalBar) {
+        cardTl.fromTo(goalBar, { y: 25, scale: 0.95, opacity: 0, immediateRender: true }, { y: 0, scale: 1, opacity: 1, duration: 0.65, ease: "back.out(1.4)" }, 0.38);
+      }
+      if (goalVal) {
+        cardTl.fromTo(goalVal, { scale: 0.6, opacity: 0, immediateRender: true }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 0.46);
+      }
+      if (actionBtn) {
+        cardTl.fromTo(actionBtn, { x: 15, opacity: 0, immediateRender: true }, { x: 0, opacity: 1, duration: 0.55, ease: "power2.out" }, 0.5);
+      }
+      if (heartIcon) {
+        cardTl.fromTo(heartIcon, { scale: 0, rotation: -30, opacity: 0, immediateRender: true }, { scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: "back.out(2.5)" }, 0.56);
+      }
+
+      // Continuous ambient heartbeat pulse on heart icon while in view
+      let cardHeartAmbient = null;
+      cardTl.eventCallback("onComplete", () => {
+        if (heartIcon && !cardHeartAmbient) {
+          cardHeartAmbient = gsap.to(heartIcon, {
+            scale: 1.25,
+            duration: 1.5,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut",
+          });
+        } else if (cardHeartAmbient) {
+          cardHeartAmbient.play();
+        }
+      });
+      cardTl.eventCallback("onReverseComplete", () => {
+        if (cardHeartAmbient) {
+          cardHeartAmbient.pause();
+          if (heartIcon) gsap.set(heartIcon, { scale: 0, rotation: -30, opacity: 0 });
+        }
+      });
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 85%",
+        end: "bottom top",
+        toggleActions: "play reverse play reverse",
+        animation: cardTl,
+      });
+    });
+  }
+
+  // --------------------------------------------------------
+  // Causes Page - Enhanced Luxury CTA Section Reveal
+  // --------------------------------------------------------
+  const causesCtaSec = document.querySelector(".causes-cta-section");
+  if (causesCtaSec) {
+    const ctaCard = causesCtaSec.querySelector(".causes-cta-card");
+    const ctaBadge = causesCtaSec.querySelector(".causes-cta-badge");
+    const ctaTitle = causesCtaSec.querySelector(".causes-cta-title");
+    const ctaDesc = causesCtaSec.querySelector(".causes-cta-desc");
+    const ctaAmounts = causesCtaSec.querySelector(".causes-cta-amounts");
+    const ctaActions = causesCtaSec.querySelector(".causes-cta-actions");
+    const ctaTrust = causesCtaSec.querySelector(".causes-cta-trust");
+
+    const ctaTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ctaCard || causesCtaSec,
+        start: "top 82%",
+        toggleActions: "play reverse play reverse",
+      },
+    });
+
+    if (ctaBadge) ctaTl.fromTo(ctaBadge, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+    if (ctaTitle) ctaTl.fromTo(ctaTitle, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 0.12);
+    if (ctaDesc) ctaTl.fromTo(ctaDesc, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: "power2.out" }, 0.22);
+    if (ctaAmounts) ctaTl.fromTo(ctaAmounts, { y: 20, scale: 0.95, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.65, ease: "back.out(1.4)" }, 0.3);
+    if (ctaActions) ctaTl.fromTo(ctaActions, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.4);
+    if (ctaTrust) ctaTl.fromTo(ctaTrust, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 0.48);
+  }
+
+  // --------------------------------------------------------
   // Shape Sections - Parallax Depth Camouflage Scrub
   // --------------------------------------------------------
   const shapeSections = document.querySelectorAll(".shape-section");
