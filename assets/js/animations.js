@@ -2637,6 +2637,98 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
+  // Photo Gallery: Album Grid Animations (gallery.html)
+  // --------------------------------------------------------
+  const albumCards = document.querySelectorAll(".album-grid .album-card");
+  if (albumCards.length > 0) {
+    albumCards.forEach((card, index) => {
+      const colDelay = (index % 3) * 0.1;
+      const img = card.querySelector(".album-cover-img");
+      const badge = card.querySelector(".album-category-badge");
+      const count = card.querySelector(".album-photo-count");
+      const title = card.querySelector(".album-card-title");
+      const desc = card.querySelector(".album-card-desc");
+      const action = card.querySelector(".album-card-footer");
+
+      const albumTl = gsap.timeline({
+        paused: true,
+        delay: colDelay,
+        onComplete: () => {
+          gsap.set(card, { clearProps: "transform,opacity" });
+          if (img) gsap.set(img, { clearProps: "transform" });
+        },
+      });
+
+      albumTl.fromTo(card, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 0);
+      if (img) {
+        albumTl.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.0, ease: "power2.out" }, 0.05);
+      }
+      if (badge) {
+        albumTl.fromTo(badge, { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 0.15);
+      }
+      if (count) {
+        albumTl.fromTo(count, { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 0.2);
+      }
+      if (title) {
+        albumTl.fromTo(title, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.25);
+      }
+      if (desc) {
+        albumTl.fromTo(desc, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+      }
+      if (action) {
+        albumTl.fromTo(action, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.35);
+      }
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 95%",
+        once: true,
+        animation: albumTl,
+      });
+    });
+  }
+
+  // --------------------------------------------------------
+  // Gallery Details: Photos Grid Animations (gallery-details.html)
+  // --------------------------------------------------------
+  const galleryPhotoCards = document.querySelectorAll(".gallery-photos-grid .gallery-photo-card");
+  if (galleryPhotoCards.length > 0) {
+    galleryPhotoCards.forEach((photoCard, index) => {
+      const colDelay = (index % 3) * 0.08;
+      const pImg = photoCard.querySelector(".gallery-photo-img");
+      const pCaption = photoCard.querySelector(".gallery-photo-caption");
+      const pMeta = photoCard.querySelector(".gallery-photo-meta");
+
+      const photoTl = gsap.timeline({
+        paused: true,
+        delay: colDelay,
+        onComplete: () => {
+          gsap.set(photoCard, { clearProps: "transform,opacity" });
+          if (pImg) gsap.set(pImg, { clearProps: "transform" });
+        },
+      });
+
+      photoTl.fromTo(photoCard, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0);
+      if (pImg) {
+        photoTl.fromTo(pImg, { scale: 1.12 }, { scale: 1, duration: 0.95, ease: "power2.out" }, 0.05);
+      }
+      if (pCaption) {
+        photoTl.fromTo(pCaption, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, 0.18);
+      }
+      if (pMeta) {
+        photoTl.fromTo(pMeta, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.25);
+      }
+
+      ScrollTrigger.create({
+        trigger: photoCard,
+        start: "top 95%",
+        once: true,
+        animation: photoTl,
+      });
+    });
+  }
+
+  // --------------------------------------------------------
   // Global ScrollTrigger Refresh & Layout Stability Handlers
   // Ensures trigger coordinates are always accurate as lazy images & content load
   // --------------------------------------------------------

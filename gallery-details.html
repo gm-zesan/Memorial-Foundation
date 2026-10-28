@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Album Details — Mashiur Rahman Memorial Foundation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description"
+		content="View complete photo album and field stories documenting the charitable initiatives of Mashiur Rahman Memorial Foundation." />
+	<meta property="og:title" content="Album Details — Mashiur Rahman Memorial Foundation" />
+	<meta property="og:description"
+		content="View complete photo album and field stories documenting the charitable initiatives of Mashiur Rahman Memorial Foundation." />
+	<meta property="og:type" content="website" />
+	<!-- Favicon -->
+	<link href="assets/images/logos/favicon-64.png" rel="shortcut icon" type="image/png" />
+	<link href="assets/images/logos/favicon-64.png" rel="apple-touch-icon" />
+	<!-- Google Fonts: Fraunces (Heading Serif), Epilogue (Body), Rowdies (Accent) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Rowdies:wght@300;400;700&display=swap"
+		rel="stylesheet">
+	<!-- Swiper.js -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+	<!-- Bootstrap 5 & FontAwesome Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<!-- Main Stylesheet -->
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+	<!-- Responsive Stylesheet -->
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="page-wrapper">
+		<div class="main-wrapper">
+			<!-- Header (Identical to Homepage, Gallery active) -->
+			<header class="main-header">
+				<div class="container">
+					<div class="header-main-box">
+						<a href="index.html" class="logo-link d-inline-block">
+							<img loading="lazy" src="assets/images/logos/logo_full_warm.png"
+								alt="Mashiur Rahman Memorial Foundation" class="site-logo" />
+						</a>
+						<div class="header-menu-box">
+							<a href="index.html" class="header-menu-text">Home</a>
+							<a href="about.html" class="header-menu-text">Who We Are</a>
+							<a href="causes.html" class="header-menu-text">Causes</a>
+							<a href="stories.html" class="header-menu-text">Stories</a>
+							<a href="gallery.html" class="header-menu-text active" aria-current="page">Gallery</a>
+							<a href="contact.html" class="header-menu-text">Contact Us</a>
+						</div>
+						<div class="header-btn-box">
+							<div class="header-btn">
+								<a href="donate.html" class="theme-button d-inline-block">
+									<div class="theme-btn-content">
+										<div class="theme-btn-text">Donate Now</div>
+										<div class="theme-btn-hover-text">Donate Now</div>
+									</div>
+									<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
+										loading="lazy" alt="" class="theme-btn-icon" />
+								</a>
+							</div>
+							<div class="mobile-menu-btn">
+								<img loading="lazy" src="assets/images/icons/697b18d2a339fe95f88e5f84_menu.png"
+									alt="Menu" class="mobile-menu-icon" />
+							</div>
+						</div>
+					</div>
+					<div class="mobile-menu">
+						<div class="mobile-logo-box">
+							<a href="index.html" class="logo-link d-inline-block">
+								<img loading="lazy" src="assets/images/logos/logo_full_warm.png"
+									alt="Mashiur Rahman Memorial Foundation" class="site-logo" />
+							</a>
+							<img loading="lazy" alt=""
+								src="assets/images/icons/697b18d2a339fe95f88e5f7f_679274e26348659b0fc56c38_close.png"
+								class="menu-close-btn" />
+						</div>
+						<div class="mobile-menu-box">
+							<a href="index.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Home</div>
+							</a>
+							<a href="about.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Who We Are</div>
+							</a>
+							<a href="causes.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Causes</div>
+							</a>
+							<a href="stories.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Stories</div>
+							</a>
+							<a href="gallery.html" class="mobile-menu-link d-inline-block active">
+								<div class="mobile-menu-title">Gallery</div>
+							</a>
+							<a href="contact.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Contact Us</div>
+							</a>
+							<a href="donate.html" class="mobile-menu-link d-inline-block">
+								<div class="mobile-menu-title">Donate Now</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<!-- Hero Section (No borders, no hover effect) -->
+			<section class="causes-hero-section">
+				<div class="causes-hero-bg-wrap">
+					<img id="albumHeroBg" src="assets/images/gallery/album_memorial_cover.jpg"
+						alt="Album Details Background" class="causes-hero-bg" />
+				</div>
+				<div class="causes-hero-overlay"></div>
+				<div class="container causes-hero-container">
+					<div class="causes-hero-wrapper">
+						<div class="causes-hero-content">
+							<h1 class="causes-hero-title" id="albumHeroTitle">Annual Memorial & Dua Mahfil</h1>
+							<div class="causes-hero-breadcrumb">
+								<a href="index.html">Home</a>
+								<span>/</span>
+								<a href="gallery.html" style="color: rgba(255,255,255,0.78);">Gallery</a>
+								<span>/</span>
+								<span id="albumBreadcrumbName" style="color: #ffffff;">Memorial & Dua Mahfil</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Camouflage Parallax Divider -->
+			<section class="shape-section">
+				<div class="container">
+					<div class="shape-wrapper">
+						<div class="parallex-image-outer">
+							<img sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+								alt="Beige and off-white abstract camouflage pattern with irregular organic shapes."
+								src="assets/images/shapes/698c4467c6804b943f83dadd_shape.avif" loading="lazy"
+								srcset="assets/images/shapes/698c4467c6804b943f83dadd_shape-p-500.avif 500w, assets/images/shapes/698c4467c6804b943f83dadd_shape-p-800.avif 800w, assets/images/shapes/698c4467c6804b943f83dadd_shape.avif 1398w"
+								class="parallex-image" />
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Main Content Section (Continuous Double Side Borders) -->
+			<section class="causes-page-section">
+				<div class="container">
+					<div class="causes-page-box">
+
+						<!-- Top Bar Navigation & Meta -->
+						<div class="album-details-top-bar">
+							<a href="gallery.html" class="back-to-albums-btn">
+								<i class="fa-solid fa-arrow-left"></i>
+								<span>Back to All Albums</span>
+							</a>
+							<div class="album-details-meta">
+								<span id="albumCategoryTag" class="album-details-tag">Memorial</span>
+								<span><i class="fa-regular fa-calendar"></i> <span id="albumDate">October 2026</span></span>
+								<span class="meta-dot">•</span>
+								<span><i class="fa-solid fa-location-dot"></i> <span id="albumLocation">Manikganj, Bangladesh</span></span>
+								<span class="meta-dot">•</span>
+								<span><i class="fa-solid fa-camera"></i> <span id="albumTotalCount">4 Photos</span></span>
+							</div>
+						</div>
+
+						<!-- Album Editorial Intro -->
+						<div class="album-intro-box">
+							<h2 class="album-details-title" id="albumMainTitle">Annual Memorial & Dua Mahfil</h2>
+							<p class="album-details-desc" id="albumLongDesc">
+								A solemn annual gathering honoring our founder late Mashiur Rahman's enduring legacy. Rural elders, community youth, and family members join in Quran recitation, heartfelt supplications (Dua), and a communal feast for over 500 village neighbors.
+							</p>
+						</div>
+
+						<!-- Album Photos Grid (Pre-rendered default, swapped dynamically if query param present) -->
+						<div class="gallery-photos-grid" id="albumPhotosGrid">
+
+							<!-- Photo 1 -->
+							<div class="gallery-photo-card" data-index="0">
+								<div class="gallery-photo-thumb-wrap">
+									<img src="assets/images/gallery/album_memorial_cover.jpg"
+										alt="Memorial Gathering Assembly" class="gallery-photo-img" loading="lazy" />
+									<div class="gallery-photo-zoom-icon">
+										<i class="fa-solid fa-expand"></i>
+									</div>
+								</div>
+								<div class="gallery-photo-caption-box">
+									<div class="gallery-photo-caption">Community elders and local leaders gathered for the annual memorial gathering under the village pavilion</div>
+									<div class="gallery-photo-meta">
+										<i class="fa-regular fa-image"></i>
+										<span>October 2026 • Manikganj Pavilion</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Photo 2 -->
+							<div class="gallery-photo-card" data-index="1">
+								<div class="gallery-photo-thumb-wrap">
+									<img src="assets/images/gallery/memorial_prayers.jpg"
+										alt="Collective Dua and Prayers" class="gallery-photo-img" loading="lazy" />
+									<div class="gallery-photo-zoom-icon">
+										<i class="fa-solid fa-expand"></i>
+									</div>
+								</div>
+								<div class="gallery-photo-caption-box">
+									<div class="gallery-photo-caption">Villagers raising open palms in solemn collective Dua for the founder and welfare of rural families</div>
+									<div class="gallery-photo-meta">
+										<i class="fa-regular fa-image"></i>
+										<span>October 2026 • Prayer Assembly</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Photo 3 -->
+							<div class="gallery-photo-card" data-index="2">
+								<div class="gallery-photo-thumb-wrap">
+									<img src="assets/images/about/69857e7a88895213323a4361_1.avif"
+										alt="Intergenerational Dialogue" class="gallery-photo-img" loading="lazy" />
+									<div class="gallery-photo-zoom-icon">
+										<i class="fa-solid fa-expand"></i>
+									</div>
+								</div>
+								<div class="gallery-photo-caption-box">
+									<div class="gallery-photo-caption">Intergenerational bonding as youth listen to village elders recounting early grassroots charity efforts</div>
+									<div class="gallery-photo-meta">
+										<i class="fa-regular fa-image"></i>
+										<span>October 2026 • Heritage Dialogue</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Photo 4 -->
+							<div class="gallery-photo-card" data-index="3">
+								<div class="gallery-photo-thumb-wrap">
+									<img src="assets/images/about/69808953a361e5189a0ca883_2.avif"
+										alt="Communal Meal Feast" class="gallery-photo-img" loading="lazy" />
+									<div class="gallery-photo-zoom-icon">
+										<i class="fa-solid fa-expand"></i>
+									</div>
+								</div>
+								<div class="gallery-photo-caption-box">
+									<div class="gallery-photo-caption">Communal food preparation and traditional lunch served with love to neighboring village households</div>
+									<div class="gallery-photo-meta">
+										<i class="fa-regular fa-image"></i>
+										<span>October 2026 • Community Courtyard</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<!-- Explore Other Albums Section -->
+						<div class="other-albums-wrap">
+							<div class="other-albums-header">
+								<div>
+									<div class="about-hero-tag" style="margin-bottom: 8px;">
+										<span class="tag-dot"></span>
+										<span class="tag-text">More Galleries</span>
+									</div>
+									<h3 class="other-albums-title">Explore Other Albums</h3>
+								</div>
+								<a href="gallery.html" class="theme-button d-inline-block" style="padding: 10px 22px; font-size: 13.5px;">
+									<div class="theme-btn-content">
+										<div class="theme-btn-text">View All Albums</div>
+										<div class="theme-btn-hover-text">View All Albums</div>
+									</div>
+								</a>
+							</div>
+							<div class="album-grid" id="otherAlbumsGrid">
+
+								<!-- Other Album 1: Volunteers -->
+								<div class="album-card" data-href="gallery-details.html?album=volunteers" onclick="window.location.href='gallery-details.html?album=volunteers';">
+									<a href="gallery-details.html?album=volunteers" class="album-cover-box d-block" onclick="event.stopPropagation();">
+										<img src="assets/images/gallery/album_volunteers_cover.jpg" alt="Youth Volunteers" class="album-cover-img" loading="lazy" />
+										<span class="album-category-badge">Volunteers</span>
+										<span class="album-photo-count"><i class="fa-solid fa-camera"></i> 4 Photos</span>
+									</a>
+									<div class="album-card-body">
+										<div class="album-card-meta">
+											<span><i class="fa-regular fa-calendar"></i> September 2026</span>
+											<span>•</span>
+											<span><i class="fa-solid fa-location-dot"></i> Dhaka</span>
+										</div>
+										<h4 class="album-card-title"><a href="gallery-details.html?album=volunteers" onclick="event.stopPropagation();">Youth Volunteer Relief Summit</a></h4>
+										<div class="album-card-footer">
+											<a href="gallery-details.html?album=volunteers" class="album-action-link" onclick="event.stopPropagation();">
+												<span>View Album</span> <i class="fa-solid fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<!-- Other Album 2: Health Camp -->
+								<div class="album-card" data-href="gallery-details.html?album=health-camp" onclick="window.location.href='gallery-details.html?album=health-camp';">
+									<a href="gallery-details.html?album=health-camp" class="album-cover-box d-block" onclick="event.stopPropagation();">
+										<img src="assets/images/gallery/album_health_camp_cover.jpg" alt="Healthcare Camp" class="album-cover-img" loading="lazy" />
+										<span class="album-category-badge">Healthcare</span>
+										<span class="album-photo-count"><i class="fa-solid fa-camera"></i> 4 Photos</span>
+									</a>
+									<div class="album-card-body">
+										<div class="album-card-meta">
+											<span><i class="fa-regular fa-calendar"></i> August 2026</span>
+											<span>•</span>
+											<span><i class="fa-solid fa-location-dot"></i> Manikganj</span>
+										</div>
+										<h4 class="album-card-title"><a href="gallery-details.html?album=health-camp" onclick="event.stopPropagation();">Free Rural Medical Camp</a></h4>
+										<div class="album-card-footer">
+											<a href="gallery-details.html?album=health-camp" class="album-action-link" onclick="event.stopPropagation();">
+												<span>View Album</span> <i class="fa-solid fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<!-- Other Album 3: School Drive -->
+								<div class="album-card" data-href="gallery-details.html?album=school-drive" onclick="window.location.href='gallery-details.html?album=school-drive';">
+									<a href="gallery-details.html?album=school-drive" class="album-cover-box d-block" onclick="event.stopPropagation();">
+										<img src="assets/images/gallery/album_school_drive_cover.jpg" alt="School Drive" class="album-cover-img" loading="lazy" />
+										<span class="album-category-badge">Education</span>
+										<span class="album-photo-count"><i class="fa-solid fa-camera"></i> 4 Photos</span>
+									</a>
+									<div class="album-card-body">
+										<div class="album-card-meta">
+											<span><i class="fa-regular fa-calendar"></i> July 2026</span>
+											<span>•</span>
+											<span><i class="fa-solid fa-location-dot"></i> Gaibandha</span>
+										</div>
+										<h4 class="album-card-title"><a href="gallery-details.html?album=school-drive" onclick="event.stopPropagation();">Back-to-School Education Drive</a></h4>
+										<div class="album-card-footer">
+											<a href="gallery-details.html?album=school-drive" class="album-action-link" onclick="event.stopPropagation();">
+												<span>View Album</span> <i class="fa-solid fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+			<!-- Fullscreen Lightbox Modal -->
+			<div class="gallery-lightbox" id="galleryLightbox">
+				<div class="lightbox-content">
+					<button class="lightbox-close" id="lightboxClose" aria-label="Close modal">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+					<button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous image">
+						<i class="fa-solid fa-chevron-left"></i>
+					</button>
+					<img src="" alt="Expanded View" class="lightbox-img" id="lightboxImg" />
+					<button class="lightbox-arrow next" id="lightboxNext" aria-label="Next image">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
+					<div class="lightbox-caption-box">
+						<div class="lightbox-caption" id="lightboxCaption">Photo Caption</div>
+						<div class="lightbox-counter" id="lightboxCounter">1 of 4</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Social Strip Section -->
+			<section class="social-section">
+				<div class="container">
+					<div class="social-wrapper">
+						<a href="#" class="social-box _1">
+							<img loading="lazy" src="assets/images/icons/698062101473e72c57d868d8_Facebook.svg" alt=""
+								class="social-icon" />
+							<p class="social-text">Facebook</p>
+						</a>
+						<a href="#" class="social-box _2">
+							<img loading="lazy" src="assets/images/icons/698061648cf0fcc17d837648_X.png" alt="X"
+								class="social-icon" />
+							<p class="social-text">Twitter</p>
+						</a>
+						<a href="#" class="social-box _4">
+							<img loading="lazy" src="assets/images/icons/698061e03df8451b1f5e8a8b_LinkedIn.png"
+								alt="LinkedIn" class="social-icon" />
+							<p class="social-text">Linked In</p>
+						</a>
+						<a href="#" class="social-box _3">
+							<img loading="lazy" src="assets/images/icons/698061e06da221f030505b8a_Instagram.png"
+								alt="Instagram" class="social-icon" />
+							<p class="social-text">Instagram</p>
+						</a>
+						<a href="#" class="social-box _5">
+							<img loading="lazy" src="assets/images/icons/698061e0d20e2b0e3d93d754_Youtube.png"
+								alt="YouTube" class="social-icon" />
+							<p class="social-text">Youtube</p>
+						</a>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- In-flow Spacer for Fixed Uncover Curtain Reveal Footer -->
+		<div class="footer-spacer" aria-hidden="true"></div>
+
+		<!-- Main Footer (Fixed Uncover Curtain Reveal) -->
+		<footer class="main-footer">
+			<div class="container">
+				<div class="footer-wrapper">
+					<div class="container small">
+						<div class="footer-wrapper-inner">
+							<div class="d-grid footer-grid">
+								<div class="footer-widget about">
+									<h4 class="footer-title two">Join us today and be a part of a beautiful world!</h4>
+									<a href="donate.html" class="theme-button theme-btn-primary">
+										<div class="theme-btn-content">
+											<div class="theme-btn-text">Donate Now</div>
+											<div class="theme-btn-hover-text">Donate Now</div>
+										</div>
+										<img src="assets/images/icons/697b208f490d948331b1b25c_heart (1) 1.svg"
+											loading="lazy" alt="" class="theme-btn-icon" />
+									</a>
+								</div>
+								<div class="footer-widget-wrap">
+									<div class="footer-widget">
+										<h4 class="footer-title">About</h4>
+										<div class="footer-link-box">
+											<a href="index.html" class="footer-link">Home</a>
+											<a href="about.html" class="footer-link">Who We Are</a>
+											<a href="about.html#legacy" class="footer-link">Memorial Legacy</a>
+											<a href="about.html#team" class="footer-link">Leadership & Team</a>
+											<a href="about.html#transparency" class="footer-link">Transparency</a>
+										</div>
+									</div>
+									<div class="footer-widget">
+										<h4 class="footer-title">Causes</h4>
+										<div class="footer-link-box">
+											<a href="causes.html" class="footer-link">All Causes</a>
+											<a href="causes.html?cat=food" class="footer-link">Food Relief</a>
+											<a href="causes.html?cat=water" class="footer-link">Clean Water</a>
+											<a href="causes.html?cat=healthcare" class="footer-link">Healthcare Aid</a>
+											<a href="causes.html?cat=education" class="footer-link">Education Support</a>
+										</div>
+									</div>
+									<div class="footer-widget">
+										<h4 class="footer-title">Get Involved</h4>
+										<div class="footer-link-box">
+											<a href="donate.html" class="footer-link">Donate Now</a>
+											<a href="stories.html" class="footer-link">Impact Stories</a>
+											<a href="gallery.html" class="footer-link active" aria-current="page">Photo Gallery</a>
+											<a href="faq.html" class="footer-link">FAQs</a>
+											<a href="contact.html" class="footer-link">Contact Us</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<p class="footer-float-text">Mashiur Rahman</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="footer-bottom-wrap">
+						<p class="copyright-text">© Copyright 2026 <a href="index.html" class="copyright-link">Mashiur
+								Rahman Memorial Foundation</a>. All rights reserved.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<!-- jQuery 3.7.1 -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<!-- Bootstrap 5 Bundle JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- GSAP & ScrollTrigger -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+	<!-- Swiper.js -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+	<!-- Main & Animation Scripts -->
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/animations.js"></script>
+
+	<!-- Dynamic Album Data & Interactive Lightbox Script -->
+	<script>
+		const ALBUMS_DATA = {
+			'memorial': {
+				id: 'memorial',
+				category: 'Memorial & Heritage',
+				title: 'Annual Memorial & Dua Mahfil',
+				date: 'October 2026',
+				location: 'Manikganj, Bangladesh',
+				heroBg: 'assets/images/gallery/album_memorial_cover.jpg',
+				description: 'A solemn annual gathering honoring our founder late Mashiur Rahman\'s enduring legacy. Rural elders, community youth, and family members join in Quran recitation, heartfelt supplications (Dua), and a communal feast for over 500 village neighbors.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_memorial_cover.jpg',
+						caption: 'Community elders and local leaders gathered for the annual memorial gathering under the village pavilion',
+						meta: 'October 2026 • Manikganj Pavilion'
+					},
+					{
+						src: 'assets/images/gallery/memorial_prayers.jpg',
+						caption: 'Villagers raising open palms in solemn collective Dua for the founder and welfare of rural families',
+						meta: 'October 2026 • Prayer Assembly'
+					},
+					{
+						src: 'assets/images/about/69857e7a88895213323a4361_1.avif',
+						caption: 'Intergenerational bonding as youth listen to village elders recounting early grassroots charity efforts',
+						meta: 'October 2026 • Heritage Dialogue'
+					},
+					{
+						src: 'assets/images/about/69808953a361e5189a0ca883_2.avif',
+						caption: 'Communal food preparation and traditional lunch served with love to neighboring village households',
+						meta: 'October 2026 • Community Courtyard'
+					}
+				]
+			},
+			'volunteers': {
+				id: 'volunteers',
+				category: 'Youth & Volunteers',
+				title: 'Youth Volunteer Relief Summit & Packing Drive',
+				date: 'September 2026',
+				location: 'Dhaka & Central Warehouse',
+				heroBg: 'assets/images/gallery/album_volunteers_cover.jpg',
+				description: 'Our enthusiastic network of university students and grassroots young leaders organizing relief packaging drives, verifying beneficiary lists, and orchestrating emergency food parcel dispatch for vulnerable communities.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_volunteers_cover.jpg',
+						caption: 'Volunteer leaders reviewing field maps and dispatch checklists for northern flood plains',
+						meta: 'September 2026 • Central Planning Hub'
+					},
+					{
+						src: 'assets/images/gallery/volunteer_foodpack.jpg',
+						caption: 'Energetic volunteer team assembling food ration boxes containing lentils, rice, oil, and biscuits',
+						meta: 'September 2026 • Relief Logistics Center'
+					},
+					{
+						src: 'assets/images/about/69a68322e3ef875bb532e28a_volunteers-teaming-up-organize-donations-charity_23-2149230522.avif',
+						caption: 'Team collaboration sorting donation consignments and medical first-aid kits',
+						meta: 'September 2026 • Volunteer Center'
+					},
+					{
+						src: 'assets/images/about/69808b5b0a0747dd95550f8c_1.avif',
+						caption: 'Field volunteer briefing before departing for remote riverine outposts',
+						meta: 'September 2026 • Field Deployment'
+					}
+				]
+			},
+			'health-camp': {
+				id: 'health-camp',
+				category: 'Healthcare',
+				title: 'Free Rural Medical & Diagnostic Camp',
+				date: 'August 2026',
+				location: 'Rural Manikganj',
+				heroBg: 'assets/images/gallery/album_health_camp_cover.jpg',
+				description: 'Bringing certified doctors, nurses, and free pharmaceuticals right to the doorsteps of remote village families who lack easy transit to upazila hospitals. Over 620 patients received free consultations and medications in a single day.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_health_camp_cover.jpg',
+						caption: 'Volunteer medical team examining rural patients in a temporary shaded field clinic',
+						meta: 'August 2026 • Manikganj Field Clinic'
+					},
+					{
+						src: 'assets/images/gallery/health_doctor_checkup.jpg',
+						caption: 'Doctor examining an elderly village grandmother with care, patience, and warmth',
+						meta: 'August 2026 • Consultation Desk'
+					},
+					{
+						src: 'assets/images/about/69808913c35eea25ebda3606_1.avif',
+						caption: 'Volunteer nurses organizing free blood pressure and glucose screenings for villagers',
+						meta: 'August 2026 • Diagnostic Corner'
+					},
+					{
+						src: 'assets/images/about/698089120997256bb522f5cb_2.avif',
+						caption: 'Dispensary station providing prescribed essential vitamins, pain relief, and antibiotics free of cost',
+						meta: 'August 2026 • Pharmacy Station'
+					}
+				]
+			},
+			'school-drive': {
+				id: 'school-drive',
+				category: 'Education',
+				title: 'Back-to-School Education Kit Distribution',
+				date: 'July 2026',
+				location: 'Gaibandha & Bogura',
+				heroBg: 'assets/images/gallery/album_school_drive_cover.jpg',
+				description: 'Equipping underprivileged rural students with durable backpacks, notebooks, pens, geometry boxes, and educational charts so financial constraints never interrupt a child\'s pursuit of learning.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_school_drive_cover.jpg',
+						caption: 'Young students excitedly queuing up to receive their new academic book satchels and stationary',
+						meta: 'July 2026 • Gaibandha Primary Compound'
+					},
+					{
+						src: 'assets/images/gallery/school_children_books.jpg',
+						caption: 'Broad smiles and radiant pride as children display their new colorful notebooks and pencil sets',
+						meta: 'July 2026 • School Courtyard'
+					},
+					{
+						src: 'assets/images/about/69a67ccb9c5ec0c74711394e_2148638019.avif',
+						caption: 'Classroom learning session where volunteer mentors guide students with creative art supplies',
+						meta: 'July 2026 • Classroom Activity'
+					},
+					{
+						src: 'assets/images/hero/699eb585b8401bdc6c519bfc_Sunlit Youth Soccer Joy.avif',
+						caption: 'Joyful playtime and sports distribution following the school equipment handover ceremony',
+						meta: 'July 2026 • Playground Joy'
+					}
+				]
+			},
+			'char-boat': {
+				id: 'char-boat',
+				category: 'River Char Expedition',
+				title: 'Jamuna River Char Community Relief Expedition',
+				date: 'June 2026',
+				location: 'Jamuna River Basin, Sirajganj',
+				heroBg: 'assets/images/gallery/album_char_boat_cover.jpg',
+				description: 'Navigating swift monsoon currents on wooden trawlers to reach cut-off char sandbar islands along the Jamuna River. Volunteers delivered clean drinking water, grain bags, and saline to isolated riverine families.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_char_boat_cover.jpg',
+						caption: 'Relief vessel laden with essential rations navigating across the expansive Jamuna river waters',
+						meta: 'June 2026 • Jamuna Riverway'
+					},
+					{
+						src: 'assets/images/gallery/char_boat_docking.jpg',
+						caption: 'Expedition boat landing at a remote char bank greeted by smiling island villagers and children',
+						meta: 'June 2026 • Sirajganj Char Island'
+					},
+					{
+						src: 'assets/images/hero/699c2722585523e78623da8e_1.avif',
+						caption: 'Volunteers and villagers unloading dry provisions and clean water jugs on the sandy embankment',
+						meta: 'June 2026 • River Embankment'
+					},
+					{
+						src: 'assets/images/hero/699eb5843f86e84bad75605e_Solitary Urban Traveler in Contemplation.avif',
+						caption: 'Quiet reflections overlooking the river horizon as relief distribution wraps up at twilight',
+						meta: 'June 2026 • River Twilight'
+					}
+				]
+			},
+			'winter-aid': {
+				id: 'winter-aid',
+				category: 'Winter Relief',
+				title: 'Northern Cold Wave Warmth Distribution',
+				date: 'January 2026',
+				location: 'Kurigram & Nilphamari',
+				heroBg: 'assets/images/gallery/album_winter_aid_cover.jpg',
+				description: 'Every winter, severe Himalayan fog and bitter cold waves strike northern Bangladesh. We distribute heavy fleece blankets and warm knitwear to protect elderly villagers, widows, and day-laborers from pneumonia and harsh conditions.',
+				photos: [
+					{
+						src: 'assets/images/gallery/album_winter_aid_cover.jpg',
+						caption: 'Volunteers distributing thick warm blankets to northern village elders on a cold winter morning',
+						meta: 'January 2026 • Kurigram Village'
+					},
+					{
+						src: 'assets/images/gallery/winter_blanket_smile.jpg',
+						caption: 'Grandmother smiling with heartfelt gratitude wrapped safely against the northern chill',
+						meta: 'January 2026 • Northern Outskirts'
+					},
+					{
+						src: 'assets/images/hero/699eb6d185c9b396a47a294b_Grateful Sign Holder.avif',
+						caption: 'Community appreciation and smiles as warmth relief reaches deep rural clusters',
+						meta: 'January 2026 • Nilphamari Center'
+					},
+					{
+						src: 'assets/images/hero/699eb63558592acb7ce5e503_Smiling Woman in Light.avif',
+						caption: 'Warm smiles breaking through misty morning fogs as relief packages bring peace of mind',
+						meta: 'January 2026 • Morning Assembly'
+					}
+				]
+			}
+		};
+
+		function getQueryParam(param) {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get(param);
+		}
+
+		let currentAlbumKey = getQueryParam('album');
+		if (!currentAlbumKey || !ALBUMS_DATA[currentAlbumKey]) {
+			currentAlbumKey = 'memorial';
+		}
+
+		const currentAlbum = ALBUMS_DATA[currentAlbumKey];
+		let currentPhotos = currentAlbum.photos;
+		let currentLightboxIndex = 0;
+
+		// Function to attach photo card click events
+		function attachPhotoEvents() {
+			document.querySelectorAll('.gallery-photo-card').forEach(card => {
+				card.addEventListener('click', function () {
+					const idx = parseInt(this.getAttribute('data-index'), 10);
+					openLightbox(isNaN(idx) ? 0 : idx);
+				});
+			});
+		}
+
+		// If album is not default 'memorial', update DOM smoothly
+		if (currentAlbumKey !== 'memorial') {
+			document.title = `${currentAlbum.title} — Photo Gallery Details`;
+			const heroBg = document.getElementById('albumHeroBg');
+			if (heroBg) heroBg.src = currentAlbum.heroBg;
+			document.getElementById('albumHeroTitle').textContent = currentAlbum.title;
+			document.getElementById('albumBreadcrumbName').textContent = currentAlbum.title;
+			document.getElementById('albumMainTitle').textContent = currentAlbum.title;
+			document.getElementById('albumCategoryTag').textContent = currentAlbum.category;
+			document.getElementById('albumDate').textContent = currentAlbum.date;
+			document.getElementById('albumLocation').textContent = currentAlbum.location;
+			document.getElementById('albumTotalCount').textContent = `${currentPhotos.length} Photos`;
+			document.getElementById('albumLongDesc').textContent = currentAlbum.description;
+
+			const photosGrid = document.getElementById('albumPhotosGrid');
+			photosGrid.innerHTML = '';
+
+			currentPhotos.forEach((photo, index) => {
+				const card = document.createElement('div');
+				card.className = 'gallery-photo-card';
+				card.setAttribute('data-index', index);
+				card.innerHTML = `
+					<div class="gallery-photo-thumb-wrap">
+						<img src="${photo.src}" alt="${photo.caption}" class="gallery-photo-img" loading="lazy" />
+						<div class="gallery-photo-zoom-icon">
+							<i class="fa-solid fa-expand"></i>
+						</div>
+					</div>
+					<div class="gallery-photo-caption-box">
+						<div class="gallery-photo-caption">${photo.caption}</div>
+						<div class="gallery-photo-meta">
+							<i class="fa-regular fa-image"></i>
+							<span>${photo.meta}</span>
+						</div>
+					</div>
+				`;
+				photosGrid.appendChild(card);
+			});
+
+			// Re-populate other albums
+			const otherGrid = document.getElementById('otherAlbumsGrid');
+			if (otherGrid) {
+				otherGrid.innerHTML = '';
+				const otherKeys = Object.keys(ALBUMS_DATA).filter(k => k !== currentAlbumKey).slice(0, 3);
+				otherKeys.forEach(k => {
+					const alb = ALBUMS_DATA[k];
+					const otherCard = document.createElement('div');
+					otherCard.className = 'album-card';
+					otherCard.setAttribute('data-href', `gallery-details.html?album=${alb.id}`);
+					otherCard.onclick = () => window.location.href = `gallery-details.html?album=${alb.id}`;
+					otherCard.innerHTML = `
+						<a href="gallery-details.html?album=${alb.id}" class="album-cover-box d-block" onclick="event.stopPropagation();">
+							<img src="${alb.heroBg}" alt="${alb.title}" class="album-cover-img" loading="lazy" />
+							<span class="album-category-badge">${alb.category}</span>
+							<span class="album-photo-count">
+								<i class="fa-solid fa-camera"></i> ${alb.photos.length} Photos
+							</span>
+						</a>
+						<div class="album-card-body">
+							<div class="album-card-meta">
+								<span><i class="fa-regular fa-calendar"></i> ${alb.date}</span>
+								<span>•</span>
+								<span><i class="fa-solid fa-location-dot"></i> ${alb.location.split(',')[0]}</span>
+							</div>
+							<h4 class="album-card-title">
+								<a href="gallery-details.html?album=${alb.id}" onclick="event.stopPropagation();">${alb.title}</a>
+							</h4>
+							<div class="album-card-footer">
+								<a href="gallery-details.html?album=${alb.id}" class="album-action-link" onclick="event.stopPropagation();">
+									<span>View Album</span>
+									<i class="fa-solid fa-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					`;
+					otherGrid.appendChild(otherCard);
+				});
+			}
+
+			// Smooth reveal for swapped photos
+			if (window.gsap) {
+				gsap.fromTo('.gallery-photo-card',
+					{ opacity: 0, y: 25 },
+					{ opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out', clearProps: 'transform,opacity' }
+				);
+			}
+		}
+
+		// Attach Lightbox click triggers
+		attachPhotoEvents();
+
+		// Lightbox Controls
+		const lightbox = document.getElementById('galleryLightbox');
+		const lightboxImg = document.getElementById('lightboxImg');
+		const lightboxCaption = document.getElementById('lightboxCaption');
+		const lightboxCounter = document.getElementById('lightboxCounter');
+		const lightboxClose = document.getElementById('lightboxClose');
+		const lightboxPrev = document.getElementById('lightboxPrev');
+		const lightboxNext = document.getElementById('lightboxNext');
+
+		function openLightbox(index) {
+			currentLightboxIndex = index;
+			updateLightboxContent();
+			lightbox.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox() {
+			lightbox.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+
+		function updateLightboxContent() {
+			const photo = currentPhotos[currentLightboxIndex];
+			if (!photo) return;
+			lightboxImg.src = photo.src;
+			lightboxCaption.textContent = photo.caption;
+			lightboxCounter.textContent = `${currentLightboxIndex + 1} of ${currentPhotos.length}`;
+		}
+
+		function showPrevImage() {
+			currentLightboxIndex = (currentLightboxIndex - 1 + currentPhotos.length) % currentPhotos.length;
+			updateLightboxContent();
+		}
+
+		function showNextImage() {
+			currentLightboxIndex = (currentLightboxIndex + 1) % currentPhotos.length;
+			updateLightboxContent();
+		}
+
+		if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+		if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
+		if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
+
+		if (lightbox) {
+			lightbox.addEventListener('click', (e) => {
+				if (e.target === lightbox) closeLightbox();
+			});
+		}
+
+		document.addEventListener('keydown', (e) => {
+			if (!lightbox || !lightbox.classList.contains('active')) return;
+			if (e.key === 'Escape') closeLightbox();
+			if (e.key === 'ArrowLeft') showPrevImage();
+			if (e.key === 'ArrowRight') showNextImage();
+		});
+	</script>
+</body>
+
+</html>
