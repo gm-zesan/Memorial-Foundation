@@ -1438,6 +1438,72 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
+  // FAQ Page - Search, Sidebar & Accordion Cascade Reveal
+  // --------------------------------------------------------
+  const faqPageSec = document.querySelector(".faq-page-section");
+  if (faqPageSec) {
+    const faqControls = faqPageSec.querySelector(".faq-controls-box");
+    const faqSidebar = faqPageSec.querySelector(".faq-sidebar");
+    const faqCards = faqPageSec.querySelectorAll(".faq-accordion-card");
+
+    if (faqControls) {
+      gsap.fromTo(
+        faqControls,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.75,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: faqControls,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    if (faqSidebar) {
+      gsap.fromTo(
+        faqSidebar,
+        { x: -30, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: faqSidebar,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+
+    if (faqCards.length > 0) {
+      gsap.fromTo(
+        faqCards,
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          stagger: 0.08,
+          ease: "power2.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: faqPageSec.querySelector(".faq-accordion-list"),
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }
+
+  // --------------------------------------------------------
   // Causes Page - Enhanced Luxury CTA Section Reveal
   // --------------------------------------------------------
   const causesCtaSec = document.querySelector(".causes-cta-section");
