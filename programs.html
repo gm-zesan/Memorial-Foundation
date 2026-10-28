@@ -567,6 +567,15 @@
 				});
 			});
 
+			// Auto-filter if ?cat= query parameter is present in URL
+			const urlCat = new URLSearchParams(window.location.search).get("cat");
+			if (urlCat) {
+				const targetBtn = Array.from(filterBtns).find(b => b.getAttribute("data-filter") === urlCat);
+				if (targetBtn) {
+					targetBtn.click();
+				}
+			}
+
 			// Interactive Donation Amount Selection for CTA
 			const amountBtns = document.querySelectorAll(".causes-amount-btn");
 			const ctaDonateBtn = document.getElementById("causesCtaDonateBtn");

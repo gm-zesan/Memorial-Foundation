@@ -1342,6 +1342,102 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
+  // Stories Page - Filter Navigation Entrance
+  // --------------------------------------------------------
+  const storiesFilterNav = document.querySelector(".causes-page-section .causes-filter-nav");
+  if (storiesFilterNav) {
+    const filterBtns = storiesFilterNav.querySelectorAll(".causes-filter-btn");
+    gsap.set(filterBtns, { y: 22, opacity: 0 });
+    gsap.to(filterBtns, {
+      y: 0,
+      opacity: 1,
+      duration: 0.65,
+      stagger: 0.07,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: storiesFilterNav,
+        start: "top 92%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+
+  // --------------------------------------------------------
+  // Stories Page - Card ScrollTrigger Cascade Animations
+  // (Image scale 1.35 -> 1, category tag pop, date icon rotation, title rise, text fade & readmore slide)
+  // --------------------------------------------------------
+  const storiesCards = document.querySelectorAll(".story-card-item");
+  if (storiesCards.length > 0) {
+    storiesCards.forEach((card, index) => {
+      const box = card.querySelector(".blog-box");
+      const img = card.querySelector(".blog-image");
+      const catBadge = card.querySelector(".blog-cat");
+      const dateIcon = card.querySelector(".blog-date-icon");
+      const dateText = card.querySelector(".blog-date");
+      const title = card.querySelector(".blog-title");
+      const desc = card.querySelector("p:not(.blog-cat):not(.blog-date)");
+      const readmore = card.querySelector(".readmore-box");
+
+      // Column-based stagger delay for a fluid wave across rows
+      const colDelay = (index % 3) * 0.12;
+
+      // Initial explicit hidden states to match homepage causes & stories
+      if (box) gsap.set(box, { y: 45, opacity: 0 });
+      if (img) gsap.set(img, { scale: 1.35, transformOrigin: "center center" });
+      if (catBadge) gsap.set(catBadge, { scale: 0.75, opacity: 0, y: 10 });
+      if (dateIcon) gsap.set(dateIcon, { scale: 0, rotation: -45, opacity: 0 });
+      if (dateText) gsap.set(dateText, { x: 10, opacity: 0 });
+      if (title) gsap.set(title, { y: 22, opacity: 0 });
+      if (desc) gsap.set(desc, { y: 18, opacity: 0 });
+      if (readmore) gsap.set(readmore, { x: -15, opacity: 0 });
+
+      const storyTl = gsap.timeline({
+        paused: true,
+        delay: colDelay,
+        onComplete: () => {
+          // Clear transform on complete so CSS hover effects can freely move elements
+          if (box) gsap.set(box, { clearProps: "transform" });
+          if (img) gsap.set(img, { clearProps: "transform" });
+          if (readmore) gsap.set(readmore, { clearProps: "transform" });
+        },
+      });
+
+      if (box) {
+        storyTl.fromTo(box, { y: 45, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.85, ease: "power3.out" }, 0);
+      }
+      if (img) {
+        storyTl.fromTo(img, { scale: 1.35, immediateRender: true }, { scale: 1, duration: 1.25, ease: "power2.out" }, 0.05);
+      }
+      if (catBadge) {
+        storyTl.fromTo(catBadge, { scale: 0.75, y: 10, opacity: 0, immediateRender: true }, { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 0.18);
+      }
+      if (dateIcon) {
+        storyTl.fromTo(dateIcon, { scale: 0, rotation: -45, opacity: 0, immediateRender: true }, { scale: 1, rotation: 0, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 0.22);
+      }
+      if (dateText) {
+        storyTl.fromTo(dateText, { x: 10, opacity: 0, immediateRender: true }, { x: 0, opacity: 0.8, duration: 0.45, ease: "power2.out" }, 0.25);
+      }
+      if (title) {
+        storyTl.fromTo(title, { y: 22, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.65, ease: "power3.out" }, 0.28);
+      }
+      if (desc) {
+        storyTl.fromTo(desc, { y: 18, opacity: 0, immediateRender: true }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.34);
+      }
+      if (readmore) {
+        storyTl.fromTo(readmore, { x: -15, opacity: 0, immediateRender: true }, { x: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.4);
+      }
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 90%",
+        end: "bottom top",
+        toggleActions: "play reverse play reverse",
+        animation: storyTl,
+      });
+    });
+  }
+
+  // --------------------------------------------------------
   // Causes Page - Enhanced Luxury CTA Section Reveal
   // --------------------------------------------------------
   const causesCtaSec = document.querySelector(".causes-cta-section");
