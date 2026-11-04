@@ -14,12 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.config({ ignoreMobileResize: true });
-
-  // If user prefers reduced motion, disable reveal animations and keep everything visible
-  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return;
-  }
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    fastScrollEnd: true,
+  });
 
   // --------------------------------------------------------
   // Hero Section - Content & Background Clean Alignment (No gaps or opacity issues)
