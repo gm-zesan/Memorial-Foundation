@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
-  // Hero Section - Smooth Background Parallax (Content remains 100% crisp)
+  // Hero Section - Content & Background Clean Alignment (No gaps or opacity issues)
   // --------------------------------------------------------
   const heroSec = document.querySelector(".hero-section");
   if (heroSec) {
@@ -31,24 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroRightBox = heroSec.querySelector(".hero-right-box.content");
     const heroControls = heroSec.querySelector(".hero-slider-controls");
 
-    // Ensure hero content always stays 100% visible, crisp and readable
-    const heroContentEls = [heroLeftBox, heroRightBox, heroControls].filter(Boolean);
-    if (heroContentEls.length > 0) {
-      gsap.set(heroContentEls, { opacity: 1, y: 0, yPercent: 0, clearProps: "opacity,transform" });
-    }
-
-    // Only apply smooth parallax to the background photo slider
-    if (heroBgSlider) {
-      gsap.to(heroBgSlider, {
-        yPercent: 18,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSec,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+    // Clear any scroll transforms or opacity reductions so hero sits flush with navbar and stays 100% sharp
+    const allHeroEls = [heroBgSlider, heroLeftBox, heroRightBox, heroControls].filter(Boolean);
+    if (allHeroEls.length > 0) {
+      gsap.set(allHeroEls, { clearProps: "all" });
     }
   }
 
