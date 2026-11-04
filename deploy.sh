@@ -11,24 +11,24 @@ set -euo pipefail
 SERVER_IP="13.203.173.126"
 SERVER_USER="ubuntu"
 REMOTE_DIR="/var/www/mashiurrahman"
-DEFAULT_KEY="LightsailDefaultKey-ap-south-1.pem"
+DEFAULT_KEY="/Users/zesan/Desktop/lightsail/LightsailDefaultKey-ap-south-1.pem"
 
 # 1. Detect SSH Key
 KEY_PATH="${1:-$DEFAULT_KEY}"
 
 if [ ! -f "$KEY_PATH" ]; then
-  if [ -f "$HOME/$DEFAULT_KEY" ]; then
-    KEY_PATH="$HOME/$DEFAULT_KEY"
-  elif [ -f "$HOME/Desktop/$DEFAULT_KEY" ]; then
-    KEY_PATH="$HOME/Desktop/$DEFAULT_KEY"
-  elif [ -f "$HOME/Downloads/$DEFAULT_KEY" ]; then
-    KEY_PATH="$HOME/Downloads/$DEFAULT_KEY"
-  elif [ -f "/tmp/lightsail_key.pem" ]; then
-    KEY_PATH="/tmp/lightsail_key.pem"
+  if [ -f "LightsailDefaultKey-ap-south-1.pem" ]; then
+    KEY_PATH="LightsailDefaultKey-ap-south-1.pem"
+  elif [ -f "$HOME/Desktop/lightsail/LightsailDefaultKey-ap-south-1.pem" ]; then
+    KEY_PATH="$HOME/Desktop/lightsail/LightsailDefaultKey-ap-south-1.pem"
+  elif [ -f "$HOME/Desktop/LightsailDefaultKey-ap-south-1.pem" ]; then
+    KEY_PATH="$HOME/Desktop/LightsailDefaultKey-ap-south-1.pem"
+  elif [ -f "$HOME/Downloads/LightsailDefaultKey-ap-south-1.pem" ]; then
+    KEY_PATH="$HOME/Downloads/LightsailDefaultKey-ap-south-1.pem"
   else
     echo "❌ SSH Key file not found!"
+    echo "Expected at: $DEFAULT_KEY"
     echo "Usage: ./deploy.sh [path/to/key.pem]"
-    echo "Example: ./deploy.sh ~/LightsailDefaultKey-ap-south-1.pem"
     exit 1
   fi
 fi
@@ -70,3 +70,4 @@ echo "=========================================================="
 echo "✅ Deployment finished successfully!"
 echo "🌍 Visit: https://mashiurrahman.org"
 echo "=========================================================="
+
