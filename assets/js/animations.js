@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // If user prefers reduced motion, disable reveal animations and keep everything visible
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
 
   // --------------------------------------------------------
   // Hero Section - Scroll Parallax Scrub & Directional Drift
@@ -268,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: titleBlock,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: headerTl,
       });
     }
@@ -327,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: valuesGrid,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: valuesTl,
       });
     }
@@ -431,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: portraitWrap || portraitFrame || legacyBox,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: rightColTl,
       });
     }
@@ -548,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: resultTitleWrap,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: resHeaderTl,
       });
     }
@@ -608,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col1,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: col1Tl,
         });
       }
@@ -679,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col2,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: col2Tl,
         });
       }
@@ -750,7 +756,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: col3,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: col3Tl,
         });
       }
@@ -790,11 +796,8 @@ document.addEventListener("DOMContentLoaded", function () {
     ScrollTrigger.create({
       trigger: resultSection,
       start: "top 85%",
-      end: "bottom top",
+      once: true,
       onEnter: playCounters,
-      onLeave: resetCounters,
-      onEnterBack: playCounters,
-      onLeaveBack: resetCounters,
     });
 
     // 4. All-Time Continuous Ambient Motion (Active While In View)
@@ -889,7 +892,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: causeTitleBox,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: headerTl,
       });
     }
@@ -1112,7 +1115,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: item,
           start: startTrigger,
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: tl,
           onToggle: (self) => {
             console.log(`%c[CAUSE_DIAG] Card #${idx} onToggle`, "color: #ff8800", {
@@ -1335,7 +1338,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: card,
         start: "top 85%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: cardTl,
       });
     });
@@ -1431,7 +1434,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: card,
         start: "top 90%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: storyTl,
       });
     });
@@ -1520,7 +1523,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollTrigger: {
         trigger: ctaCard || causesCtaSec,
         start: "top 82%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
       },
     });
 
@@ -1551,7 +1554,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollTrigger: {
         trigger: aboutDiffSec,
         start: "top 80%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
       },
       defaults: { ease: "power3.out" },
     });
@@ -1600,7 +1603,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollTrigger: {
         trigger: howDiffSec,
         start: "top 78%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
       },
       defaults: { ease: "power3.out" },
     });
@@ -1641,7 +1644,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollTrigger: {
         trigger: card || founderSec,
         start: "top 80%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
       },
       defaults: { ease: "power3.out" },
     });
@@ -1672,7 +1675,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollTrigger: {
         trigger: causeDetailSec,
         start: "top 82%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
       },
       defaults: { ease: "power3.out" },
     });
@@ -1806,7 +1809,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box1,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: box1Tl,
       });
     }
@@ -1924,7 +1927,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box2,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: box2Tl,
       });
     }
@@ -2018,7 +2021,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: box3,
         start: donateStart,
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: box3Tl,
       });
     }
@@ -2076,7 +2079,7 @@ document.addEventListener("DOMContentLoaded", function () {
             trigger: titleBox,
             start: "top 85%",
             end: "bottom top",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         }
       );
@@ -2142,7 +2145,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: block,
           start: "top 85%",
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: tl,
         });
       });
@@ -2233,7 +2236,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: ctaSection,
         start: "top 80%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: tl,
       });
     }
@@ -2280,7 +2283,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: titleBox,
         start: "top 78%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: headerTl,
       });
 
@@ -2429,7 +2432,7 @@ document.addEventListener("DOMContentLoaded", function () {
           trigger: card,
           start: blogStart,
           end: "bottom top",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
           animation: tl,
         });
       });
@@ -2530,7 +2533,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: socialSection,
         start: "top 78%",
         end: "bottom top",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "play none none none",
         animation: tl,
       });
     }
@@ -2772,5 +2775,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ScrollTrigger.refresh();
     });
   }
+  setTimeout(() => ScrollTrigger.refresh(), 400);
+  setTimeout(() => ScrollTrigger.refresh(), 1200);
 });
 
