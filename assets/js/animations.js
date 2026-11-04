@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --------------------------------------------------------
-  // Hero Section - Scroll Parallax Scrub & Directional Drift
+  // Hero Section - Smooth Background Parallax (Content remains 100% crisp)
   // --------------------------------------------------------
   const heroSec = document.querySelector(".hero-section");
   if (heroSec) {
@@ -31,26 +31,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroRightBox = heroSec.querySelector(".hero-right-box.content");
     const heroControls = heroSec.querySelector(".hero-slider-controls");
 
-    const heroParallaxTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroSec,
-        start: "top top",
-        end: "bottom top",
-        scrub: 1.2,
-      },
-    });
+    // Ensure hero content always stays 100% visible, crisp and readable
+    const heroContentEls = [heroLeftBox, heroRightBox, heroControls].filter(Boolean);
+    if (heroContentEls.length > 0) {
+      gsap.set(heroContentEls, { opacity: 1, y: 0, yPercent: 0, clearProps: "opacity,transform" });
+    }
 
+    // Only apply smooth parallax to the background photo slider
     if (heroBgSlider) {
-      heroParallaxTl.to(heroBgSlider, { yPercent: 22, ease: "none" }, 0);
-    }
-    if (heroLeftBox) {
-      heroParallaxTl.to(heroLeftBox, { yPercent: -14, opacity: 0.25, ease: "none" }, 0);
-    }
-    if (heroRightBox) {
-      heroParallaxTl.to(heroRightBox, { yPercent: -20, opacity: 0.15, ease: "none" }, 0);
-    }
-    if (heroControls) {
-      heroParallaxTl.to(heroControls, { y: 25, opacity: 0, ease: "none" }, 0);
+      gsap.to(heroBgSlider, {
+        yPercent: 18,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroSec,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
     }
   }
 
