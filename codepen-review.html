@@ -323,13 +323,12 @@
     <div class="flex flex-wrap items-center gap-2">
       <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Select CodePen Style:</span>
       
-      <button onclick="switchStyle('motion')" id="tab-motion" class="style-tab active px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-purple-500/25 active:scale-95">
-        <span class="w-2 h-2 rounded-full bg-pink-300 animate-ping"></span>
-        <span>★ Velocity Motion (Chosen)</span>
+      <button onclick="switchStyle('iris')" id="tab-iris" class="style-tab active px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold transition shadow flex items-center gap-1.5">
+        <span>★ 3. Circular Iris Aperture (Active on Homepage)</span>
       </button>
 
-      <button onclick="switchStyle('iris')" id="tab-iris" class="style-tab px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition shadow flex items-center gap-1.5">
-        <span>3. Circular Iris Aperture</span>
+      <button onclick="switchStyle('motion')" id="tab-motion" class="style-tab px-3.5 py-2 rounded-xl bg-purple-900/60 hover:bg-purple-800 text-purple-200 text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+        <span>5. Velocity Motion Slider</span>
       </button>
 
       <button onclick="switchStyle('pasaribu')" id="tab-pasaribu" class="style-tab px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5">
@@ -634,10 +633,10 @@
     ];
 
     let currentIdx = 0;
-    let activeEngine = 'motion'; // Velocity Motion Slider + Option 3 Kinetic Content selected by default
+    let activeEngine = 'iris'; // Option 3 (Circular Iris Aperture + Kinetic Content) active by default
     let isTransitioning = false;
 
-    // Initial setup: hide thumbnail cards for motion
+    // Initial setup: hide thumbnail cards for iris
     const initialThumbs = document.getElementById('thumbnail-cards-container');
     if (initialThumbs) initialThumbs.classList.add('hidden');
 
@@ -658,8 +657,8 @@
       }
 
       const labelMap = {
-        motion: "Velocity Motion Slider + Option 3 Kinetic Content (Chosen)",
-        iris: "Option 3 (Slow Majestic Iris)",
+        iris: "Option 3: Circular Iris Aperture (Active on Homepage)",
+        motion: "Velocity Motion Slider (Experimental Review)",
         pasaribu: "Bhakti Pasaribu (Clip-Path Slice)",
         mdjamin: "MDJAmin (Expanding Thumbnail Cards)",
         nk: "nk2552003 (Standard Horizontal Carousel)"

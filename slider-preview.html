@@ -345,12 +345,11 @@
   <div class="max-w-5xl mx-auto mb-6 bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-4">
     <div class="flex flex-wrap items-center gap-2">
       <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Choose Effect:</span>
-      <button onclick="setTransitionMode('motion')" id="btn-mode-motion" class="mode-btn active px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-purple-500/25 active:scale-95">
-        <span class="w-2 h-2 rounded-full bg-pink-300 animate-ping"></span>
-        <span>★ Velocity Motion (Chosen)</span>
+      <button onclick="setTransitionMode('iris')" id="btn-mode-iris" class="mode-btn active px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold transition shadow">
+        ★ 3. Circular Iris Aperture (Active on Homepage)
       </button>
-      <button onclick="setTransitionMode('iris')" id="btn-mode-iris" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
-        3. Circular Iris Aperture
+      <button onclick="setTransitionMode('motion')" id="btn-mode-motion" class="mode-btn px-3.5 py-2 rounded-xl bg-purple-900/60 hover:bg-purple-800 text-purple-200 text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+        <span>5. Velocity Motion Slider</span>
       </button>
       <button onclick="setTransitionMode('diagonal')" id="btn-mode-diagonal" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
         1. Diagonal Shutter
@@ -608,7 +607,7 @@
     ];
 
     let currentIdx = 0;
-    let transitionMode = 'motion'; // Velocity Motion Slider + Option 3 Kinetic Typography active by default
+    let transitionMode = 'iris'; // Option 3: Circular Iris Aperture active by default
     let isTransitioning = false;
     let autoplayTimer = null;
 
@@ -629,8 +628,8 @@
       }
 
       const labelMap = {
-        motion: "5. Velocity Motion Slider + Option 3 Kinetic Typography (Chosen)",
-        iris: "3. Circular Iris Aperture",
+        iris: "3. Circular Iris Aperture (Active on Homepage)",
+        motion: "5. Velocity Motion Slider (Experimental Review)",
         diagonal: "1. Diagonal Shutter Wipe",
         parallax: "2. Kinetic Parallax Mask",
         curtain: "4. Dual-Split Venetian"
