@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         line1: "Change",
         line2: "Lives",
         text: "We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact and transform lives.",
+        bg: "assets/images/gallery/school_children_books.jpg",
         authors: [
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Smiling young girl with brown hair", cls: "_1" },
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling young boy with curly hair", cls: "" },
@@ -171,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         line1: "Bring",
         line2: "Hope",
         text: "Providing reliable clean drinking water, sanitation facilities, and preventive medical treatment for vulnerable rural families.",
+        bg: "assets/images/gallery/char_boat_docking.jpg",
         authors: [
           { src: "assets/images/about/698089120997256bb522f5cb_2.avif", alt: "Community member", cls: "_1" },
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling young boy", cls: "" },
@@ -184,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
         line1: "Nourish",
         line2: "Lives",
         text: "Delivering nutritious meals, grocery parcels, and vital sustenance to destitute families and orphaned children every single day.",
+        bg: "assets/images/causes/bangladeshi_donation_volunteer.jpg",
         authors: [
           { src: "assets/images/about/69808b5b46fd69f228563181_3.avif", alt: "Young girl", cls: "_1" },
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Smiling girl", cls: "" },
@@ -197,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         line1: "Rebuild",
         line2: "Hope",
         text: "Standing with communities facing seasonal hardships and disasters—providing warm clothing, winter blankets, and temporary shelter.",
+        bg: "assets/images/gallery/winter_blanket_smile.jpg",
         authors: [
           { src: "assets/images/about/69808b5b15bd5a046b93e203_2.avif", alt: "Smiling young boy", cls: "_1" },
           { src: "assets/images/about/69808b5b46fd69f228563181_3.avif", alt: "Smiling young girl", cls: "" },
@@ -210,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
         line1: "Empower",
         line2: "Youth",
         text: "Fostering long-term dignity and self-reliance through youth vocational skills training, girl child education, and career development.",
+        bg: "assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif",
         authors: [
           { src: "assets/images/about/698089120997256bb522f5cb_2.avif", alt: "Young woman", cls: "_1" },
           { src: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif", alt: "Young student", cls: "" },
@@ -223,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIdx = 0;
     let isTransitioning = false;
     let autoSlideTimer = null;
-    const AUTO_DELAY = 2000; // Snappy interval for lively sliding
+    const AUTO_DELAY = 4000; // 4s interval: snappy and active slideshow pace
 
     // DOM Target Elements inside the single rock-solid editorial container
     const subtitleEl = document.getElementById("heroSubtitle");
@@ -235,16 +240,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const btn1El = document.getElementById("heroBtn1");
     const btn2El = document.getElementById("heroBtn2");
 
-    // 1. Swiper Background Slider: Fast and smooth photo cross-fade
-    const heroBgSwiper = new Swiper("#heroBgSlider", {
-      effect: "fade",
-      fadeEffect: {
-        crossFade: true,
-      },
-      speed: 380,
-      loop: false,
-      allowTouchMove: false,
-    });
+    // Dual-Layer Stage elements for Option 3 Circular Iris
+    const baseImg = document.getElementById("heroBgBaseImg");
+    const overlayAnim = document.getElementById("heroBgOverlayAnim");
+    const overlayImg = document.getElementById("heroBgOverlayImg");
 
     // 2. Build custom pagination bullets
     const paginationContainer = document.querySelector(".hero-swiper-pagination");
@@ -257,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dot.setAttribute("aria-label", "Slide " + (i + 1));
         dot.addEventListener("click", () => {
           if (i !== currentIdx && !isTransitioning) {
-            goToSlide(i, i > currentIdx ? 1 : -1);
+            goToSlide(i);
           }
         });
         paginationContainer.appendChild(dot);
@@ -309,71 +308,81 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // 5. Distinct Editorial Slide Transition (Snappy & Fast)
-    function goToSlide(nextIdx, dir = 1) {
+    // 5. Option 3: Circular Iris Aperture Transition (Slow, Smooth & Kinetic Sequenced Content)
+    function goToSlide(nextIdx) {
       if (isTransitioning || nextIdx === currentIdx) return;
       isTransitioning = true;
 
-      // Cross-fade the background swiper photo fast
-      heroBgSwiper.slideTo(nextIdx);
+      const nextSlide = heroSlidesData[nextIdx];
 
-      if (typeof gsap === "undefined") {
+      // 1. Trigger Slow & Smooth Iris Background Reveal (2.0s duration)
+      if (overlayAnim && overlayImg && baseImg) {
+        overlayImg.src = nextSlide.bg;
+        overlayAnim.className = "hero-bg-overlay-anim pointer-events-none";
+        overlayImg.className = "hero-bg-img";
+        void overlayAnim.offsetWidth; // Force instant reflow for 100% reliable trigger
+
+        overlayAnim.className = "hero-bg-overlay-anim anim-iris pointer-events-none";
+        overlayImg.className = "hero-bg-img anim-img-slow-glide";
+      }
+
+      // 2. Eye-Catching Kinetic Content Sequence (Zero Blink, Perfectly Synchronized)
+      const exitDelay = 60;
+      const enterDelay = 220;
+      const completeDelay = 2100;
+
+      // Phase 1: Old content gracefully departs at 60ms (cleanly faded out by 210ms)
+      setTimeout(() => {
+        if (titleLine1El) titleLine1El.className = "hero-title anim-line-down";
+        if (titleLine2El) titleLine2El.className = "hero-title anim-line-down";
+        if (subtitleEl) subtitleEl.className = "hero-title-two anim-exit";
+        if (authorBoxEl) authorBoxEl.className = "hero-author-box anim-exit";
+        if (textEl) textEl.className = "hero-text anim-exit";
+        if (btnBoxEl) btnBoxEl.className = "hero-btn-box anim-exit";
+      }, exitDelay);
+
+      // Phase 2: Next content arrives at 220ms (zero blink, zero delay gap!)
+      setTimeout(() => {
+        // 1. Update text and links while completely hidden
         renderSlideData(nextIdx);
+        updateControls(nextIdx);
+
+        // 2. Reset base classes
+        if (subtitleEl) subtitleEl.className = "hero-title-two";
+        if (titleLine1El) titleLine1El.className = "hero-title";
+        if (authorBoxEl) authorBoxEl.className = "hero-author-box";
+        if (titleLine2El) titleLine2El.className = "hero-title";
+        if (textEl) textEl.className = "hero-text";
+        if (btnBoxEl) btnBoxEl.className = "hero-btn-box";
+
+        // 3. Force reflow on the entire container so browser registers clean state for both columns
+        if (heroContentSliderEl) void heroContentSliderEl.offsetWidth;
+
+        // 4. Trigger fresh kinetic entrance animations with 'both' fill mode (ZERO BLINK!)
+        if (subtitleEl) subtitleEl.className = "hero-title-two anim-pill";
+        if (titleLine1El) titleLine1El.className = "hero-title anim-line-up";
+        if (authorBoxEl) authorBoxEl.className = "hero-author-box anim-badge-bounce";
+        if (titleLine2El) titleLine2El.className = "hero-title anim-line-up-delay";
+        if (textEl) textEl.className = "hero-text anim-desc-in";
+        if (btnBoxEl) btnBoxEl.className = "hero-btn-box anim-btn-pop";
+      }, enterDelay);
+
+      // Phase 3: Finalize transition & hand off base image
+      setTimeout(() => {
+        if (baseImg) baseImg.src = nextSlide.bg;
+        if (overlayAnim) overlayAnim.className = "hero-bg-overlay-anim opacity-0 pointer-events-none";
+        if (overlayImg) overlayImg.className = "hero-bg-img";
+        // Clean up animation classes after animation is finished
+        if (subtitleEl) subtitleEl.className = "hero-title-two";
+        if (titleLine1El) titleLine1El.className = "hero-title";
+        if (authorBoxEl) authorBoxEl.className = "hero-author-box";
+        if (titleLine2El) titleLine2El.className = "hero-title";
+        if (textEl) textEl.className = "hero-text";
+        if (btnBoxEl) btnBoxEl.className = "hero-btn-box";
         currentIdx = nextIdx;
-        updateControls(currentIdx);
         isTransitioning = false;
         resetAutoSlide();
-        return;
-      }
-
-      const animItems = [subtitleEl, titleLine1El, authorBoxEl, titleLine2El, textEl, btnBoxEl].filter(Boolean);
-      const portraits = authorBoxEl ? authorBoxEl.querySelectorAll(".hero-author-img") : [];
-      gsap.killTweensOf(animItems);
-      gsap.killTweensOf(portraits);
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isTransitioning = false;
-          resetAutoSlide();
-        }
-      });
-
-      const exitY = dir === 1 ? -16 : 16;
-      const enterY = dir === 1 ? 22 : -22;
-
-      // Phase 1: Fast drift out (0.15s total)
-      if (subtitleEl) tl.to(subtitleEl, { y: exitY * 0.6, opacity: 0, duration: 0.12, ease: "power2.in" }, 0);
-      tl.to([titleLine1El, titleLine2El].filter(Boolean), { y: exitY, opacity: 0, filter: "blur(4px)", duration: 0.14, stagger: 0.02, ease: "power2.in" }, 0.01);
-      if (portraits.length > 0) {
-        tl.to(portraits, { scale: 0.7, opacity: 0, duration: 0.12, stagger: 0.02, ease: "power2.in" }, 0.02);
-      }
-      if (textEl) tl.to(textEl, { y: exitY * 0.5, opacity: 0, filter: "blur(3px)", duration: 0.13, ease: "power2.in" }, 0.02);
-      if (btnBoxEl) tl.to(btnBoxEl, { scale: 0.95, opacity: 0, duration: 0.12, ease: "power2.in" }, 0.03);
-
-      // Midpoint: Seamlessly update content & images while opacity is 0
-      tl.add(() => {
-        renderSlideData(nextIdx);
-        currentIdx = nextIdx;
-        updateControls(currentIdx);
-
-        // Pre-position elements on incoming side
-        if (subtitleEl) gsap.set(subtitleEl, { y: enterY * 0.6, opacity: 0, letterSpacing: "1.5px" });
-        if (titleLine1El) gsap.set(titleLine1El, { y: enterY, opacity: 0, filter: "blur(4px)" });
-        if (titleLine2El) gsap.set(titleLine2El, { y: enterY, opacity: 0, filter: "blur(4px)" });
-        if (textEl) gsap.set(textEl, { y: enterY * 0.5, opacity: 0, filter: "blur(3px)" });
-        if (btnBoxEl) gsap.set(btnBoxEl, { y: 14, scale: 0.94, opacity: 0 });
-        if (portraits.length > 0) gsap.set(portraits, { scale: 0, rotation: -15, opacity: 0 });
-      });
-
-      // Phase 2: Snappy, agile entrance glide (0.35s total)
-      if (subtitleEl) tl.to(subtitleEl, { y: 0, opacity: 1, letterSpacing: "0.5px", duration: 0.28, ease: "power3.out" }, "+=0.01");
-      if (titleLine1El) tl.to(titleLine1El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.34, ease: "power4.out" }, "-=0.24");
-      if (portraits.length > 0) {
-        tl.to(portraits, { scale: 1, rotation: 0, opacity: 1, duration: 0.32, stagger: 0.03, ease: "back.out(2)" }, "-=0.28");
-      }
-      if (titleLine2El) tl.to(titleLine2El, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.34, ease: "power4.out" }, "-=0.26");
-      if (textEl) tl.to(textEl, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, "-=0.24");
-      if (btnBoxEl) tl.to(btnBoxEl, { y: 0, scale: 1, opacity: 1, duration: 0.28, ease: "back.out(1.4)" }, "-=0.22");
+      }, completeDelay);
     }
 
     function nextSlide() {

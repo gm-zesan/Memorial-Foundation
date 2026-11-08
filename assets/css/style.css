@@ -2167,7 +2167,7 @@ blockquote {
 }
 
 /* ========================================================
-   HERO DYNAMIC BACKGROUND SLIDER (Decoupled Layer 1)
+   HERO DYNAMIC BACKGROUND SLIDER (Option 3: Circular Iris Aperture)
 ======================================================== */
 .hero-bg-slider {
   position: absolute !important;
@@ -2176,18 +2176,26 @@ blockquote {
   height: 100%;
   z-index: 1;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.hero-bg-slider .swiper-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-bg-slide.swiper-slide {
-  position: relative;
+.hero-bg-stage {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: #0b1120;
+}
+
+.hero-bg-overlay-anim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .hero-bg-img {
@@ -2198,14 +2206,174 @@ blockquote {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.08);
-  transition: transform 8s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(1);
   will-change: transform;
 }
 
-/* Ken Burns: only the active Swiper slide zooms in */
-.hero-bg-slide.swiper-slide-active .hero-bg-img {
-  transform: scale(1);
+/* 1. Circular Iris Aperture Keyframes (2.0s Slow, Smooth & Majestic) */
+@keyframes animIris {
+  0% {
+    -webkit-clip-path: circle(0% at 75% 50%);
+    clip-path: circle(0% at 75% 50%);
+  }
+  100% {
+    -webkit-clip-path: circle(150% at 75% 50%);
+    clip-path: circle(150% at 75% 50%);
+  }
+}
+
+.hero-bg-overlay-anim.anim-iris {
+  opacity: 1 !important;
+  animation: animIris 2.0s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+}
+
+/* 2. Photo Glide Keyframes (2.3s Cinematic Slow Pan) */
+@keyframes animImgSlowGlide {
+  0% {
+    transform: scale(1.16);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
+
+.hero-bg-img.anim-img-slow-glide {
+  animation: animImgSlowGlide 2.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+}
+
+/* ========================================================
+   KINETIC TYPOGRAPHY & CONTENT ANIMATIONS (Eye-Catching for Boss)
+======================================================== */
+.hero-text-mask {
+  overflow: hidden;
+  display: block;
+}
+
+@keyframes lineSlideUp {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes lineSlideDown {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+}
+
+@keyframes badgeBounce {
+  0% {
+    transform: scale(0) rotate(-35deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.28) rotate(8deg);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95) rotate(-3deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pillSlide {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(-3px) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes descFadeIn {
+  0% {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes btnPop {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  65% {
+    transform: translateY(-3px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes exitFast {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
+.anim-line-up {
+  animation: lineSlideUp 0.60s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-line-up-delay {
+  animation: lineSlideUp 0.60s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-line-down {
+  animation: lineSlideDown 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+}
+.anim-badge-bounce {
+  animation: badgeBounce 0.60s 0.04s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.anim-pill {
+  animation: pillSlide 0.50s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-desc-in {
+  animation: descFadeIn 0.50s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-btn-pop {
+  animation: btnPop 0.55s 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.anim-exit {
+  animation: exitFast 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
 }
 
 /* Editorial Cream Overlay (Layer 2) */
@@ -2450,6 +2618,7 @@ blockquote {
 
 .hero-text {
   margin-bottom: 0;
+  will-change: transform, opacity;
 }
 
 .hero-btn-box {
@@ -2457,6 +2626,7 @@ blockquote {
   grid-row-gap: 15px;
   flex-flow: column;
   display: flex;
+  will-change: transform, opacity;
 }
 
 .section-subtitle-box {

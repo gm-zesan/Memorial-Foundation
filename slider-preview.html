@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Hero Slider Transitions - CodePen & Webflow Inspired</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
+    
+    body {
+      font-family: 'Epilogue', sans-serif;
+    }
+    .font-fraunces {
+      font-family: 'Fraunces', Georgia, serif;
+    }
+
+    /* Transition Animation Classes */
+    
+    /* ===================================================
+       Keyframe Animations (Guaranteed 100% Cross-Browser)
+       =================================================== */
+    
+    /* 1. Diagonal Shutter Curtain */
+    @keyframes animDiagonal {
+      0% {
+        -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      }
+      100% {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+    .anim-diagonal {
+      animation: animDiagonal 1.1s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* 2. Circular Iris Aperture (Option 3 - Slow & Smooth 2.0s) */
+    @keyframes animIris {
+      0% {
+        -webkit-clip-path: circle(0% at 75% 50%);
+        clip-path: circle(0% at 75% 50%);
+      }
+      100% {
+        -webkit-clip-path: circle(150% at 75% 50%);
+        clip-path: circle(150% at 75% 50%);
+      }
+    }
+    .anim-iris {
+      animation: animIris 2.0s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* Subtle Cinematic Photo Glide */
+    @keyframes animImgGlide {
+      0% {
+        transform: scale(1.16);
+      }
+      100% {
+        transform: scale(1.0);
+      }
+    }
+    .anim-img-glide {
+      animation: animImgGlide 2.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* 3. Kinetic Parallax Mask */
+    @keyframes animParallaxMask {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+    @keyframes animParallaxImg {
+      0% {
+        transform: translateX(-40%) scale(1.15);
+      }
+      100% {
+        transform: translateX(0%) scale(1.0);
+      }
+    }
+    .anim-parallax-mask {
+      animation: animParallaxMask 1.0s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+    .anim-parallax-img {
+      animation: animParallaxImg 1.0s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* 4. Split Curtain (Dual Vertical Panels) */
+    @keyframes animCurtain {
+      0% {
+        -webkit-clip-path: inset(0 0 100% 0);
+        clip-path: inset(0 0 100% 0);
+      }
+      100% {
+        -webkit-clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 0 0);
+      }
+    }
+    .anim-curtain {
+      animation: animCurtain 1.1s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* Kinetic Typography Animations (Eye-Catching for Boss) */
+    .text-line-mask {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    @keyframes lineSlideUp {
+      0% {
+        transform: translateY(120%);
+        opacity: 0;
+        filter: blur(8px);
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0%);
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes lineSlideDown {
+      0% {
+        transform: translateY(0%);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes badgeBounce {
+      0% {
+        transform: scale(0) rotate(-35deg);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.28) rotate(8deg);
+        opacity: 1;
+      }
+      80% {
+        transform: scale(0.95) rotate(-3deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pillSlide {
+      0% {
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+      }
+      70% {
+        transform: translateY(-3px) scale(1.06);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes descFadeIn {
+      0% {
+        transform: translateY(18px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes btnPop {
+      0% {
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+      }
+      65% {
+        transform: translateY(-3px) scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes exitFast {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-14px);
+        opacity: 0;
+      }
+    }
+
+    .anim-line-up {
+      animation: lineSlideUp 0.60s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-line-up-delay {
+      animation: lineSlideUp 0.60s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-line-down {
+      animation: lineSlideDown 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    .anim-badge-bounce {
+      animation: badgeBounce 0.60s 0.04s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .anim-pill {
+      animation: pillSlide 0.50s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-desc-in {
+      animation: descFadeIn 0.50s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-btn-pop {
+      animation: btnPop 0.55s 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .anim-exit {
+      animation: exitFast 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 sm:p-6 antialiased selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Header -->
+  <header class="max-w-5xl mx-auto mb-6 text-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-2">
+      <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+      CodePen & Awwwards Transition Mechanics
+    </div>
+    <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+      Next-Gen Slider Transitions (No Generic Fading)
+    </h1>
+    <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
+      Keeping our exact homepage layout, but replacing the usual cross-fade with high-impact geometric clip-paths, kinetic parallax masks, and editorial line-masked typography.
+    </p>
+  </header>
+
+  <!-- Interactive Control Dashboard -->
+  <div class="max-w-5xl mx-auto mb-6 bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-4">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Choose Effect:</span>
+      <button onclick="setTransitionMode('diagonal')" id="btn-mode-diagonal" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+        1. Diagonal Shutter
+      </button>
+      <button onclick="setTransitionMode('parallax')" id="btn-mode-parallax" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+        2. Kinetic Parallax Mask
+      </button>
+      <button onclick="setTransitionMode('iris')" id="btn-mode-iris" class="mode-btn active px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold transition shadow">
+        3. Circular Iris Aperture (Active)
+      </button>
+      <button onclick="setTransitionMode('curtain')" id="btn-mode-curtain" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+        4. Dual-Split Venetian
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button onclick="nextSlide()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg active:scale-95">
+        <span>Trigger Slide &rarr;</span>
+      </button>
+      <button onclick="toggleAutoplay()" id="autoplay-btn" class="px-3.5 py-2.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-300 text-xs font-medium transition">
+        &#9654; Autoplay: Off
+      </button>
+    </div>
+  </div>
+
+  <!-- The Live Hero Simulator (Matching Exact Website Layout) -->
+  <div class="max-w-5xl mx-auto rounded-3xl border border-[#e1d8c4] shadow-2xl overflow-hidden bg-[#f5f2ea] text-[#1c1c1c] relative">
+    
+    <!-- Top Website Header Bar -->
+    <div class="px-6 sm:px-10 py-3.5 border-b border-[#e1d8c4] flex items-center justify-between text-xs bg-[#f5f2ea] relative z-40">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-[#1c1c1c] text-white flex items-center justify-center font-bold text-xs font-fraunces">
+          MR
+        </div>
+        <span class="font-bold text-xs tracking-wider uppercase text-slate-900">
+          Mashiur Rahman Memorial Foundation
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-[11px] text-slate-500 hidden sm:inline">Active Effect: <strong id="current-effect-label" class="text-amber-800">3. Circular Iris Aperture</strong></span>
+        <button class="px-4 py-1.5 rounded-full bg-[#1c1c1c] text-white text-xs font-bold flex items-center gap-1">
+          Donate &hearts;
+        </button>
+      </div>
+    </div>
+
+    <!-- The Hero Canvas Viewport (100% Matching Layout) -->
+    <div class="relative min-h-[480px] sm:min-h-[540px] flex flex-col justify-between overflow-hidden">
+      
+      <!-- LAYER 1: Background Images Container -->
+      <div id="bg-slider-container" class="absolute inset-0 z-0 bg-slate-900">
+        
+        <!-- Base Slide (Visible underneath) -->
+        <div id="slide-base" class="absolute inset-0">
+          <img id="img-base" src="assets/images/gallery/school_children_books.jpg" alt="Background" class="w-full h-full object-cover brightness-[0.88] contrast-[1.05]">
+        </div>
+
+        <!-- Animated Overlay Slide (Takes the effect) -->
+        <div id="slide-overlay" class="absolute inset-0 z-10 pointer-events-none transition-diagonal-enter">
+          <img id="img-overlay" src="assets/images/causes/bangladeshi_donation_volunteer.jpg" alt="Next Background" class="w-full h-full object-cover brightness-[0.88] contrast-[1.05]">
+        </div>
+
+      </div>
+
+      <!-- LAYER 2: Warm Editorial Cream Gradient (Website Signature) -->
+      <div class="absolute inset-0 z-10 bg-gradient-to-r from-[#f5f2ea]/95 via-[#f5f2ea]/80 to-[#f5f2ea]/40 pointer-events-none"></div>
+
+      <!-- LAYER 3: Hero Content (Text & Controls) -->
+      <div class="relative z-20 p-6 sm:p-12 lg:p-14 flex-1 flex flex-col justify-between">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1">
+          
+          <!-- Left Column (Heading + Editorial Line-Masks) -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <div id="hero-pill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+              <span id="hero-subtitle">Together, We Can</span>
+            </div>
+
+            <!-- Big Line-Masked Headline -->
+            <h2 class="font-fraunces text-4xl sm:text-6xl font-bold tracking-tight text-[#1c1c1c] leading-[1.08]">
+              <span class="text-line-mask">
+                <span id="hero-line1" class="block">Change</span>
+              </span><br>
+              <span class="flex items-center gap-3">
+                <!-- Avatars that pop & rotate on slide change -->
+                <span id="hero-avatar-box" class="inline-flex -space-x-2">
+                  <img id="hero-avatar-1" src="assets/images/about/69808b5b0a0747dd95550f8c_1.avif" alt="Child" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                  <img id="hero-avatar-2" src="assets/images/about/69808b5b15bd5a046b93e203_2.avif" alt="Child" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                </span>
+                <span class="text-line-mask inline-block">
+                  <span id="hero-line2" class="text-emerald-900 italic font-normal inline-block">Lives</span>
+                </span>
+              </span>
+            </h2>
+
+            <p id="hero-desc" class="text-slate-700 text-sm sm:text-base leading-relaxed max-w-md font-normal">
+              We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact and transform lives.
+            </p>
+
+            <div id="hero-btn-box" class="pt-2 flex flex-wrap items-center gap-3">
+              <a href="#donate" class="px-7 py-3 rounded-full bg-[#1c1c1c] hover:bg-black text-white font-bold text-xs sm:text-sm transition shadow-md flex items-center gap-2">
+                <span>Explore Causes</span>
+                <span class="text-rose-500 text-sm">&hearts;</span>
+              </a>
+              <a href="#about" class="px-6 py-3 rounded-full border border-slate-300 hover:border-slate-800 bg-white/80 text-slate-800 font-bold text-xs sm:text-sm transition shadow-sm">
+                Change a Life &rarr;
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Micro-Stat & Interactive Counter -->
+          <div class="lg:col-span-5 flex flex-col justify-end items-start lg:items-end space-y-4">
+            
+            <div class="bg-white/95 backdrop-blur-md p-5 rounded-2xl border border-[#e1d8c4] shadow-lg max-w-xs space-y-2">
+              <span class="text-[10px] uppercase tracking-wider font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                Active Initiative
+              </span>
+              <h4 id="hero-mission-title" class="text-sm font-bold text-slate-900 leading-tight">
+                Education & School Drive
+              </h4>
+              <p id="hero-mission-desc" class="text-xs text-slate-600">
+                Providing textbooks, uniforms, and hot meals for 120 disadvantaged students.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Bottom Controller: Numbers + Arrow navigation -->
+        <div class="pt-6 border-t border-[#e1d8c4]/80 flex items-center justify-between text-xs text-slate-600">
+          <div class="flex items-center gap-2">
+            <span id="slide-num-current" class="font-fraunces text-base font-bold text-slate-900">01</span>
+            <span class="text-slate-400">/</span>
+            <span class="text-slate-500 font-medium">04</span>
+            <span class="ml-3 text-[11px] text-slate-500 uppercase tracking-wider hidden sm:inline">&bull; Ongoing Relief Drive</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="prevSlide()" class="w-9 h-9 rounded-full bg-white hover:bg-[#1c1c1c] hover:text-white border border-[#e1d8c4] flex items-center justify-center transition shadow-sm active:scale-95" aria-label="Previous">
+              &larr;
+            </button>
+            <button onclick="nextSlide()" class="w-9 h-9 rounded-full bg-[#1c1c1c] text-white hover:bg-black border border-[#1c1c1c] flex items-center justify-center transition shadow-sm active:scale-95" aria-label="Next">
+              &rarr;
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Deep Dive & Boss Presentation Guide -->
+  <div class="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+    
+    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+      <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+        <span>&#9889;</span> 1. Diagonal Shutter Wipe (Clip-Path)
+      </div>
+      <p class="text-slate-300 leading-relaxed">
+        <strong>How it works:</strong> Rather than a cheap cross-fade where images wash out into each other, the next image slices in diagonally using <code class="text-amber-300 font-mono">clip-path: polygon(...)</code>.
+      </p>
+      <p class="text-slate-400">
+        <strong>Why it looks premium:</strong> It looks like a high-end camera shutter or editorial magazine page turning. Used extensively by luxury brands on Awwwards.
+      </p>
+    </div>
+
+    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+      <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+        <span>&#9889;</span> 2. Kinetic Parallax Mask (Counter-Directional)
+      </div>
+      <p class="text-slate-300 leading-relaxed">
+        <strong>How it works:</strong> The container slides right-to-left, while the image inside moves left-to-right at a slower speed.
+      </p>
+      <p class="text-slate-400">
+        <strong>Why it looks premium:</strong> Creates hypnotic 3D depth. It stops the slider from feeling like a generic PowerPoint presentation and makes it feel like an agency showcase.
+      </p>
+    </div>
+
+    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+      <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
+        <span>&#9889;</span> 3. Circular Iris Aperture (Camera Lens)
+      </div>
+      <p class="text-slate-300 leading-relaxed">
+        <strong>How it works:</strong> The new photo expands from an organic circle or aperture mask from the center outwards to 100% full screen.
+      </p>
+      <p class="text-slate-400">
+        <strong>Why it looks premium:</strong> Evokes documentary film storytelling. Gives emotional weight to each slide change.
+      </p>
+    </div>
+
+    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-2">
+      <div class="flex items-center gap-2 text-rose-400 font-bold text-sm">
+        <span>&#9889;</span> 4. Editorial Typography Line-Mask
+      </div>
+      <p class="text-slate-300 leading-relaxed">
+        <strong>How it works:</strong> Instead of the whole headline fading up and down with blur, the words slide up from an invisible slit (<code class="text-rose-300 font-mono">overflow: hidden</code> mask).
+      </p>
+      <p class="text-slate-400">
+        <strong>Why it looks premium:</strong> The text snaps into place with crisp authority. Zero lag, zero blur, completely sharp and dignified.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // 4 Distinct Real Slides Data from the Website
+    const slidesData = [
+      {
+        subtitle: "Together, We Can",
+        line1: "Change",
+        line2: "Lives",
+        desc: "We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact and transform lives.",
+        missionTitle: "Education & School Drive",
+        missionDesc: "Providing textbooks, uniforms, and hot meals for 120 disadvantaged students.",
+        img: "assets/images/gallery/school_children_books.jpg",
+        avatar1: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif",
+        avatar2: "assets/images/about/69808b5b15bd5a046b93e203_2.avif"
+      },
+      {
+        subtitle: "Safe Water & Healthcare",
+        line1: "Bring",
+        line2: "Hope",
+        desc: "Delivering clean drinking water tubewells and preventive health treatments to remote char island communities.",
+        missionTitle: "35 Deep Tubewells Drilled",
+        missionDesc: "Ending arsenic contamination and waterborne disease for over 4,000 villagers.",
+        img: "assets/images/gallery/char_boat_docking.jpg",
+        avatar1: "assets/images/about/698089120997256bb522f5cb_2.avif",
+        avatar2: "assets/images/about/69808b5b15bd5a046b93e203_2.avif"
+      },
+      {
+        subtitle: "Emergency Food Aid",
+        line1: "Nourish",
+        line2: "Lives",
+        desc: "Distributing nutritious monthly grocery parcels and vital sustenance to destitute elderly families and orphanages.",
+        missionTitle: "15,000+ Meals Delivered",
+        missionDesc: "Daily food security and hot meal distribution for displaced river communities.",
+        img: "assets/images/causes/bangladeshi_donation_volunteer.jpg",
+        avatar1: "assets/images/about/69808b5b46fd69f228563181_3.avif",
+        avatar2: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif"
+      },
+      {
+        subtitle: "Crisis & Winter Relief",
+        line1: "Rebuild",
+        line2: "Hope",
+        desc: "Standing with northern communities facing severe winter cold waves with heavy thermal quilts and shelter repair.",
+        missionTitle: "1,200 Warm Blankets Given",
+        missionDesc: "Immediate winter protection for elderly and young children across Kurigram.",
+        img: "assets/images/gallery/winter_blanket_smile.jpg",
+        avatar1: "assets/images/about/69808b5b15bd5a046b93e203_2.avif",
+        avatar2: "assets/images/about/69808b5b46fd69f228563181_3.avif"
+      }
+    ];
+
+    let currentIdx = 0;
+    let transitionMode = 'iris'; // Option 3: Circular Iris Aperture active by default
+    let isTransitioning = false;
+    let autoplayTimer = null;
+
+    function setTransitionMode(mode) {
+      transitionMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => {
+        b.classList.remove('bg-amber-500', 'text-slate-950', 'shadow');
+        b.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      const activeBtn = document.getElementById('btn-mode-' + mode);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow');
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+      }
+
+      const labelMap = {
+        diagonal: "1. Diagonal Shutter Wipe",
+        parallax: "2. Kinetic Parallax Mask",
+        iris: "3. Circular Iris Aperture",
+        curtain: "4. Dual-Split Venetian"
+      };
+      document.getElementById('current-effect-label').textContent = labelMap[mode] || mode;
+    }
+
+    function goToSlide(nextIdx) {
+      if (isTransitioning || nextIdx === currentIdx) return;
+      isTransitioning = true;
+
+      const currentSlideData = slidesData[currentIdx];
+      const nextSlideData = slidesData[nextIdx];
+
+      const imgBase = document.getElementById('img-base');
+      const imgOverlay = document.getElementById('img-overlay');
+      const slideOverlay = document.getElementById('slide-overlay');
+
+      // 1. Prepare Base & Overlay Images
+      imgBase.src = currentSlideData.img;
+      imgOverlay.src = nextSlideData.img;
+
+      // Reset overlay classes and force instant reflow for 100% reliable animation
+      slideOverlay.className = "absolute inset-0 z-10 pointer-events-none";
+      imgOverlay.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
+      void slideOverlay.offsetWidth;
+
+      if (transitionMode === 'diagonal') {
+        slideOverlay.classList.add('anim-diagonal');
+        imgOverlay.classList.add('anim-img-glide');
+      } else if (transitionMode === 'iris') {
+        slideOverlay.classList.add('anim-iris');
+        imgOverlay.classList.add('anim-img-glide');
+      } else if (transitionMode === 'parallax') {
+        slideOverlay.classList.add('anim-parallax-mask');
+        imgOverlay.classList.add('anim-parallax-img');
+      } else if (transitionMode === 'curtain') {
+        slideOverlay.classList.add('anim-curtain');
+      }
+
+      // 2. Eye-Catching Kinetic Content Sequence
+      const line1 = document.getElementById('hero-line1');
+      const line2 = document.getElementById('hero-line2');
+      const desc = document.getElementById('hero-desc');
+      const subtitle = document.getElementById('hero-subtitle');
+      const pill = document.getElementById('hero-pill');
+      const avatarBox = document.getElementById('hero-avatar-box');
+      const avatar1 = document.getElementById('hero-avatar-1');
+      const avatar2 = document.getElementById('hero-avatar-2');
+      const btnBox = document.getElementById('hero-btn-box');
+      const missionTitle = document.getElementById('hero-mission-title');
+      const missionDesc = document.getElementById('hero-mission-desc');
+
+      // Phase A: Old content departs gracefully at 60ms (cleanly faded out by 210ms)
+      setTimeout(() => {
+        line1.className = "block anim-line-down";
+        line2.className = "text-emerald-900 italic font-normal inline-block anim-line-down";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm anim-exit";
+        avatarBox.className = "inline-flex -space-x-2 anim-exit";
+        desc.className = "text-slate-700 text-sm sm:text-base leading-relaxed max-w-md font-normal anim-exit";
+        btnBox.className = "pt-2 flex flex-wrap items-center gap-3 anim-exit";
+      }, 60);
+
+      // Phase B: Next content arrives at 220ms (Zero Blink, Perfectly Synchronized)
+      setTimeout(() => {
+        subtitle.textContent = nextSlideData.subtitle;
+        line1.textContent = nextSlideData.line1;
+        line2.textContent = nextSlideData.line2;
+        desc.textContent = nextSlideData.desc;
+        missionTitle.textContent = nextSlideData.missionTitle;
+        missionDesc.textContent = nextSlideData.missionDesc;
+        if (nextSlideData.avatar1 && avatar1) avatar1.src = nextSlideData.avatar1;
+        if (nextSlideData.avatar2 && avatar2) avatar2.src = nextSlideData.avatar2;
+        document.getElementById('slide-num-current').textContent = String(nextIdx + 1).padStart(2, '0');
+
+        // Reset to clean base classes
+        line1.className = "block";
+        line2.className = "text-emerald-900 italic font-normal inline-block";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm";
+        avatarBox.className = "inline-flex -space-x-2";
+        desc.className = "text-slate-700 text-sm sm:text-base leading-relaxed max-w-md font-normal";
+        btnBox.className = "pt-2 flex flex-wrap items-center gap-3";
+
+        // Force browser reflow across the entire stage
+        void document.getElementById('hero-stage').offsetWidth;
+
+        // Trigger grand kinetic animations with 'both' fill mode (Zero Blink!)
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm anim-pill";
+        line1.className = "block anim-line-up";
+        avatarBox.className = "inline-flex -space-x-2 anim-badge-bounce";
+        line2.className = "text-emerald-900 italic font-normal inline-block anim-line-up-delay";
+        desc.className = "text-slate-700 text-sm sm:text-base leading-relaxed max-w-md font-normal anim-desc-in";
+        btnBox.className = "pt-2 flex flex-wrap items-center gap-3 anim-btn-pop";
+      }, 220);
+
+      // Phase C: Finalize Transition & Hand off Base Image (~2.1s after slow iris completes)
+      setTimeout(() => {
+        imgBase.src = nextSlideData.img;
+        slideOverlay.className = "absolute inset-0 z-10 pointer-events-none opacity-0";
+        imgOverlay.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
+        line1.className = "block";
+        line2.className = "text-emerald-900 italic font-normal inline-block";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm";
+        avatarBox.className = "inline-flex -space-x-2";
+        desc.className = "text-slate-700 text-sm sm:text-base leading-relaxed max-w-md font-normal";
+        btnBox.className = "pt-2 flex flex-wrap items-center gap-3";
+        currentIdx = nextIdx;
+        isTransitioning = false;
+      }, 2100);
+    }
+
+    function nextSlide() {
+      const nextIdx = (currentIdx + 1) % slidesData.length;
+      goToSlide(nextIdx);
+    }
+
+    function prevSlide() {
+      const prevIdx = (currentIdx - 1 + slidesData.length) % slidesData.length;
+      goToSlide(prevIdx);
+    }
+
+    function toggleAutoplay() {
+      const btn = document.getElementById('autoplay-btn');
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+        btn.innerHTML = '&#9654; Autoplay: Off';
+        btn.classList.remove('border-emerald-500', 'text-emerald-400');
+      } else {
+        autoplayTimer = setInterval(nextSlide, 4000);
+        btn.innerHTML = '&#9208; Autoplay: On (4s)';
+        btn.classList.add('border-emerald-500', 'text-emerald-400');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodePen Slider Analysis & Live Simulator</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
+    
+    body { font-family: 'Epilogue', sans-serif; }
+    .font-fraunces { font-family: 'Fraunces', Georgia, serif; }
+
+    /* Keyframe Animations (100% Reliable Cross-Browser) */
+    @keyframes animMdjamin {
+      0% {
+        transform: scale(0.82) translate(15%, 10%);
+        border-radius: 24px;
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1) translate(0, 0);
+        border-radius: 0px;
+        opacity: 1;
+      }
+    }
+    .anim-mdjamin {
+      animation: animMdjamin 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes animDiagonal {
+      0% {
+        -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+      }
+      100% {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+    .anim-diagonal {
+      animation: animDiagonal 1.2s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* 2. Circular Iris Aperture (Option 3: Slow & Smooth 2.0s) */
+    @keyframes animIris {
+      0% {
+        -webkit-clip-path: circle(0% at 75% 50%);
+        clip-path: circle(0% at 75% 50%);
+      }
+      100% {
+        -webkit-clip-path: circle(150% at 75% 50%);
+        clip-path: circle(150% at 75% 50%);
+      }
+    }
+    .anim-iris {
+      animation: animIris 2.0s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    /* Ultra-slow & majestic photo glide */
+    @keyframes animImgSlowGlide {
+      0% {
+        transform: scale(1.16);
+      }
+      100% {
+        transform: scale(1.0);
+      }
+    }
+    .anim-img-slow-glide {
+      animation: animImgSlowGlide 2.3s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    }
+
+    @keyframes animNk {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+    .anim-nk {
+      animation: animNk 0.85s ease-in-out forwards;
+    }
+
+    /* Kinetic Typography Animations (Eye-Catching for Boss) */
+    .hero-text-mask {
+      overflow: hidden;
+      display: block;
+    }
+    
+    @keyframes lineSlideUp {
+      0% {
+        transform: translateY(120%);
+        opacity: 0;
+        filter: blur(8px);
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0%);
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes lineSlideDown {
+      0% {
+        transform: translateY(0%);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes badgeBounce {
+      0% {
+        transform: scale(0) rotate(-35deg);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.28) rotate(8deg);
+        opacity: 1;
+      }
+      80% {
+        transform: scale(0.95) rotate(-3deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pillSlide {
+      0% {
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+      }
+      70% {
+        transform: translateY(-3px) scale(1.06);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes descFadeIn {
+      0% {
+        transform: translateY(18px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes btnPop {
+      0% {
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+      }
+      65% {
+        transform: translateY(-3px) scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes exitFast {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-14px);
+        opacity: 0;
+      }
+    }
+
+    .anim-line-up {
+      animation: lineSlideUp 0.60s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-line-up-delay {
+      animation: lineSlideUp 0.60s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-line-down {
+      animation: lineSlideDown 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    .anim-badge-bounce {
+      animation: badgeBounce 0.60s 0.04s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .anim-pill {
+      animation: pillSlide 0.50s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-desc-in {
+      animation: descFadeIn 0.50s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-btn-pop {
+      animation: btnPop 0.55s 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .anim-exit {
+      animation: exitFast 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 sm:p-6 antialiased selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto mb-8 text-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
+      <span>CodePen Analysis for Boss Presentation</span>
+    </div>
+    <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
+      Which Slider Is Best for Our Foundation?
+    </h1>
+    <p class="text-slate-400 text-sm max-w-3xl mx-auto leading-relaxed">
+      আমরা আপনার দেওয়া ৪টি CodePen প্রজেক্ট বিশ্লেষণ করেছি। নিচের ইন্টারঅ্যাক্টিভ সিমুলেটরে প্রতিটি স্টাইল আমাদের ওয়েবসাইটের ছবি ও কনটেন্ট দিয়ে লাইভ টেস্ট করুন।
+    </p>
+  </header>
+
+  <!-- Interactive Style Selector -->
+  <div class="max-w-6xl mx-auto mb-6 bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-3">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Select CodePen Style:</span>
+      
+      <button onclick="switchStyle('iris')" id="tab-iris" class="style-tab active px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold transition shadow flex items-center gap-1.5">
+        <span>★ 3. Option 3 (Slow Majestic Iris - Chosen)</span>
+      </button>
+
+      <button onclick="switchStyle('pasaribu')" id="tab-pasaribu" class="style-tab px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5">
+        <span>2. Bhakti Pasaribu (Diagonal Slice)</span>
+      </button>
+
+      <button onclick="switchStyle('mdjamin')" id="tab-mdjamin" class="style-tab px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5">
+        <span>1. MDJAmin (Expanding Cards)</span>
+      </button>
+
+      <button onclick="switchStyle('nk')" id="tab-nk" class="style-tab px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1.5">
+        <span>4. nk2552003 (Standard Carousel)</span>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button onclick="triggerNext()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow active:scale-95">
+        <span>Next Slide &rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- LIVE SIMULATION CONTAINER -->
+  <div class="max-w-6xl mx-auto rounded-3xl border border-[#e1d8c4] shadow-2xl overflow-hidden bg-[#f5f2ea] text-[#1c1c1c] relative min-h-[520px]">
+    
+    <!-- Top Bar -->
+    <div class="px-6 py-3 border-b border-[#e1d8c4] flex items-center justify-between text-xs bg-[#f5f2ea] relative z-40">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-[#1c1c1c] text-white flex items-center justify-center font-bold text-xs font-fraunces">MR</span>
+        <span class="font-bold text-xs tracking-wider uppercase text-slate-900">Mashiur Rahman Memorial Foundation</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] text-slate-500">Live Engine: <strong id="current-engine-label" class="text-amber-800">Option 3: Smooth Slow Iris (Chosen)</strong></span>
+        <span class="px-3 py-1 rounded-full bg-[#1c1c1c] text-white font-bold text-[11px]">Donate &hearts;</span>
+      </div>
+    </div>
+
+    <!-- VIEWPORT -->
+    <div id="hero-viewport" class="relative h-[480px] overflow-hidden flex flex-col justify-between p-6 sm:p-12">
+      
+      <!-- LAYER 1: Full Background -->
+      <div id="full-bg-layer" class="absolute inset-0 z-0 bg-slate-900">
+        <img id="main-bg-img" src="/Users/zesan/Desktop/My-Work/moshiur-memorial-foundation/assets/images/gallery/school_children_books.jpg" alt="Relief" class="w-full h-full object-cover">
+        <div id="overlay-anim" class="absolute inset-0 z-10 opacity-0 pointer-events-none">
+          <img id="overlay-img" src="/Users/zesan/Desktop/My-Work/moshiur-memorial-foundation/assets/images/causes/bangladeshi_donation_volunteer.jpg" alt="Next" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- LAYER 2: Editorial Tint -->
+      <div id="editorial-gradient" class="absolute inset-0 z-10 bg-gradient-to-r from-[#f5f2ea]/95 via-[#f5f2ea]/80 to-[#f5f2ea]/40 pointer-events-none"></div>
+
+      <!-- LAYER 3: Hero Content Left -->
+      <div class="relative z-20 max-w-lg space-y-3.5">
+        <div id="content-pill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-xs font-bold shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+          <span id="content-subtitle">Together, We Can</span>
+        </div>
+        
+        <h2 class="font-fraunces text-4xl sm:text-5xl font-bold tracking-tight text-[#1c1c1c] leading-[1.08]">
+          <span class="hero-text-mask">
+            <span id="content-line1" class="block">Change</span>
+          </span>
+          <span class="flex items-center gap-2 mt-1">
+            <span id="content-avatar-box" class="inline-flex -space-x-2">
+              <img id="content-avatar-1" src="assets/images/about/69808b5b0a0747dd95550f8c_1.avif" class="w-9 h-9 rounded-full border border-white object-cover shadow-sm">
+              <img id="content-avatar-2" src="assets/images/about/69808b5b15bd5a046b93e203_2.avif" class="w-9 h-9 rounded-full border border-white object-cover shadow-sm">
+            </span>
+            <span class="hero-text-mask inline-block">
+              <span id="content-line2" class="text-emerald-900 italic font-normal inline-block">Lives</span>
+            </span>
+          </span>
+        </h2>
+
+        <div class="hero-text-mask">
+          <p id="content-desc" class="text-slate-700 text-xs sm:text-sm leading-relaxed transition-opacity duration-300">
+            We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact.
+          </p>
+        </div>
+
+        <div id="content-btn-box" class="pt-2 flex items-center gap-3">
+          <button class="px-6 py-2.5 rounded-full bg-[#1c1c1c] text-white text-xs font-bold shadow hover:bg-black transition">
+            Explore Causes &hearts;
+          </button>
+          <button class="px-5 py-2.5 rounded-full border border-slate-300 bg-white/80 text-xs font-bold text-slate-800 shadow-sm transition">
+            Change a Life &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- LAYER 4: FLOATING THUMBNAIL CARDS (MDJAmin Style) -->
+      <div id="thumbnail-cards-container" class="relative z-30 self-end flex items-center gap-3 pt-4 sm:pt-0">
+        <!-- Card 1 -->
+        <div onclick="selectCard(1)" class="thumb-card w-28 sm:w-36 h-36 sm:h-44 rounded-2xl overflow-hidden shadow-xl border-2 border-white cursor-pointer relative group transition-all duration-500 hover:-translate-y-1">
+          <img src="/Users/zesan/Desktop/My-Work/moshiur-memorial-foundation/assets/images/gallery/char_boat_docking.jpg" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-2.5 text-white">
+            <span class="text-[9px] uppercase font-bold text-amber-300">Safe Water</span>
+            <span class="text-xs font-bold leading-tight">Bring Hope</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div onclick="selectCard(2)" class="thumb-card w-28 sm:w-36 h-36 sm:h-44 rounded-2xl overflow-hidden shadow-xl border-2 border-white cursor-pointer relative group transition-all duration-500 hover:-translate-y-1">
+          <img src="/Users/zesan/Desktop/My-Work/moshiur-memorial-foundation/assets/images/causes/bangladeshi_donation_volunteer.jpg" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-2.5 text-white">
+            <span class="text-[9px] uppercase font-bold text-amber-300">Food Aid</span>
+            <span class="text-xs font-bold leading-tight">Nourish Lives</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div onclick="selectCard(3)" class="thumb-card w-28 sm:w-36 h-36 sm:h-44 rounded-2xl overflow-hidden shadow-xl border-2 border-white cursor-pointer relative group transition-all duration-500 hover:-translate-y-1 hidden sm:block">
+          <img src="/Users/zesan/Desktop/My-Work/moshiur-memorial-foundation/assets/images/gallery/winter_blanket_smile.jpg" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-2.5 text-white">
+            <span class="text-[9px] uppercase font-bold text-amber-300">Winter Relief</span>
+            <span class="text-xs font-bold leading-tight">Rebuild Hope</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Nav Bar -->
+    <div class="px-6 sm:px-12 py-3 border-t border-[#e1d8c4] flex items-center justify-between text-xs text-slate-600 bg-white/50 backdrop-blur-sm">
+      <div class="flex items-center gap-2">
+        <span id="slide-number" class="font-fraunces font-bold text-sm text-slate-900">01</span>
+        <span class="text-slate-400">/ 04</span>
+        <span class="text-[11px] text-slate-500 ml-2">&bull; Click thumbnail card or Next button to test</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="triggerPrev()" class="w-8 h-8 rounded-full bg-white border border-[#e1d8c4] flex items-center justify-center hover:bg-[#1c1c1c] hover:text-white transition shadow-sm">&larr;</button>
+        <button onclick="triggerNext()" class="w-8 h-8 rounded-full bg-[#1c1c1c] text-white flex items-center justify-center hover:bg-black transition shadow-sm">&rarr;</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPARISON TABLE & ARCHITECTURAL VERDICT -->
+  <div class="max-w-6xl mx-auto mt-10 space-y-6">
+    
+    <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl">
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <span>📊</span> ৪টি CodePen প্রজেক্টের বিস্তারিত তুলনা ও বসের রিকোয়ারমেন্ট ম্যাচ
+      </h3>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left text-slate-300 border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[11px]">
+              <th class="py-3 px-3">CodePen / স্টাইল</th>
+              <th class="py-3 px-3">কীভাবে কাজ করে</th>
+              <th class="py-3 px-3">ভিজ্যুয়াল প্রিমিয়াম ফিল</th>
+              <th class="py-3 px-3">বসের চাহিদার সাথে মিল</th>
+              <th class="py-3 px-3">চূড়ান্ত রেটিং</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 leading-relaxed">
+            
+            <tr class="hover:bg-slate-800/30 bg-amber-500/5">
+              <td class="py-3.5 px-3 font-bold text-amber-300">
+                1. MDJAmin<br>
+                <span class="text-[10px] text-slate-400 font-normal">GgpdKPy</span>
+              </td>
+              <td class="py-3.5 px-3">
+                <strong>Expanding Thumbnail Cards:</strong> সামনে ছোট ছোট কার্ড ভেসে থাকে। Next চাপলে বা কার্ডে ক্লিক করলে সেই থাম্বনেইল বড় হয়ে পুরো ব্যাকগ্রাউন্ডে ছড়িয়ে পড়ে।
+              </td>
+              <td class="py-3.5 px-3 text-emerald-400 font-bold">
+                ★★★★★ (অসাধারণ)
+              </td>
+              <td class="py-3.5 px-3">
+                বস চেয়েছিলেন: <em>"colorfull, image, clear, premium look"</em>। এটি বসের সবচেয়ে বেশি পছন্দ হওয়ার সম্ভাবনা বেশি, কারণ পরবর্তী ছবিগুলো ছোট কার্ড হিসেবে চোখের সামনে সুন্দর ভাসমান থাকে।
+              </td>
+              <td class="py-3.5 px-3 font-bold text-amber-400">
+                🏆 Best for Visual WOW
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/30">
+              <td class="py-3.5 px-3 font-bold text-blue-300">
+                2. Bhakti Pasaribu<br>
+                <span class="text-[10px] text-slate-400 font-normal">JXrjXK</span>
+              </td>
+              <td class="py-3.5 px-3">
+                <strong>Clip-Path Polygon Slice:</strong> নতুন ছবিটি জ্যামিতিক কৌণিক কাটে (shutter wipe) স্ক্রিনে স্লাইস হয়ে উন্মোচিত হয়।
+              </td>
+              <td class="py-3.5 px-3 text-sky-400 font-bold">
+                ★★★★☆ (খুবই পরিচ্ছন্ন)
+              </td>
+              <td class="py-3.5 px-3">
+                বস চেয়েছিলেন: <em>"content hijibiji kora jabe na, just simple, elegant"</em>। বর্তমান হোমপেজের লেআউটে কোনো বাড়তি বক্স না রেখে সরাসরি ফুল স্ক্রিন ক্লিন এডিটরিয়াল লুক দেয়।
+              </td>
+              <td class="py-3.5 px-3 font-bold text-sky-400">
+                ⚡ Best for Pure Cleanliness
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/30 bg-emerald-500/5">
+              <td class="py-3.5 px-3 font-bold text-emerald-300">
+                3. Option 3 (Iris Aperture)<br>
+                <span class="text-[10px] text-slate-400 font-normal">আমাদের তৈরি করা</span>
+              </td>
+              <td class="py-3.5 px-3">
+                <strong>Camera Iris + Sequenced Content:</strong> সার্কুলার লেন্সের মতো ইমেজ ধীরে ধীরে ১.৪ সেকেন্ড ধরে উন্মোচিত হয়, তারপর টেক্সট স্প্রিং মোশনে ভেসে ওঠে।
+              </td>
+              <td class="py-3.5 px-3 text-emerald-400 font-bold">
+                ★★★★★ (সিনেমাটিক)
+              </td>
+              <td class="py-3.5 px-3">
+                চ্যারিটি ও মেমোরিয়াল ফাউন্ডেশনের জন্য অত্যন্ত মর্যাদাপূর্ণ ও আবেগঘন। কোনো তাড়াহুড়ো নেই, নিখুঁত টাইমিং।
+              </td>
+              <td class="py-3.5 px-3 font-bold text-emerald-400">
+                ✨ Most Dignified & Smooth
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-800/30 opacity-75">
+              <td class="py-3.5 px-3 font-bold text-slate-300">
+                4. nk2552003<br>
+                <span class="text-[10px] text-slate-400 font-normal">azOwmKd</span>
+              </td>
+              <td class="py-3.5 px-3">
+                <strong>Standard Horizontal Carousel:</strong> সোজা ডানে-বামে স্লাইড হয় সাথে ডট নেভিগেশন।
+              </td>
+              <td class="py-3.5 px-3 text-slate-400">
+                ★★★☆☆ (সাধারণ)
+              </td>
+              <td class="py-3.5 px-3">
+                বস বলেছিলেন: <em>"slide as usual slider tar valo lagche na"</em>। এটি সাধারণ স্লাইডার হওয়ায় বসের কাছে গতানুগতিক লাগতে পারে।
+              </td>
+              <td class="py-3.5 px-3 text-slate-400">
+                সাধারণ
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recommendations Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <div class="bg-amber-950/30 border border-amber-500/30 p-5 rounded-2xl space-y-2">
+        <h4 class="text-amber-300 font-bold text-sm flex items-center gap-2">
+          <span>🥇</span> আমাদের প্রথম পরামর্শ: MDJAmin স্টাইল (Expanding Cards)
+        </h4>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          বস যদি চান স্ক্রিনে <strong>"কালারফুল ইমেজ স্পষ্টভাবে চোখে পড়ুক এবং সাধারণ স্লাইডার থেকে সম্পূর্ণ ভিন্ন ও আকর্ষণীয় লাগুক"</strong>—তবে MDJAmin-এর স্টাইলটি অপ্রতিদ্বন্দ্বী। এতে মানুষ ক্লিক করার আগেই দেখতে পায় সামনে কী মিশন আছে (Water, Food, Winter Aid) এবং ক্লিকে সেটি ফুলস্ক্রিন ব্যাকগ্রাউন্ড হয়ে যায়!
+        </p>
+      </div>
+
+      <div class="bg-emerald-950/30 border border-emerald-500/30 p-5 rounded-2xl space-y-2">
+        <h4 class="text-emerald-300 font-bold text-sm flex items-center gap-2">
+          <span>🥈</span> আমাদের দ্বিতীয় পরামর্শ: Option 3 (Circular Iris Aperture)
+        </h4>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          বস যদি চান <strong>"লেআউটে কোনো বাড়তি থাম্বনেইল বক্স থাকবে না, একদম মিনিমাল ও শান্ত এডিটরিয়াল ফিল থাকবে"</strong>—তবে আমাদের তৈরি করা ৩ নম্বর Circular Iris সবচেয়ে শ্রেষ্ঠ ও মার্জিত।
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const slides = [
+      {
+        subtitle: "Together, We Can",
+        line1: "Change",
+        line2: "Lives",
+        desc: "We work to bring hope, support, and positive change to communities in need. Your donation helps us create real impact.",
+        bg: "assets/images/gallery/school_children_books.jpg",
+        avatar1: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif",
+        avatar2: "assets/images/about/69808b5b15bd5a046b93e203_2.avif"
+      },
+      {
+        subtitle: "Safe Water & Healthcare",
+        line1: "Bring",
+        line2: "Hope",
+        desc: "Delivering clean drinking water tubewells and preventive health treatments to remote char island communities.",
+        bg: "assets/images/gallery/char_boat_docking.jpg",
+        avatar1: "assets/images/about/698089120997256bb522f5cb_2.avif",
+        avatar2: "assets/images/about/69808b5b15bd5a046b93e203_2.avif"
+      },
+      {
+        subtitle: "Emergency Food Aid",
+        line1: "Nourish",
+        line2: "Lives",
+        desc: "Distributing nutritious monthly grocery parcels and vital sustenance to destitute elderly families and orphanages.",
+        bg: "assets/images/causes/bangladeshi_donation_volunteer.jpg",
+        avatar1: "assets/images/about/69808b5b46fd69f228563181_3.avif",
+        avatar2: "assets/images/about/69808b5b0a0747dd95550f8c_1.avif"
+      },
+      {
+        subtitle: "Crisis & Winter Relief",
+        line1: "Rebuild",
+        line2: "Hope",
+        desc: "Standing with northern communities facing severe winter cold waves with heavy thermal quilts and shelter repair.",
+        bg: "assets/images/gallery/winter_blanket_smile.jpg",
+        avatar1: "assets/images/about/69808b5b15bd5a046b93e203_2.avif",
+        avatar2: "assets/images/about/69808b5b46fd69f228563181_3.avif"
+      }
+    ];
+
+    let currentIdx = 0;
+    let activeEngine = 'iris'; // Option 3 (Slow & Smooth Iris) selected by default
+    let isTransitioning = false;
+
+    // Initial setup: hide thumbnail cards for iris
+    const initialThumbs = document.getElementById('thumbnail-cards-container');
+    if (initialThumbs) initialThumbs.classList.add('hidden');
+
+    function switchStyle(engine) {
+      activeEngine = engine;
+      document.querySelectorAll('.style-tab').forEach(t => {
+        t.classList.remove('bg-amber-500', 'text-slate-950', 'shadow');
+        t.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      const tab = document.getElementById('tab-' + engine);
+      if (tab) {
+        tab.classList.add('bg-amber-500', 'text-slate-950', 'shadow');
+        tab.classList.remove('bg-slate-800', 'text-slate-300');
+      }
+
+      const labelMap = {
+        iris: "Option 3 (Slow Majestic Iris - Chosen)",
+        pasaribu: "Bhakti Pasaribu (Clip-Path Slice)",
+        mdjamin: "MDJAmin (Expanding Thumbnail Cards)",
+        nk: "nk2552003 (Standard Horizontal Carousel)"
+      };
+      document.getElementById('current-engine-label').textContent = labelMap[engine] || engine;
+
+      const thumbs = document.getElementById('thumbnail-cards-container');
+      if (engine === 'mdjamin') {
+        thumbs.classList.remove('hidden');
+      } else {
+        thumbs.classList.add('hidden');
+      }
+    }
+
+    function goToSlide(nextIdx) {
+      if (isTransitioning || nextIdx === currentIdx) return;
+      isTransitioning = true;
+
+      const nextSlide = slides[nextIdx];
+      const mainBg = document.getElementById('main-bg-img');
+      const overlayAnim = document.getElementById('overlay-anim');
+      const overlayImg = document.getElementById('overlay-img');
+
+      overlayImg.src = nextSlide.bg;
+      overlayAnim.className = "absolute inset-0 z-10 pointer-events-none opacity-100";
+      void overlayAnim.offsetWidth;
+
+      if (activeEngine === 'mdjamin') {
+        overlayAnim.classList.add('anim-mdjamin');
+      } else if (activeEngine === 'pasaribu') {
+        overlayAnim.classList.add('anim-diagonal');
+      } else if (activeEngine === 'iris') {
+        overlayAnim.classList.add('anim-iris');
+        overlayImg.className = "w-full h-full object-cover anim-img-slow-glide";
+      } else if (activeEngine === 'nk') {
+        overlayAnim.classList.add('anim-nk');
+      }
+
+      // Eye-Catching Kinetic Content Sequence
+      const line1 = document.getElementById('content-line1');
+      const line2 = document.getElementById('content-line2');
+      const desc = document.getElementById('content-desc');
+      const subtitle = document.getElementById('content-subtitle');
+      const pill = document.getElementById('content-pill');
+      const avatarBox = document.getElementById('content-avatar-box');
+      const avatar1 = document.getElementById('content-avatar-1');
+      const avatar2 = document.getElementById('content-avatar-2');
+      const btnBox = document.getElementById('content-btn-box');
+
+      // Phase 1: Old content gracefully departs at 60ms (cleanly faded out by 210ms)
+      const exitDelay = 60;
+      const enterDelay = 220;
+      const completeDelay = activeEngine === 'iris' ? 2100 : 1200;
+
+      setTimeout(() => {
+        line1.className = "block anim-line-down";
+        line2.className = "text-emerald-900 italic font-normal inline-block anim-line-down";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-xs font-bold shadow-sm anim-exit";
+        avatarBox.className = "inline-flex -space-x-2 anim-exit";
+        desc.className = "text-slate-700 text-xs sm:text-sm leading-relaxed anim-exit";
+        btnBox.className = "pt-2 flex items-center gap-3 anim-exit";
+      }, exitDelay);
+
+      setTimeout(() => {
+        // Update content data while invisible
+        subtitle.textContent = nextSlide.subtitle;
+        line1.textContent = nextSlide.line1;
+        line2.textContent = nextSlide.line2;
+        desc.textContent = nextSlide.desc;
+        if (nextSlide.avatar1 && avatar1) avatar1.src = nextSlide.avatar1;
+        if (nextSlide.avatar2 && avatar2) avatar2.src = nextSlide.avatar2;
+        document.getElementById('slide-number').textContent = String(nextIdx + 1).padStart(2, '0');
+
+        // Reset to clean base classes
+        line1.className = "block";
+        line2.className = "text-emerald-900 italic font-normal inline-block";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-xs font-bold shadow-sm";
+        avatarBox.className = "inline-flex -space-x-2";
+        desc.className = "text-slate-700 text-xs sm:text-sm leading-relaxed";
+        btnBox.className = "pt-2 flex items-center gap-3";
+
+        // Force browser reflow across the whole content container so no flash occurs
+        void document.getElementById('hero-viewport').offsetWidth;
+
+        // Trigger grand kinetic animations with 'both' fill mode (Zero Blink!)
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-xs font-bold shadow-sm anim-pill";
+        line1.className = "block anim-line-up";
+        avatarBox.className = "inline-flex -space-x-2 anim-badge-bounce";
+        line2.className = "text-emerald-900 italic font-normal inline-block anim-line-up-delay";
+        desc.className = "text-slate-700 text-xs sm:text-sm leading-relaxed anim-desc-in";
+        btnBox.className = "pt-2 flex items-center gap-3 anim-btn-pop";
+      }, enterDelay);
+
+      setTimeout(() => {
+        mainBg.src = nextSlide.bg;
+        overlayAnim.className = "absolute inset-0 z-10 opacity-0 pointer-events-none";
+        overlayImg.className = "w-full h-full object-cover";
+        line1.className = "block";
+        line2.className = "text-emerald-900 italic font-normal inline-block";
+        pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-xs font-bold shadow-sm";
+        avatarBox.className = "inline-flex -space-x-2";
+        desc.className = "text-slate-700 text-xs sm:text-sm leading-relaxed";
+        btnBox.className = "pt-2 flex items-center gap-3";
+        currentIdx = nextIdx;
+        isTransitioning = false;
+      }, completeDelay);
+    }
+
+    function selectCard(idx) {
+      goToSlide(idx);
+    }
+
+    function triggerNext() {
+      const nextIdx = (currentIdx + 1) % slides.length;
+      goToSlide(nextIdx);
+    }
+
+    function triggerPrev() {
+      const prevIdx = (currentIdx - 1 + slides.length) % slides.length;
+      goToSlide(prevIdx);
+    }
+  </script>
+
+</body>
+</html>

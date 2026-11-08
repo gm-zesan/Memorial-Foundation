@@ -104,28 +104,16 @@
 				</div>
 			</header>
 			<section class="hero-section">
-				<!-- Hero Background Slider: Independent Image Cross-Fade (Layer 1) -->
-				<div class="hero-bg-slider swiper" id="heroBgSlider" aria-label="Hero Background Slideshow">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide hero-bg-slide">
-							<img src="assets/images/causes/699d490a55fa3d5b718ba43e_1.avif"
-								alt="Children and community smiling" class="hero-bg-img" />
-						</div>
-						<div class="swiper-slide hero-bg-slide">
-							<img src="assets/images/about/69857e7a88895213323a4361_1.avif"
-								alt="Safe water and healthcare relief mission" class="hero-bg-img" />
-						</div>
-						<div class="swiper-slide hero-bg-slide">
-							<img src="assets/images/causes/699d48770598f6b4f1e489da_2.avif"
-								alt="Community food and crisis relief" class="hero-bg-img" />
-						</div>
-						<div class="swiper-slide hero-bg-slide">
-							<img src="assets/images/blog/698084553be9da2d2f8f7e2b_1.avif"
-								alt="Winter warmth and crisis support" class="hero-bg-img" />
-						</div>
-						<div class="swiper-slide hero-bg-slide">
-							<img src="assets/images/causes/699bfa4a5ab5b0ad377e7ab6_4.avif"
-								alt="Youth empowerment and vocational education" class="hero-bg-img" />
+				<!-- Hero Background Slider: Option 3 Circular Iris Aperture (Layer 1) -->
+				<div class="hero-bg-slider" id="heroBgSlider" aria-label="Hero Background Slideshow">
+					<div class="hero-bg-stage">
+						<!-- Base Active Image -->
+						<img id="heroBgBaseImg" src="assets/images/gallery/school_children_books.jpg"
+							alt="Children and community smiling" class="hero-bg-img" />
+						<!-- Animated Iris Overlay -->
+						<div id="heroBgOverlayAnim" class="hero-bg-overlay-anim opacity-0 pointer-events-none">
+							<img id="heroBgOverlayImg" src="assets/images/gallery/char_boat_docking.jpg"
+								alt="Next slide" class="hero-bg-img" />
 						</div>
 					</div>
 				</div>
@@ -141,7 +129,7 @@
 								<div class="hero-left-box content">
 									<div class="hero-title-wrapper">
 										<h3 class="hero-title-two" id="heroSubtitle">Together, We Can</h3>
-										<div class="hero-title-wrap">
+										<div class="hero-text-mask">
 											<h1 class="hero-title" id="heroTitleLine1">Change</h1>
 										</div>
 										<div class="hero-title-wrap">
@@ -158,15 +146,19 @@
 														alt="Portrait of a young girl with a yellow hair bow"
 														class="hero-author-img" />
 												</div>
-												<h1 class="hero-title" id="heroTitleLine2">Lives</h1>
+												<div class="hero-text-mask d-inline-block">
+													<h1 class="hero-title" id="heroTitleLine2">Lives</h1>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="hero-right-box content">
-									<p class="hero-text" id="heroText">We work to bring hope, support, and positive
-										change to communities in need. Your donation helps us create real impact and
-										transform lives.</p>
+									<div class="hero-text-mask">
+										<p class="hero-text" id="heroText">We work to bring hope, support, and positive
+											change to communities in need. Your donation helps us create real impact and
+											transform lives.</p>
+									</div>
 									<div class="hero-btn-box" id="heroBtnBox">
 										<a href="causes.html" class="theme-button theme-btn-primary theme-btn-no-icon"
 											id="heroBtn1">
