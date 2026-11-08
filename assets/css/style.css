@@ -2196,6 +2196,7 @@ blockquote {
   z-index: 2;
   overflow: hidden;
   pointer-events: none;
+  will-change: clip-path;
 }
 
 .hero-bg-img {
@@ -2207,10 +2208,69 @@ blockquote {
   object-fit: cover;
   object-position: center;
   transform: scale(1);
-  will-change: transform;
+  will-change: transform, filter;
 }
 
-/* 1. Circular Iris Aperture Keyframes (2.0s Slow, Smooth & Majestic) */
+/* ========================================================
+   VELOCITY MOTION SLIDER (Speed Sweep & 3D Inertia Momentum)
+======================================================== */
+@keyframes animMotionOverlay {
+  0% {
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0.85;
+  }
+  40% {
+    -webkit-clip-path: polygon(30% 0, 100% 0, 100% 100%, 15% 100%);
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 15% 100%);
+    opacity: 1;
+  }
+  100% {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes animMotionImg {
+  0% {
+    transform: scale(1.25) translateX(14%) rotate(1.5deg);
+    filter: blur(12px) brightness(1.2);
+  }
+  50% {
+    filter: blur(3px) brightness(1.06);
+  }
+  100% {
+    transform: scale(1.0) translateX(0%) rotate(0deg);
+    filter: blur(0px) brightness(1.0);
+  }
+}
+
+@keyframes animMotionBaseOut {
+  0% {
+    transform: scale(1.0) translateX(0);
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(0.93) translateX(-8%);
+    filter: blur(6px);
+  }
+}
+
+.hero-bg-overlay-anim.anim-motion-overlay {
+  opacity: 1 !important;
+  animation: animMotionOverlay 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-bg-img.anim-motion-img {
+  animation: animMotionImg 1.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-bg-img.anim-motion-base-out {
+  animation: animMotionBaseOut 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Fallback: Circular Iris Aperture Keyframes */
 @keyframes animIris {
   0% {
     -webkit-clip-path: circle(0% at 75% 50%);

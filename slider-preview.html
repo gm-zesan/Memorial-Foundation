@@ -103,6 +103,97 @@
       animation: animCurtain 1.1s cubic-bezier(0.25, 1, 0.35, 1) forwards;
     }
 
+    /* 5. Cinematic 3D Velocity Motion Slider (Speed & Momentum) */
+    @keyframes animMotionOverlay {
+      0% {
+        -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        opacity: 0.85;
+      }
+      40% {
+        -webkit-clip-path: polygon(30% 0, 100% 0, 100% 100%, 15% 100%);
+        clip-path: polygon(30% 0, 100% 0, 100% 100%, 15% 100%);
+        opacity: 1;
+      }
+      100% {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes animMotionImg {
+      0% {
+        transform: scale(1.25) translateX(14%) rotate(1.5deg);
+        filter: blur(12px) brightness(1.2);
+      }
+      50% {
+        filter: blur(3px) brightness(1.06);
+      }
+      100% {
+        transform: scale(1.0) translateX(0%) rotate(0deg);
+        filter: blur(0px) brightness(1.0);
+      }
+    }
+
+    @keyframes animMotionBaseOut {
+      0% {
+        transform: scale(1.0) translateX(0);
+        filter: blur(0px);
+      }
+      100% {
+        transform: scale(0.93) translateX(-8%);
+        filter: blur(6px);
+      }
+    }
+
+    .anim-motion-overlay {
+      animation: animMotionOverlay 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-motion-img {
+      animation: animMotionImg 1.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-motion-base-out {
+      animation: animMotionBaseOut 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Kinetic Motion Typography */
+    @keyframes motionContentExit {
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+        filter: blur(0px);
+      }
+      100% {
+        transform: translateX(-35px);
+        opacity: 0;
+        filter: blur(6px);
+      }
+    }
+
+    @keyframes motionContentEnter {
+      0% {
+        transform: translateX(65px);
+        opacity: 0;
+        filter: blur(10px);
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    .anim-motion-exit {
+      animation: motionContentExit 0.16s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    .anim-motion-enter {
+      animation: motionContentEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .anim-motion-enter-delay {
+      animation: motionContentEnter 0.55s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
     /* Kinetic Typography Animations (Eye-Catching for Boss) */
     .text-line-mask {
       overflow: hidden;
@@ -254,14 +345,18 @@
   <div class="max-w-5xl mx-auto mb-6 bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-4">
     <div class="flex flex-wrap items-center gap-2">
       <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Choose Effect:</span>
+      <button onclick="setTransitionMode('motion')" id="btn-mode-motion" class="mode-btn active px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-purple-500/25 active:scale-95">
+        <span class="w-2 h-2 rounded-full bg-pink-300 animate-ping"></span>
+        <span>★ Velocity Motion (Chosen)</span>
+      </button>
+      <button onclick="setTransitionMode('iris')" id="btn-mode-iris" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+        3. Circular Iris Aperture
+      </button>
       <button onclick="setTransitionMode('diagonal')" id="btn-mode-diagonal" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
         1. Diagonal Shutter
       </button>
       <button onclick="setTransitionMode('parallax')" id="btn-mode-parallax" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
         2. Kinetic Parallax Mask
-      </button>
-      <button onclick="setTransitionMode('iris')" id="btn-mode-iris" class="mode-btn active px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-bold transition shadow">
-        3. Circular Iris Aperture (Active)
       </button>
       <button onclick="setTransitionMode('curtain')" id="btn-mode-curtain" class="mode-btn px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
         4. Dual-Split Venetian
@@ -513,26 +608,31 @@
     ];
 
     let currentIdx = 0;
-    let transitionMode = 'iris'; // Option 3: Circular Iris Aperture active by default
+    let transitionMode = 'motion'; // Velocity Motion Slider + Option 3 Kinetic Typography active by default
     let isTransitioning = false;
     let autoplayTimer = null;
 
     function setTransitionMode(mode) {
       transitionMode = mode;
       document.querySelectorAll('.mode-btn').forEach(b => {
-        b.classList.remove('bg-amber-500', 'text-slate-950', 'shadow');
+        b.classList.remove('bg-amber-500', 'text-slate-950', 'shadow', 'bg-purple-600', 'text-white', 'shadow-purple-500/25');
         b.classList.add('bg-slate-800', 'text-slate-300');
       });
       const activeBtn = document.getElementById('btn-mode-' + mode);
       if (activeBtn) {
-        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow');
+        if (mode === 'motion') {
+          activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-purple-500/25');
+        } else {
+          activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow');
+        }
         activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
       }
 
       const labelMap = {
+        motion: "5. Velocity Motion Slider + Option 3 Kinetic Typography (Chosen)",
+        iris: "3. Circular Iris Aperture",
         diagonal: "1. Diagonal Shutter Wipe",
         parallax: "2. Kinetic Parallax Mask",
-        iris: "3. Circular Iris Aperture",
         curtain: "4. Dual-Split Venetian"
       };
       document.getElementById('current-effect-label').textContent = labelMap[mode] || mode;
@@ -556,9 +656,14 @@
       // Reset overlay classes and force instant reflow for 100% reliable animation
       slideOverlay.className = "absolute inset-0 z-10 pointer-events-none";
       imgOverlay.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
+      imgBase.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
       void slideOverlay.offsetWidth;
 
-      if (transitionMode === 'diagonal') {
+      if (transitionMode === 'motion') {
+        imgBase.classList.add('anim-motion-base-out');
+        slideOverlay.classList.add('anim-motion-overlay');
+        imgOverlay.classList.add('anim-motion-img');
+      } else if (transitionMode === 'diagonal') {
         slideOverlay.classList.add('anim-diagonal');
         imgOverlay.classList.add('anim-img-glide');
       } else if (transitionMode === 'iris') {
@@ -571,7 +676,7 @@
         slideOverlay.classList.add('anim-curtain');
       }
 
-      // 2. Eye-Catching Kinetic Content Sequence
+      // 2. Option 3 Kinetic Content Sequence (Grand Boss Eye-Catcher)
       const line1 = document.getElementById('hero-line1');
       const line2 = document.getElementById('hero-line2');
       const desc = document.getElementById('hero-desc');
@@ -617,7 +722,7 @@
         // Force browser reflow across the entire stage
         void document.getElementById('hero-stage').offsetWidth;
 
-        // Trigger grand kinetic animations with 'both' fill mode (Zero Blink!)
+        // Trigger grand Option 3 kinetic animations with 'both' fill mode (Zero Blink!)
         pill.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#e1d8c4] text-[#1c1c1c] text-xs font-bold shadow-sm anim-pill";
         line1.className = "block anim-line-up";
         avatarBox.className = "inline-flex -space-x-2 anim-badge-bounce";
@@ -626,9 +731,11 @@
         btnBox.className = "pt-2 flex flex-wrap items-center gap-3 anim-btn-pop";
       }, 220);
 
-      // Phase C: Finalize Transition & Hand off Base Image (~2.1s after slow iris completes)
+      // Phase C: Finalize Transition & Hand off Base Image
+      const completeDelay = transitionMode === 'motion' ? 1550 : (transitionMode === 'iris' ? 2100 : 1200);
       setTimeout(() => {
         imgBase.src = nextSlideData.img;
+        imgBase.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
         slideOverlay.className = "absolute inset-0 z-10 pointer-events-none opacity-0";
         imgOverlay.className = "w-full h-full object-cover brightness-[0.88] contrast-[1.05]";
         line1.className = "block";
@@ -639,7 +746,7 @@
         btnBox.className = "pt-2 flex flex-wrap items-center gap-3";
         currentIdx = nextIdx;
         isTransitioning = false;
-      }, 2100);
+      }, completeDelay);
     }
 
     function nextSlide() {

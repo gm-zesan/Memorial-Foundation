@@ -308,28 +308,30 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // 5. Option 3: Circular Iris Aperture Transition (Slow, Smooth & Kinetic Sequenced Content)
+    // 5. Velocity Motion Slider Transition (Speed Sweep Image + Option 3 Kinetic Sequenced Content)
     function goToSlide(nextIdx) {
       if (isTransitioning || nextIdx === currentIdx) return;
       isTransitioning = true;
 
       const nextSlide = heroSlidesData[nextIdx];
 
-      // 1. Trigger Slow & Smooth Iris Background Reveal (2.0s duration)
+      // 1. Trigger Velocity Motion Slider Background Reveal (1.55s duration)
       if (overlayAnim && overlayImg && baseImg) {
         overlayImg.src = nextSlide.bg;
         overlayAnim.className = "hero-bg-overlay-anim pointer-events-none";
         overlayImg.className = "hero-bg-img";
+        baseImg.className = "hero-bg-img";
         void overlayAnim.offsetWidth; // Force instant reflow for 100% reliable trigger
 
-        overlayAnim.className = "hero-bg-overlay-anim anim-iris pointer-events-none";
-        overlayImg.className = "hero-bg-img anim-img-slow-glide";
+        baseImg.className = "hero-bg-img anim-motion-base-out";
+        overlayAnim.className = "hero-bg-overlay-anim anim-motion-overlay pointer-events-none";
+        overlayImg.className = "hero-bg-img anim-motion-img";
       }
 
-      // 2. Eye-Catching Kinetic Content Sequence (Zero Blink, Perfectly Synchronized)
+      // 2. Eye-Catching Option 3 Kinetic Content Sequence (Zero Blink, Perfectly Synchronized)
       const exitDelay = 60;
       const enterDelay = 220;
-      const completeDelay = 2100;
+      const completeDelay = 1550;
 
       // Phase 1: Old content gracefully departs at 60ms (cleanly faded out by 210ms)
       setTimeout(() => {
@@ -369,7 +371,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Phase 3: Finalize transition & hand off base image
       setTimeout(() => {
-        if (baseImg) baseImg.src = nextSlide.bg;
+        if (baseImg) {
+          baseImg.src = nextSlide.bg;
+          baseImg.className = "hero-bg-img";
+        }
         if (overlayAnim) overlayAnim.className = "hero-bg-overlay-anim opacity-0 pointer-events-none";
         if (overlayImg) overlayImg.className = "hero-bg-img";
         // Clean up animation classes after animation is finished
